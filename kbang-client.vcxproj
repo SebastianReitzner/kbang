@@ -10,6 +10,101 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\client\aboutdialog.cpp" />
+    <ClCompile Include="src\client\card.cpp" />
+    <ClCompile Include="src\client\cardactionswidget.cpp" />
+    <ClCompile Include="src\client\cardlistwidget.cpp" />
+    <ClCompile Include="src\client\cardmovementevent.cpp" />
+    <ClCompile Include="src\client\cardpilewidget.cpp" />
+    <ClCompile Include="src\client\cardpocket.cpp" />
+    <ClCompile Include="src\client\cardwidget.cpp" />
+    <ClCompile Include="src\client\cardwidgetfactory.cpp" />
+    <ClCompile Include="src\client\cardwidgetsizemanager.cpp" />
+    <ClCompile Include="src\client\cardzoomwidget.cpp" />
+    <ClCompile Include="src\client\characterwidget.cpp" />
+    <ClCompile Include="src\client\chatwidget.cpp" />
+    <ClCompile Include="src\client\common.cpp" />
+    <ClCompile Include="src\client\connecttoserverdialog.cpp" />
+    <ClCompile Include="src\client\creategamedialog.cpp" />
+    <ClCompile Include="src\client\deckwidget.cpp" />
+    <ClCompile Include="src\client\game.cpp" />
+    <ClCompile Include="src\client\gameactionmanager.cpp" />
+    <ClCompile Include="src\client\gamecontextchangeevent.cpp" />
+    <ClCompile Include="src\client\gameevent.cpp" />
+    <ClCompile Include="src\client\gameeventhandler.cpp" />
+    <ClCompile Include="src\client\gameeventqueue.cpp" />
+    <ClCompile Include="src\client\gameloop.cpp" />
+    <ClCompile Include="src\client\gamemessageevent.cpp" />
+    <ClCompile Include="src\client\gamesyncevent.cpp" />
+    <ClCompile Include="src\client\graveyardwidget.cpp" />
+    <ClCompile Include="src\client\joingamedialog.cpp" />
+    <ClCompile Include="src\client\lifepointschangeevent.cpp" />
+    <ClCompile Include="src\client\localplayerwidget.cpp" />
+    <ClCompile Include="src\client\logwidget.cpp" />
+    <ClCompile Include="src\client\main.cpp" />
+    <ClCompile Include="src\client\mainwindow.cpp" />
+    <ClCompile Include="src\client\newserverdialog.cpp" />
+    <ClCompile Include="src\client\opponentwidget.cpp" />
+    <ClCompile Include="src\client\playerdiedevent.cpp" />
+    <ClCompile Include="src\client\playerevent.cpp" />
+    <ClCompile Include="src\client\playerwidget.cpp" />
+    <ClCompile Include="src\client\selectplayericonwidget.cpp" />
+    <ClCompile Include="src\client\serverconnection.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="src\client\aboutdialog.h" />
+    <ClInclude Include="src\client\card.h" />
+    <ClInclude Include="src\client\cardactionswidget.h" />
+    <ClInclude Include="src\client\cardwidgetfactory.h" />
+    <ClInclude Include="src\client\common.h" />
+    <ClInclude Include="src\client\gameactionmanager.h" />
+    <ClInclude Include="src\client\gamesyncevent.h" />
+    <ClInclude Include="src\client\opponentwidget.h" />
+    <ClInclude Include="src\client\selectplayericonwidget.h" />
+    <QtMoc Include="src\client\serverconnection.h" />
+    <QtMoc Include="src\client\playerwidget.h" />
+    <QtMoc Include="src\client\playerevent.h" />
+    <QtMoc Include="src\client\playerdiedevent.h" />
+    <QtMoc Include="src\client\newserverdialog.h" />
+    <QtMoc Include="src\client\mainwindow.h" />
+    <QtMoc Include="src\client\logwidget.h" />
+    <QtMoc Include="src\client\localplayerwidget.h" />
+    <QtMoc Include="src\client\lifepointschangeevent.h" />
+    <QtMoc Include="src\client\joingamedialog.h" />
+    <QtMoc Include="src\client\graveyardwidget.h" />
+    <QtMoc Include="src\client\gamemessageevent.h" />
+    <QtMoc Include="src\client\gameloop.h" />
+    <QtMoc Include="src\client\gameeventqueue.h" />
+    <QtMoc Include="src\client\gameeventhandler.h" />
+    <QtMoc Include="src\client\gameevent.h" />
+    <QtMoc Include="src\client\gamecontextchangeevent.h" />
+    <QtMoc Include="src\client\game.h" />
+    <QtMoc Include="src\client\deckwidget.h" />
+    <QtMoc Include="src\client\creategamedialog.h" />
+    <QtMoc Include="src\client\connecttoserverdialog.h" />
+    <QtMoc Include="src\client\chatwidget.h" />
+    <QtMoc Include="src\client\characterwidget.h" />
+    <QtMoc Include="src\client\cardzoomwidget.h" />
+    <QtMoc Include="src\client\cardwidgetsizemanager.h" />
+    <QtMoc Include="src\client\cardwidget.h" />
+    <QtMoc Include="src\client\cardpocket.h" />
+    <QtMoc Include="src\client\cardpilewidget.h" />
+    <QtMoc Include="src\client\cardmovementevent.h" />
+    <QtMoc Include="src\client\cardlistwidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="src\client\aboutdialog.ui" />
+    <QtUic Include="src\client\chatwidget.ui" />
+    <QtUic Include="src\client\connecttoserverdialog.ui" />
+    <QtUic Include="src\client\creategamedialog.ui" />
+    <QtUic Include="src\client\joingamedialog.ui" />
+    <QtUic Include="src\client\localplayerwidget.ui" />
+    <QtUic Include="src\client\logwidget.ui" />
+    <QtUic Include="src\client\mainwindow.ui" />
+    <QtUic Include="src\client\newserverdialog.ui" />
+    <QtUic Include="src\client\opponentwidget.ui" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8F447AB6-4A3A-396E-8793-0B0347238E51}</ProjectGuid>
     <RootNamespace>kbang-client</RootNamespace>
@@ -124,7 +219,8 @@
     </ResourceCompile>
     <QtMoc>
       <CompilerFlavor>msvc</CompilerFlavor>
-      <Include>./build/mocs/client/moc_predefs.h</Include>
+      <Include>
+      </Include>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
       <DynamicSource>output</DynamicSource>
       <QtMocDir>build\mocs\client</QtMocDir>
@@ -184,7 +280,8 @@
     </ResourceCompile>
     <QtMoc>
       <CompilerFlavor>msvc</CompilerFlavor>
-      <Include>./build/mocs/client/moc_predefs.h</Include>
+      <Include>
+      </Include>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
       <DynamicSource>output</DynamicSource>
       <QtMocDir>build\mocs\client</QtMocDir>
@@ -203,176 +300,6 @@
       <QtUicFileName>ui_%(Filename).h</QtUicFileName>
     </QtUic>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\client\aboutdialog.cpp" />
-    <ClCompile Include="src\client\card.cpp" />
-    <ClCompile Include="src\client\cardactionswidget.cpp" />
-    <ClCompile Include="src\client\cardlistwidget.cpp" />
-    <ClCompile Include="src\client\cardmovementevent.cpp" />
-    <ClCompile Include="src\client\cardpilewidget.cpp" />
-    <ClCompile Include="src\client\cardpocket.cpp" />
-    <ClCompile Include="src\client\cardwidget.cpp" />
-    <ClCompile Include="src\client\cardwidgetfactory.cpp" />
-    <ClCompile Include="src\client\cardwidgetsizemanager.cpp" />
-    <ClCompile Include="src\client\cardzoomwidget.cpp" />
-    <ClCompile Include="src\client\characterwidget.cpp" />
-    <ClCompile Include="src\client\chatwidget.cpp" />
-    <ClCompile Include="src\client\common.cpp" />
-    <ClCompile Include="src\client\connecttoserverdialog.cpp" />
-    <ClCompile Include="src\client\creategamedialog.cpp" />
-    <ClCompile Include="src\client\deckwidget.cpp" />
-    <ClCompile Include="src\client\game.cpp" />
-    <ClCompile Include="src\client\gameactionmanager.cpp" />
-    <ClCompile Include="src\client\gamecontextchangeevent.cpp" />
-    <ClCompile Include="src\client\gameevent.cpp" />
-    <ClCompile Include="src\client\gameeventhandler.cpp" />
-    <ClCompile Include="src\client\gameeventqueue.cpp" />
-    <ClCompile Include="src\client\gameloop.cpp" />
-    <ClCompile Include="src\client\gamemessageevent.cpp" />
-    <ClCompile Include="src\client\gamesyncevent.cpp" />
-    <ClCompile Include="src\client\graveyardwidget.cpp" />
-    <ClCompile Include="src\client\joingamedialog.cpp" />
-    <ClCompile Include="src\client\lifepointschangeevent.cpp" />
-    <ClCompile Include="src\client\localplayerwidget.cpp" />
-    <ClCompile Include="src\client\logwidget.cpp" />
-    <ClCompile Include="src\client\main.cpp" />
-    <ClCompile Include="src\client\mainwindow.cpp" />
-    <ClCompile Include="src\client\newserverdialog.cpp" />
-    <ClCompile Include="src\client\opponentwidget.cpp" />
-    <ClCompile Include="src\client\playerdiedevent.cpp" />
-    <ClCompile Include="src\client\playerevent.cpp" />
-    <ClCompile Include="src\client\playerwidget.cpp" />
-    <ClCompile Include="src\client\selectplayericonwidget.cpp" />
-    <ClCompile Include="src\client\serverconnection.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="src\client\aboutdialog.h">
-    </QtMoc>
-    <ClInclude Include="src\client\card.h" />
-    <ClInclude Include="src\client\cardactionswidget.h" />
-    <QtMoc Include="src\client\cardlistwidget.h">
-    </QtMoc>
-    <QtMoc Include="src\client\cardmovementevent.h">
-    </QtMoc>
-    <QtMoc Include="src\client\cardpilewidget.h">
-    </QtMoc>
-    <QtMoc Include="src\client\cardpocket.h">
-    </QtMoc>
-    <QtMoc Include="src\client\cardwidget.h">
-    </QtMoc>
-    <ClInclude Include="src\client\cardwidgetfactory.h" />
-    <QtMoc Include="src\client\cardwidgetsizemanager.h">
-    </QtMoc>
-    <QtMoc Include="src\client\cardzoomwidget.h">
-    </QtMoc>
-    <QtMoc Include="src\client\characterwidget.h">
-    </QtMoc>
-    <QtMoc Include="src\client\chatwidget.h">
-    </QtMoc>
-    <ClInclude Include="src\client\common.h" />
-    <QtMoc Include="src\client\connecttoserverdialog.h">
-    </QtMoc>
-    <QtMoc Include="src\client\creategamedialog.h">
-    </QtMoc>
-    <QtMoc Include="src\client\deckwidget.h">
-    </QtMoc>
-    <QtMoc Include="src\client\game.h">
-    </QtMoc>
-    <ClInclude Include="src\client\gameactionmanager.h" />
-    <QtMoc Include="src\client\gamecontextchangeevent.h">
-    </QtMoc>
-    <QtMoc Include="src\client\gameevent.h">
-    </QtMoc>
-    <QtMoc Include="src\client\gameeventhandler.h">
-    </QtMoc>
-    <QtMoc Include="src\client\gameeventqueue.h">
-    </QtMoc>
-    <QtMoc Include="src\client\gameloop.h">
-    </QtMoc>
-    <QtMoc Include="src\client\gamemessageevent.h">
-    </QtMoc>
-    <ClInclude Include="src\client\gamesyncevent.h" />
-    <QtMoc Include="src\client\graveyardwidget.h">
-    </QtMoc>
-    <QtMoc Include="src\client\joingamedialog.h">
-    </QtMoc>
-    <QtMoc Include="src\client\lifepointschangeevent.h">
-    </QtMoc>
-    <QtMoc Include="src\client\localplayerwidget.h">
-    </QtMoc>
-    <QtMoc Include="src\client\logwidget.h">
-    </QtMoc>
-    <QtMoc Include="src\client\mainwindow.h">
-    </QtMoc>
-    <QtMoc Include="src\client\newserverdialog.h">
-    </QtMoc>
-    <ClInclude Include="src\client\opponentwidget.h" />
-    <QtMoc Include="src\client\playerdiedevent.h">
-    </QtMoc>
-    <QtMoc Include="src\client\playerevent.h">
-    </QtMoc>
-    <QtMoc Include="src\client\playerwidget.h">
-    </QtMoc>
-    <ClInclude Include="src\client\selectplayericonwidget.h" />
-    <QtMoc Include="src\client\serverconnection.h">
-    </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="build\mocs\client\moc_predefs.h.cbt">
-      <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;build\mocs\client\moc_predefs.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">build\mocs\client\moc_predefs.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -Wall -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;build\mocs\client\moc_predefs.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">build\mocs\client\moc_predefs.h;%(Outputs)</Outputs>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="src\client\aboutdialog.ui">
-    </QtUic>
-    <QtUic Include="src\client\chatwidget.ui">
-    </QtUic>
-    <QtUic Include="src\client\connecttoserverdialog.ui">
-    </QtUic>
-    <QtUic Include="src\client\creategamedialog.ui">
-    </QtUic>
-    <QtUic Include="src\client\joingamedialog.ui">
-    </QtUic>
-    <QtUic Include="src\client\localplayerwidget.ui">
-    </QtUic>
-    <QtUic Include="src\client\logwidget.ui">
-    </QtUic>
-    <QtUic Include="src\client\mainwindow.ui">
-    </QtUic>
-    <QtUic Include="src\client\newserverdialog.ui">
-    </QtUic>
-    <QtUic Include="src\client\opponentwidget.ui">
-    </QtUic>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\client\resources\ai.png" />
-    <None Include="src\client\resources\alive.png" />
-    <None Include="src\client\resources\background.png" />
-    <QtRcc Include="src\client\resources\client.qrc">
-    </QtRcc>
-    <None Include="src\client\resources\connect.png" />
-    <None Include="src\client\resources\dead.png" />
-    <None Include="src\client\resources\discard.png" />
-    <None Include="src\client\resources\disconnect.png" />
-    <None Include="src\client\resources\human.png" />
-    <None Include="src\client\resources\kbang.png" />
-    <None Include="src\client\resources\pass.png" />
-    <None Include="src\client\resources\sheriff-badge.png" />
-    <None Include="src\client\resources\sheriff.png" />
-    <None Include="src\client\resources\turn.png" />
-    <None Include="src\client\resources\winner.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="kbang_client.rc" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

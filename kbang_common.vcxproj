@@ -10,6 +10,28 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\common\config.cpp" />
+    <ClCompile Include="src\common\gameenums.cpp" />
+    <ClCompile Include="src\common\parser\ioproxy.cpp" />
+    <ClCompile Include="src\common\parser\parser.cpp" />
+    <ClCompile Include="src\common\parser\parserstructs.cpp" />
+    <ClCompile Include="src\common\parser\queryget.cpp" />
+    <ClCompile Include="src\common\parser\queryresult.cpp" />
+    <ClCompile Include="src\common\parser\xmlnode.cpp" />
+    <ClCompile Include="src\common\util.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\common\config.h" />
+    <ClInclude Include="src\common\gameenums.h" />
+    <ClInclude Include="src\common\parser\parserstructs.h" />
+    <ClInclude Include="src\common\parser\queryresult.h" />
+    <QtMoc Include="src\common\parser\xmlnode.h" />
+    <QtMoc Include="src\common\parser\queryget.h" />
+    <QtMoc Include="src\common\parser\parser.h" />
+    <QtMoc Include="src\common\parser\ioproxy.h" />
+    <ClInclude Include="src\common\util.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B0018CE9-184E-35B5-8214-8412C6CF16D6}</ProjectGuid>
     <RootNamespace>kbang_common</RootNamespace>
@@ -110,7 +132,8 @@
     </ResourceCompile>
     <QtMoc>
       <CompilerFlavor>msvc</CompilerFlavor>
-      <Include>./build/mocs/common/moc_predefs.h</Include>
+      <Include>
+      </Include>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
       <DynamicSource>output</DynamicSource>
       <QtMocDir>build\mocs\common</QtMocDir>
@@ -150,52 +173,14 @@
     </ResourceCompile>
     <QtMoc>
       <CompilerFlavor>msvc</CompilerFlavor>
-      <Include>./build/mocs/common/moc_predefs.h</Include>
+      <Include>
+      </Include>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
       <DynamicSource>output</DynamicSource>
       <QtMocDir>build\mocs\common</QtMocDir>
       <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
     </QtMoc>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\common\config.cpp" />
-    <ClCompile Include="src\common\gameenums.cpp" />
-    <ClCompile Include="src\common\parser\ioproxy.cpp" />
-    <ClCompile Include="src\common\parser\parser.cpp" />
-    <ClCompile Include="src\common\parser\parserstructs.cpp" />
-    <ClCompile Include="src\common\parser\queryget.cpp" />
-    <ClCompile Include="src\common\parser\queryresult.cpp" />
-    <ClCompile Include="src\common\util.cpp" />
-    <ClCompile Include="src\common\parser\xmlnode.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\common\config.h" />
-    <ClInclude Include="src\common\gameenums.h" />
-    <QtMoc Include="src\common\parser\ioproxy.h">
-    </QtMoc>
-    <QtMoc Include="src\common\parser\parser.h">
-    </QtMoc>
-    <ClInclude Include="src\common\parser\parserstructs.h" />
-    <QtMoc Include="src\common\parser\queryget.h">
-    </QtMoc>
-    <ClInclude Include="src\common\parser\queryresult.h" />
-    <ClInclude Include="src\common\util.h" />
-    <QtMoc Include="src\common\parser\xmlnode.h">
-    </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="build\mocs\common\moc_predefs.h.cbt">
-      <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;build\mocs\common\moc_predefs.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">build\mocs\common\moc_predefs.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -Wall -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;build\mocs\common\moc_predefs.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">build\mocs\common\moc_predefs.h;%(Outputs)</Outputs>
-    </CustomBuild>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

@@ -232,26 +232,18 @@
     <ClCompile Include="src\server\weaponcard.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="src\server\cardbang.h">
-    </QtMoc>
-    <QtMoc Include="src\server\cardbarrel.h">
-    </QtMoc>
-    <QtMoc Include="src\server\cardbeer.h">
-    </QtMoc>
-    <QtMoc Include="src\server\carddrawcards.h">
-    </QtMoc>
-    <QtMoc Include="src\server\cardduel.h">
-    </QtMoc>
+    <QtMoc Include="src\server\cardbang.h" />
+    <QtMoc Include="src\server\cardbarrel.h" />
+    <QtMoc Include="src\server\cardbeer.h" />
+    <QtMoc Include="src\server\carddrawcards.h" />
+    <QtMoc Include="src\server\cardduel.h" />
     <ClInclude Include="src\server\carddynamite.h" />
     <ClInclude Include="src\server\cardfactory.h" />
     <ClInclude Include="src\server\cardgeneralstore.h" />
-    <QtMoc Include="src\server\cardhorse.h">
-    </QtMoc>
+    <QtMoc Include="src\server\cardhorse.h" />
     <ClInclude Include="src\server\cardjail.h" />
-    <QtMoc Include="src\server\cardmissed.h">
-    </QtMoc>
-    <QtMoc Include="src\server\cardmultishoot.h">
-    </QtMoc>
+    <QtMoc Include="src\server\cardmissed.h" />
+    <QtMoc Include="src\server\cardmultishoot.h" />
     <ClInclude Include="src\server\cards.h" />
     <ClInclude Include="src\server\cardtaker.h" />
     <QtMoc Include="src\server\characterbase.h">
