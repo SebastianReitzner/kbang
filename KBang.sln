@@ -1,0 +1,43 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kbang_common", "kbang_common.vcxproj", "{B0018CE9-184E-35B5-8214-8412C6CF16D6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kbang-server", "kbang-server.vcxproj", "{6F80433F-D0DB-3D73-801C-AE93799CCCCE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B0018CE9-184E-35B5-8214-8412C6CF16D6} = {B0018CE9-184E-35B5-8214-8412C6CF16D6}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kbang-client", "kbang-client.vcxproj", "{8F447AB6-4A3A-396E-8793-0B0347238E51}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B0018CE9-184E-35B5-8214-8412C6CF16D6} = {B0018CE9-184E-35B5-8214-8412C6CF16D6}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0018CE9-184E-35B5-8214-8412C6CF16D6}.Debug|x64.ActiveCfg = Debug|x64
+		{B0018CE9-184E-35B5-8214-8412C6CF16D6}.Debug|x64.Build.0 = Debug|x64
+		{B0018CE9-184E-35B5-8214-8412C6CF16D6}.Release|x64.ActiveCfg = Release|x64
+		{B0018CE9-184E-35B5-8214-8412C6CF16D6}.Release|x64.Build.0 = Release|x64
+		{6F80433F-D0DB-3D73-801C-AE93799CCCCE}.Debug|x64.ActiveCfg = Debug|x64
+		{6F80433F-D0DB-3D73-801C-AE93799CCCCE}.Debug|x64.Build.0 = Debug|x64
+		{6F80433F-D0DB-3D73-801C-AE93799CCCCE}.Release|x64.ActiveCfg = Release|x64
+		{6F80433F-D0DB-3D73-801C-AE93799CCCCE}.Release|x64.Build.0 = Release|x64
+		{8F447AB6-4A3A-396E-8793-0B0347238E51}.Debug|x64.ActiveCfg = Debug|x64
+		{8F447AB6-4A3A-396E-8793-0B0347238E51}.Debug|x64.Build.0 = Debug|x64
+		{8F447AB6-4A3A-396E-8793-0B0347238E51}.Release|x64.ActiveCfg = Release|x64
+		{8F447AB6-4A3A-396E-8793-0B0347238E51}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		Qt5Version = msvc2017_64
+		SolutionGuid = {91F88745-8005-463F-9DEF-58FD8F6AC6D0}
+	EndGlobalSection
+EndGlobal
