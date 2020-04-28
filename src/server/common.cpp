@@ -38,6 +38,5 @@ QString randomToken(int minLength, int maxLength)
     {
         token.append(chars[qrand() % charl]);
     }
-    token[length - 1] = '\0';
     return token;
 }

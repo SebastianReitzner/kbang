@@ -2,3 +2,4 @@
 x64
 build
 VS\x64
+VS\*.log

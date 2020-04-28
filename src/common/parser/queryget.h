@@ -52,7 +52,6 @@ private:
     void parseResult(XmlNode*);
 
 private:
-    Parser*             mp_parser;
     QXmlStreamWriter*   mp_streamWriter;
     QString             m_id;
     QTime               m_pingTime;
