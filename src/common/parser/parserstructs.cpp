@@ -470,16 +470,16 @@ void ActionPlayCardData::read(XmlNode* node)
     Q_ASSERT(node->name() == elementName);
     playedCardId = node->attribute("id").toInt();
     if (!node->attribute("target-player-id").isNull()) {
-        type = PLAYCARD_PLAYER;
+        type = Type::PLAYER;
         targetPlayerId = node->attribute("target-player-id").toInt();
     } else if (!node->attribute("target-card-id").isNull()) {
-        type = PLAYCARD_CARD;
+        type = Type::CARD;
         targetCardId = node->attribute("target-card-id").toInt();
     } else if (!node->attribute("target-hand-id").isNull()) {
-        type = PLAYCARD_HAND;
+        type = Type::HAND;
         targetHandId = node->attribute("target-hand-id").toInt();
     } else {
-        type = PLAYCARD_SIMPLE;
+        type = Type::SIMPLE;
     }
 }
 
@@ -488,15 +488,15 @@ void ActionPlayCardData::write(QXmlStreamWriter* writer) const
     writer->writeStartElement(elementName);
     writer->writeAttribute("id", QString::number(playedCardId));
     switch(type) {
-    case PLAYCARD_SIMPLE:
+    case Type::SIMPLE:
         break;
-    case PLAYCARD_PLAYER:
+    case Type::PLAYER:
         writer->writeAttribute("target-player-id", QString::number(targetPlayerId));
         break;
-    case PLAYCARD_CARD:
+    case Type::CARD:
         writer->writeAttribute("target-card-id", QString::number(targetCardId));
         break;
-    case PLAYCARD_HAND:
+    case Type::HAND:
         writer->writeAttribute("target-hand-id", QString::number(targetHandId));
         break;
     }
@@ -507,12 +507,12 @@ void ActionUseAbilityData::read(XmlNode* node)
 {
     Q_ASSERT(node->name() == elementName);
     if (!node->attribute("target-player-id").isNull()) {
-        type = TypePlayer;
+        type = Type::Player;
         targetPlayerId = node->attribute("target-player-id").toInt();
     } else if (node->getChildren().size() == 0) {
-        type = TypeSimple;
+        type = Type::Simple;
     } else {
-        type = TypeCards;
+        type = Type::Cards;
         foreach (XmlNode* cardNode, node->getChildren()) {
             targetCardsId.append(cardNode->attribute("id").toInt());
         }
@@ -523,12 +523,12 @@ void ActionUseAbilityData::write(QXmlStreamWriter* writer) const
 {
     writer->writeStartElement(elementName);
     switch(type) {
-    case TypeSimple:
+    case Type::Simple:
         break;
-    case TypePlayer:
+    case Type::Player:
         writer->writeAttribute("target-player-id", QString::number(targetPlayerId));
         break;
-    case TypeCards:
+    case Type::Cards:
         foreach(int cardId, targetCardsId) {
             writer->writeStartElement("card");
             writer->writeAttribute("id", QString::number(cardId));

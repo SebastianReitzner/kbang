@@ -69,7 +69,7 @@ void CharacterBase::checkDeck(PlayingCard* causedBy,
     resultHandler->checkResult(checkResult);
 }
 
-void CharacterBase::useAbility(Player* targetPlayer)
+void CharacterBase::useAbility(Player* _targetPlayer)
 {
     throw BadUsageException();
 }

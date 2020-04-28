@@ -41,7 +41,7 @@
 //mp_ioProxy(0),
 //mp_socket(0),
 //m_streamInitialized(0),
-//m_readerState(S_Start),
+//m_readerState(ReaderState::Start),
 //m_readerDepth(0),
 //mp_parsedStanza(0),
 //mp_queryGet(0)
@@ -49,19 +49,19 @@
 //}
 
 Parser::Parser(QObject* parent, QIODevice* socket):
-QObject(parent),
-mp_ioProxy(0),
-mp_socket(0),
-m_streamInitialized(0),
-m_readerState(S_Start),
-m_readerDepth(0),
-mp_parsedStanza(0),
-mp_queryGet(0)
-{
+    QObject(parent),
+    mp_ioProxy(0),
+    mp_socket(0),
+    m_streamInitialized(0),
+    m_readerState(ReaderState::Start),
+    m_readerDepth(0),
+    mp_parsedStanza(0),
+    mp_queryGet(0) {
+
     attachSocket(socket);
     m_keepAliveTimer.setInterval(5000);
-    connect(&m_keepAliveTimer, SIGNAL(timeout()),
-            this, SLOT(sendKeepAlive()));
+    connect(&m_keepAliveTimer, &QTimer::timeout,
+            this, &Parser::sendKeepAlive);
     setKeepAlive(1);
 }
 
@@ -180,18 +180,18 @@ void Parser::readData()
 
         switch(m_readerState)
         {
-        case S_Start:
+        case ReaderState::Start:
             stateStart();
             break;
-        case S_Ready:
+        case ReaderState::Ready:
             stateReady();
             break;
-        case S_Stanza:
+        case ReaderState::Stanza:
             stateStanza();
             break;
-        case S_Terminated:
+        case ReaderState::Terminated:
             break;
-        case S_Error: // TODO
+        case ReaderState::Error: // TODO
             break;
         }
 
@@ -213,11 +213,11 @@ void Parser::stateStart()
         }
         sendInitialization();
         emit streamInitialized();
-        m_readerState = S_Ready;
+        m_readerState = ReaderState::Ready;
     }
     else
     {
-        m_readerState = S_Error;
+        m_readerState = ReaderState::Error;
     }
 }
 void Parser::stateReady()
@@ -226,21 +226,21 @@ void Parser::stateReady()
     if (mp_streamReader->isEndElement())
     {
 //        qDebug("Recieved end of stream.");
-        m_readerState = S_Terminated;
+        m_readerState = ReaderState::Terminated;
         sendTermination();
         mp_socket->close();
         return;
     }
     if (!mp_streamReader->isStartElement())
     {
-        m_readerState = S_Error;
+        m_readerState = ReaderState::Error;
         return;
     }
     // Starting to read new stanza
     Q_ASSERT(mp_parsedStanza == 0);
     mp_parsedXmlElement = mp_parsedStanza = new XmlNode(0, mp_streamReader->name().toString());
     mp_parsedXmlElement->createAttributes(mp_streamReader->attributes());
-    m_readerState = S_Stanza;
+    m_readerState = ReaderState::Stanza;
 }
 
 void Parser::stateStanza()
@@ -253,7 +253,7 @@ void Parser::stateStanza()
 //        mp_parsedStanza->debugPrint();
         delete mp_parsedStanza;
         mp_parsedStanza = mp_parsedXmlElement = 0;
-        m_readerState = S_Ready;
+        m_readerState = ReaderState::Ready;
         return;
     }
     if (mp_streamReader->isStartElement())
@@ -660,7 +660,7 @@ void Parser::streamError()
 {
     if (mp_streamReader->error() == QXmlStreamReader::PrematureEndOfDocumentError) return;
     qDebug("Parser input error: %s", qPrintable(mp_streamReader->errorString()));
-    m_readerState = S_Error;
+    m_readerState = ReaderState::Error;
 }
 
 void Parser::actionCreateGame(const CreateGameData& createGameData, const CreatePlayerData& createPlayerData)

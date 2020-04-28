@@ -77,6 +77,7 @@ struct CreatePlayerData
     void read(XmlNode*);
     void write(QXmlStreamWriter*) const;
     static QString elementName;
+
 };
 
 struct CreateGameData
@@ -187,15 +188,15 @@ struct CardMovementData {
 };
 
 /**
- * @todo remove PLAYCARD_HAND, use PLAYCARD_PLAYER instead
+ * @todo remove Type::HAND, use Type::PLAYER instead
  */
 struct ActionPlayCardData {
     int playedCardId;
-    enum {
-        PLAYCARD_SIMPLE,    // card is played solo
-        PLAYCARD_PLAYER,    // card is played with target player
-        PLAYCARD_CARD,      // card is played with target (revealed) card
-        PLAYCARD_HAND       // card is played with target (unrevealed) card in opponent hands
+    enum class Type {
+        SIMPLE,    // card is played solo
+        PLAYER,    // card is played with target player
+        CARD,      // card is played with target (revealed) card
+        HAND       // card is played with target (unrevealed) card in opponent hands
     } type;
     union {
         int targetPlayerId;
@@ -208,10 +209,10 @@ struct ActionPlayCardData {
 };
 
 struct ActionUseAbilityData {
-    enum {
-        TypeSimple,
-        TypePlayer,
-        TypeCards
+    enum class Type {
+        Simple,
+        Player,
+        Cards
     } type;
     int targetPlayerId;
     QList<int> targetCardsId;

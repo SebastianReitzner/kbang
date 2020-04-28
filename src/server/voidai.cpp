@@ -12,9 +12,8 @@
 
 int VoidAI::sm_playerCounter = 0;
 
-int minActionDelay = 200;
-int maxActionDelay = 1500;
-
+constexpr int minActionDelay = 200;
+constexpr int maxActionDelay = 1500;
 
 VoidAI::VoidAI(QObject* parent):
         QObject(parent),
@@ -39,15 +38,15 @@ void VoidAI::onHandlerRegistered(const PublicGameView* _publicGameView, PlayerCt
 void VoidAI::onActionRequest(ActionRequestType requestType)
 {
     m_requestType = requestType;
-    //int randomDelay = (rand() % (maxActionDelay - minActionDelay)) + minActionDelay;
-    QTimer::singleShot(200, this, SLOT(requestWithAction()));
+    //const int randomDelay = (rand() % (maxActionDelay - minActionDelay)) + minActionDelay;
+    QTimer::singleShot(200, this, &VoidAI::requestWithAction);
 }
 
 void VoidAI::requestWithAction()
 {
     qDebug() << QString("VoidAI (%1): onActionRequest(%2)").arg(m_id).arg(int(m_requestType));
     if (mp_playerCtrl->publicGameView().gameContextData().requestedPlayerId != mp_playerCtrl->privatePlayerView().id()) {
-        QString("VoidAI (%1): Not requested!").arg(m_id);
+        qDebug() << QString("VoidAI (%1): Not requested!").arg(m_id);
         return;
     }
     QList<PlayingCard*> hand = mp_playerCtrl->privatePlayerView().hand();

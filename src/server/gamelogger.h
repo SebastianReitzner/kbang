@@ -38,7 +38,7 @@ public:
     virtual void onPlayerPass(PublicPlayerView&);
     virtual void onDrawIntoSelection(QList<const PlayingCard*>);
     virtual void onPlayerPickFromSelection(PublicPlayerView&, const PlayingCard*);
-    virtual void onUndrawFromSelection(const PlayingCard* card);
+    virtual void onUndrawFromSelection(const PlayingCard* _card);
     virtual void onPlayerCheckDeck(PublicPlayerView&, const PlayingCard*, const PlayingCard*, bool);
     virtual void onPlayerStealCard(PublicPlayerView&, PublicPlayerView&, PocketType, const PlayingCard*);
     virtual void onCancelCard(PocketType, const PlayingCard*, PublicPlayerView*,  PublicPlayerView*);

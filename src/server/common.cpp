@@ -30,7 +30,7 @@ QString randomToken(int minLength, int maxLength)
 {
     Q_ASSERT(minLength <= maxLength);
     const static char* chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-    const static int charl = strlen(chars);
+    const static size_t charl = strlen(chars);
     const int length = minLength + ((int)qrand() % (maxLength - minLength + 1));
     QString token;
     token.reserve(length);

@@ -165,13 +165,13 @@ private:
     void streamError();
 
 private:
-    typedef enum {
-        S_Start = 0,
-        S_Ready,
-        S_Stanza,
-        S_Terminated,
-        S_Error
-    } ReaderState;
+    enum class ReaderState {
+        Start = 0,
+        Ready,
+        Stanza,
+        Terminated,
+        Error
+    } ;
     IOProxy*          mp_ioProxy;
     QIODevice*        mp_socket;
     QXmlStreamReader* mp_streamReader;

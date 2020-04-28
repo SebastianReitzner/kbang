@@ -60,8 +60,8 @@ public slots:
 private:
     static int sm_playerCounter;
     int         m_id;
-    PlayerCtrl* mp_playerCtrl;
-    ActionRequestType m_requestType;
+    PlayerCtrl* mp_playerCtrl = nullptr;
+    ActionRequestType m_requestType = ActionRequestType::DISCARD; // Some default to prevent bad values
 };
 
 #endif // VOIDAI_H

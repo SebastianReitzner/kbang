@@ -193,12 +193,12 @@ void Client::onActionPlayCard(const ActionPlayCardData& actionPlayCardData)
     }
     try {
         switch (actionPlayCardData.type) {
-        case ActionPlayCardData::PLAYCARD_SIMPLE:
+        case ActionPlayCardData::Type::SIMPLE:
             mp_playerCtrl->playCard(playedCard);
             break;
-        case ActionPlayCardData::PLAYCARD_PLAYER:
-        case ActionPlayCardData::PLAYCARD_HAND:{
-                int targetPlayerId = (actionPlayCardData.type == ActionPlayCardData::PLAYCARD_PLAYER) ?
+        case ActionPlayCardData::Type::PLAYER:
+        case ActionPlayCardData::Type::HAND:{
+                int targetPlayerId = (actionPlayCardData.type == ActionPlayCardData::Type::PLAYER) ?
                                      actionPlayCardData.targetPlayerId :
                                      actionPlayCardData.targetHandId;
 
@@ -212,7 +212,7 @@ void Client::onActionPlayCard(const ActionPlayCardData& actionPlayCardData)
                 }
                 mp_playerCtrl->playCard(playedCard, targetPlayer);
             } break;
-        case ActionPlayCardData::PLAYCARD_CARD:
+        case ActionPlayCardData::Type::CARD:
             int targetCardId = actionPlayCardData.targetCardId;
             PlayingCard* card = mp_playerCtrl->card(targetCardId);
             if (card == 0) {
@@ -236,18 +236,18 @@ void Client::onActionUseAbility(const ActionUseAbilityData& actionUseAbilityData
 
     try {
         switch(actionUseAbilityData.type) {
-            case ActionUseAbilityData::TypeSimple: {
+        case ActionUseAbilityData::Type::Simple: {
                 mp_playerCtrl->useAbility();
                 break;
             }
-            case ActionUseAbilityData::TypePlayer: {
+            case ActionUseAbilityData::Type::Player: {
                 PublicPlayerView* targetPlayer = getPlayer(actionUseAbilityData.targetPlayerId);
                 if (targetPlayer == 0)
                     return;
                 mp_playerCtrl->useAbility(targetPlayer);
                 break;
             }
-            case ActionUseAbilityData::TypeCards: {
+            case ActionUseAbilityData::Type::Cards: {
                 QList<PlayingCard*> cards = getCards(actionUseAbilityData.targetCardsId);
                 mp_playerCtrl->useAbility(cards);
                 break;

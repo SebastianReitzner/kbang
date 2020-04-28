@@ -56,7 +56,7 @@ Config::~Config() {
 
 QString Config::readString(QString group, QString varName) {
     ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != CONFIG_RECORD_SINGLE) {
+    if (record == 0 || record->type != ConfigRecordType::SINGLE) {
         return QString();
     }
     return record->valueSingle;
@@ -64,7 +64,7 @@ QString Config::readString(QString group, QString varName) {
 
 QStringList Config::readStringList(QString group, QString varName) {
     ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != CONFIG_RECORD_LIST) {
+    if (record == 0 || record->type != ConfigRecordType::LIST) {
         return QStringList();
     }
     return record->valueList;
@@ -72,7 +72,7 @@ QStringList Config::readStringList(QString group, QString varName) {
 
 int Config::readInt(QString group, QString varName) {
     ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != CONFIG_RECORD_SINGLE) {
+    if (record == 0 || record->type != ConfigRecordType::SINGLE) {
         return 0;
     }
     return record->valueSingle.toInt();
@@ -80,7 +80,7 @@ int Config::readInt(QString group, QString varName) {
 
 QList<int> Config::readIntList(QString group, QString varName) {
     ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != CONFIG_RECORD_LIST) {
+    if (record == 0 || record->type != ConfigRecordType::LIST) {
         return QList<int>();
     }
     QList<int> res;
@@ -92,17 +92,17 @@ QList<int> Config::readIntList(QString group, QString varName) {
 
 void Config::writeString(QString group, QString varName, QString varValue) {
     createGroupIfNeeded(group);
-    m_groups[group].records[varName] = ConfigRecord(varName, CONFIG_RECORD_SINGLE, varValue);
+    m_groups[group].records[varName] = ConfigRecord(varName, ConfigRecordType::SINGLE, varValue);
 }
 
 void Config::writeStringList(QString group, QString varName, QStringList varValue) {
     createGroupIfNeeded(group);
-    m_groups[group].records[varName] = ConfigRecord(varName, CONFIG_RECORD_LIST, QString(), varValue);
+    m_groups[group].records[varName] = ConfigRecord(varName, ConfigRecordType::LIST, QString(), varValue);
 }
 
 void Config::writeInt(QString group, QString varName, int varValue) {
     createGroupIfNeeded(group);
-    m_groups[group].records[varName] = ConfigRecord(varName, CONFIG_RECORD_SINGLE, QString::number(varValue));
+    m_groups[group].records[varName] = ConfigRecord(varName, ConfigRecordType::SINGLE, QString::number(varValue));
 }
 
 void Config::writeIntList(QString group, QString varName, QList<int> varValue)
@@ -111,7 +111,7 @@ void Config::writeIntList(QString group, QString varName, QList<int> varValue)
     QStringList val;
     foreach(int v, varValue)
         val.append(QString::number(v));
-    m_groups[group].records[varName] = ConfigRecord(varName, CONFIG_RECORD_LIST, QString(), val);
+    m_groups[group].records[varName] = ConfigRecord(varName, ConfigRecordType::LIST, QString(), val);
 }
 
 bool Config::hasGroup(QString group) {
@@ -163,13 +163,13 @@ void Config::refresh() {
                                         arg(lineNum).arg(varName)));
                     continue;
                 }
-                currentGroup->records[varName] = ConfigRecord(varName, CONFIG_RECORD_SINGLE, varValue);
+                currentGroup->records[varName] = ConfigRecord(varName, ConfigRecordType::SINGLE, varValue);
             } else if (listVarRegExp.exactMatch(line)) {
                 const QString varName = listVarRegExp.capturedTexts()[1];
                 const QString varValue = listVarRegExp.capturedTexts()[2];
                 if (!currentGroup->records.contains(varName)) {
-                    currentGroup->records[varName] = ConfigRecord(varName, CONFIG_RECORD_LIST, QString());
-                } else if (currentGroup->records[varName].type != CONFIG_RECORD_LIST) {
+                    currentGroup->records[varName] = ConfigRecord(varName, ConfigRecordType::LIST, QString());
+                } else if (currentGroup->records[varName].type != ConfigRecordType::LIST) {
                     qWarning(qPrintable(QString("%1: %2: variable %3 is not list.").arg(m_configFileName).
                                         arg(lineNum).arg(varName)));
                     continue;
@@ -193,10 +193,10 @@ void Config::store() {
         out << "[" << group.name << "]" << endl;
         for(const ConfigRecord& record: group.records.values()) {
             switch(record.type) {
-            case CONFIG_RECORD_SINGLE:
+            case ConfigRecordType::SINGLE:
                 out << record.name << "=" << record.valueSingle << endl;
                 break;
-            case CONFIG_RECORD_LIST:
+            case ConfigRecordType::LIST:
                 for(const QString& value: record.valueList) {
                     out << record.name << "[]" << "=" << value << endl;
                 }
@@ -217,29 +217,29 @@ void Config::createDefaultConfig() {
     {
         ConfigGroup& network = m_groups["network"];
         network.name = "network";
-        network.records["server_bind_ip"] = ConfigRecord("server_bind_ip", CONFIG_RECORD_SINGLE, "0.0.0.0");
-        network.records["server_port"] = ConfigRecord("server_port", CONFIG_RECORD_SINGLE, "6543");
-        network.records["server_name"] = ConfigRecord("server_name", CONFIG_RECORD_SINGLE, "KBang Server");
-        network.records["server_description"] = ConfigRecord("server_description", CONFIG_RECORD_SINGLE, "Default Description");
+        network.records["server_bind_ip"] = ConfigRecord("server_bind_ip", ConfigRecordType::SINGLE, "0.0.0.0");
+        network.records["server_port"] = ConfigRecord("server_port", ConfigRecordType::SINGLE, "6543");
+        network.records["server_name"] = ConfigRecord("server_name", ConfigRecordType::SINGLE, "KBang Server");
+        network.records["server_description"] = ConfigRecord("server_description", ConfigRecordType::SINGLE, "Default Description");
     }
     {
         ConfigGroup& group = m_groups["player"];
         group.name = "player";
-        group.records["name"] = ConfigRecord("name", CONFIG_RECORD_SINGLE, "Player");
-        group.records["password"] = ConfigRecord("password", CONFIG_RECORD_SINGLE, "");
+        group.records["name"] = ConfigRecord("name", ConfigRecordType::SINGLE, "Player");
+        group.records["password"] = ConfigRecord("password", ConfigRecordType::SINGLE, "");
     }
     {
         ConfigGroup& group = m_groups["server-list"];
         group.name = "server-list";
-        group.records["hostname"] = ConfigRecord("hostname", CONFIG_RECORD_LIST, QString(), QStringList() <<
+        group.records["hostname"] = ConfigRecord("hostname", ConfigRecordType::LIST, QString(), QStringList() <<
                                                  "alderan.cz");
-        group.records["port"] = ConfigRecord("port", CONFIG_RECORD_LIST, QString(), QStringList() <<
+        group.records["port"] = ConfigRecord("port", ConfigRecordType::LIST, QString(), QStringList() <<
                                                  "6543");
     }
     {
         ConfigGroup& group = m_groups["server"];
         group.name = "server";
-        group.records["wipe-ai-only-game"] = ConfigRecord("wipe-ai-only-game", CONFIG_RECORD_SINGLE, "true");
+        group.records["wipe-ai-only-game"] = ConfigRecord("wipe-ai-only-game", ConfigRecordType::SINGLE, "true");
     }
 }
 

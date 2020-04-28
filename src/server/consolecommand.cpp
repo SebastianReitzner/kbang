@@ -105,8 +105,7 @@ CMDDEF(console_list_clients)
     return 0;
 }
 
-CMDDEF(console_dump_clients)
-{
+CMDDEF(console_dump_clients) {
     Q_UNUSED(args);
     QString dumpFileName = QString("client-dump-%1.log").
                           arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));

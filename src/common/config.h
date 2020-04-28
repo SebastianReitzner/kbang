@@ -59,9 +59,9 @@ private:
     Config();
     ~Config();
 
-    enum ConfigRecordType {
-        CONFIG_RECORD_SINGLE,
-        CONFIG_RECORD_LIST
+    enum class ConfigRecordType {
+        SINGLE,
+        LIST
     };
 
     struct ConfigRecord {
