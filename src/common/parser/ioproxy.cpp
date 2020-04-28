@@ -18,7 +18,7 @@ qint64 IOProxy::readData(char*, qint64)
 
 qint64 IOProxy::writeData(const char* data, qint64 maxSize)
 {
-    QByteArray d(data, maxSize);
+    QByteArray d(data, int(maxSize));
     emit networkOut(d);
     return d.size();
 }

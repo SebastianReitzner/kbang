@@ -40,7 +40,7 @@ Game::Game(QObject* parent, int gameId, ClientType clientType,
         m_gameId(gameId),
         m_playerId(0),
         m_isCreator(0),
-        m_gameState(GAMESTATE_INVALID),
+        m_gameState(GameState::INVALID),
         m_interface(NoInterface),
         mp_serverConnection(serverConnection),
         mp_localPlayerWidget(gameWidgets.localPlayerWidget),
@@ -82,7 +82,7 @@ void Game::setGameState(const GameState& gameState)
 
 void Game::setGameContext(const GameContextData& gameContextData)
 {
-    if (m_gameState != GAMESTATE_PLAYING && m_gameState != GAMESTATE_FINISHED)
+    if (m_gameState != GameState::PLAYING && m_gameState != GameState::FINISHED)
         return;
 
     PlayerWidget* currentPlayer = playerWidget(currentPlayerId());
@@ -117,10 +117,9 @@ void Game::setGameContext(const GameContextData& gameContextData)
     mp_localPlayerWidget->setFromContext(gameContextData);
 
 
-    if (gamePlayState() == GAMEPLAYSTATE_DRAW) {
+    if (gamePlayState() == GamePlayState::DRAW) {
         emit emitLogMessage("<br />");
     }
-
 
     if (!requestedPlayer || !requestedPlayer->isLocalPlayer()) {
         unsetTextInfo();
@@ -129,44 +128,44 @@ void Game::setGameContext(const GameContextData& gameContextData)
 
 
 
-    if (gamePlayState() == GAMEPLAYSTATE_RESPONSE) {
+    if (gamePlayState() == GamePlayState::RESPONSE) {
         PlayerWidget* causedBy = gameContextData.causedBy ? playerWidget(gameContextData.causedBy) : 0;
         QString causedByName = causedBy ? causedBy->name() : "";
         QString message;
         QSound::play("sound/bell.wav");
         switch(gameContextData.reactionType) {
-        case REACTION_BANG:
+        case ReactionType::BANG:
             message = tr("<i>%1</i> played Bang! on you!").arg(causedByName);
             break;
-        case REACTION_DUEL:
+        case ReactionType::DUEL:
             message = tr("You are in duel with <i>%1</i>.").arg(causedByName);
             break;
-        case REACTION_GATLING:
+        case ReactionType::GATLING:
             message = tr("<i>%1</i> played Gatling.").arg(causedByName);
             break;
-        case REACTION_GENERALSTORE:
+        case ReactionType::GENERALSTORE:
             message = tr("Shopping time. Please pick a card.").arg(causedByName);
             break;
-        case REACTION_INDIANS:
+        case ReactionType::INDIANS:
             message = tr("The Indians lead by <i>%1</i> are in town.").arg(causedByName);
             break;
-        case REACTION_LASTSAVE:
+        case ReactionType::LASTSAVE:
             message = tr("You've just got the fatal shot. Ya have beer?");
             break;
-        case REACTION_KITCARLSON:
+        case ReactionType::KITCARLSON:
             message = tr("Pick two cards from selection.");
             break;
-        case REACTION_LUCKYDUKE:
+        case ReactionType::LUCKYDUKE:
             message = tr("Feelin' lucky? Pick a card to respond with.");
             break;
-        case REACTION_NONE:
+        case ReactionType::NONE:
             NOT_REACHED();
         }
         setTextInfo(message);
-    } else if (gamePlayState() == GAMEPLAYSTATE_DRAW) {
+    } else if (gamePlayState() == GamePlayState::DRAW) {
         setTextInfo(tr("It's your turn. Good luck!"));
         QSound::play("sound/bell.wav");
-    } else if (gamePlayState() == GAMEPLAYSTATE_DISCARD) {
+    } else if (gamePlayState() == GamePlayState::DISCARD) {
         setTextInfo(tr("You need to discard some cards!"));
     } else{
         unsetTextInfo();
@@ -175,7 +174,7 @@ void Game::setGameContext(const GameContextData& gameContextData)
 
 void Game::setSelection(QList<CardData> cards)
 {
-    if (m_gameState != GAMESTATE_PLAYING && m_gameState != GAMESTATE_FINISHED)
+    if (m_gameState != GameState::PLAYING && m_gameState != GameState::FINISHED)
         return;
 
     mp_selection->clear();
@@ -201,8 +200,8 @@ void Game::setGraveyard(const CardData& data)
 void Game::validate()
 {
     switch(m_gameState) {
-    case GAMESTATE_INVALID:
-    case GAMESTATE_WAITINGFORPLAYERS:
+    case GameState::INVALID:
+    case GameState::WAITINGFORPLAYERS:
         if (m_isCreator) {
             if (m_interface == CreatorInterface) return;
             unloadInterface();
@@ -211,8 +210,8 @@ void Game::validate()
             unloadInterface();
         }
         break;
-    case GAMESTATE_PLAYING:
-    case GAMESTATE_FINISHED:
+    case GameState::PLAYING:
+    case GameState::FINISHED:
         unloadInterface();
         loadGameInterface();
         break;
@@ -280,7 +279,7 @@ void Game::loadGameInterface()
     mp_graveyard = new GraveyardWidget(0);
     mp_graveyard->init(&m_cardWidgetFactory);
     mp_selection = new CardListWidget(0);
-    mp_selection->setPocketType(POCKET_SELECTION);
+    mp_selection->setPocketType(PocketType::SELECTION);
     mp_selection->setCardSize(CardWidget::SIZE_NORMAL);
     mp_selection->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     mp_selection->setHasBox(0);
@@ -418,9 +417,9 @@ void Game::startButtonClicked()
 //    mp_deck = new DeckWidget(0);
 //    mp_deck->init(&m_cardWidgetFactory);
 //    mp_graveyard = new CardPileWidget(0);
-//    mp_graveyard->setPocketType(POCKET_GRAVEYARD);
+//    mp_graveyard->setPocketType(PocketType::GRAVEYARD);
 //    mp_selection = new CardListWidget(0);
-//    mp_selection->setPocketType(POCKET_SELECTION);
+//    mp_selection->setPocketType(PocketType::SELECTION);
 //    mp_selection->setCardSize(CardWidget::SIZE_NORMAL);
 //    mp_selection->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 //

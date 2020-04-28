@@ -22,288 +22,272 @@
 #include "util.h"
 
 
-CardSuit stringToCardSuit(const QString& s)
-{
-    if (s == "spades")      return SUIT_SPADES;
-    if (s == "hearts")      return SUIT_HEARTS;
-    if (s == "diamonds")    return SUIT_DIAMONDS;
-    if (s == "clubs")       return SUIT_CLUBS;
-    return SUIT_SPADES;
+CardSuit stringToCardSuit(const QString& s) {
+    if (s == "spades")      return CardSuit::SPADES;
+    if (s == "hearts")      return CardSuit::HEARTS;
+    if (s == "diamonds")    return CardSuit::DIAMONDS;
+    if (s == "clubs")       return CardSuit::CLUBS;
+    return CardSuit::SPADES;
 }
 
-QString cardSuitToString(const CardSuit& suit)
-{
+QString cardSuitToString(const CardSuit& suit) {
     switch(suit) {
-        case SUIT_SPADES:   return "spades";
-        case SUIT_HEARTS:   return "hearts";
-        case SUIT_DIAMONDS: return "diamonds";
-        case SUIT_CLUBS:    return "clubs";
+    case CardSuit::SPADES:   return "spades";
+    case CardSuit::HEARTS:   return "hearts";
+    case CardSuit::DIAMONDS: return "diamonds";
+    case CardSuit::CLUBS:    return "clubs";
+    default: return "";
     }
-    return "";
 }
 
-CharacterType stringToCharacterType(const QString& s)
-{
-    if (s == "slab the killer") return CHARACTER_SLAB_THE_KILLER;
-    if (s == "lucky duke")      return CHARACTER_LUCKY_DUKE;
-    if (s == "suzy lafayette")  return CHARACTER_SUZY_LAFAYETTE;
-    if (s == "vulture sam")     return CHARACTER_VULTURE_SAM;
-    if (s == "black jack")      return CHARACTER_BLACK_JACK;
-    if (s == "sid ketchum")     return CHARACTER_SID_KETCHUM;
-    if (s == "jourdonnais")     return CHARACTER_JOURDONNAIS;
-    if (s == "el gringo")       return CHARACTER_EL_GRINGO;
-    if (s == "kit carlson")     return CHARACTER_KIT_CARLSON;
-    if (s == "jesse jones")     return CHARACTER_JESSE_JONES;
-    if (s == "pedro ramirez")   return CHARACTER_PEDRO_RAMIREZ;
-    if (s == "calamity janet")  return CHARACTER_CALAMITY_JANET;
-    if (s == "rose doolan")     return CHARACTER_ROSE_DOOLAN;
-    if (s == "bart cassidy")    return CHARACTER_BART_CASSIDY;
-    if (s == "paul regret")     return CHARACTER_PAUL_REGRET;
-    if (s == "willy the kid")   return CHARACTER_WILLY_THE_KID;
-    return CHARACTER_UNKNOWN;
+CharacterType stringToCharacterType(const QString& s) {
+    if (s == "slab the killer") return CharacterType::SLAB_THE_KILLER;
+    if (s == "lucky duke")      return CharacterType::LUCKY_DUKE;
+    if (s == "suzy lafayette")  return CharacterType::SUZY_LAFAYETTE;
+    if (s == "vulture sam")     return CharacterType::VULTURE_SAM;
+    if (s == "black jack")      return CharacterType::BLACK_JACK;
+    if (s == "sid ketchum")     return CharacterType::SID_KETCHUM;
+    if (s == "jourdonnais")     return CharacterType::JOURDONNAIS;
+    if (s == "el gringo")       return CharacterType::EL_GRINGO;
+    if (s == "kit carlson")     return CharacterType::KIT_CARLSON;
+    if (s == "jesse jones")     return CharacterType::JESSE_JONES;
+    if (s == "pedro ramirez")   return CharacterType::PEDRO_RAMIREZ;
+    if (s == "calamity janet")  return CharacterType::CALAMITY_JANET;
+    if (s == "rose doolan")     return CharacterType::ROSE_DOOLAN;
+    if (s == "bart cassidy")    return CharacterType::BART_CASSIDY;
+    if (s == "paul regret")     return CharacterType::PAUL_REGRET;
+    if (s == "willy the kid")   return CharacterType::WILLY_THE_KID;
+    return CharacterType::UNKNOWN;
 }
 
-QString characterTypeToString(const CharacterType& t)
-{
+QString characterTypeToString(const CharacterType& t) {
     switch(t) {
-    case CHARACTER_UNKNOWN:         return "unknown";
-    case CHARACTER_SLAB_THE_KILLER: return "slab the killer";
-    case CHARACTER_LUCKY_DUKE:      return "lucky duke";
-    case CHARACTER_SUZY_LAFAYETTE:  return "suzy lafayette";
-    case CHARACTER_VULTURE_SAM:     return "vulture sam";
-    case CHARACTER_BLACK_JACK:      return "black jack";
-    case CHARACTER_SID_KETCHUM:     return "sid ketchum";
-    case CHARACTER_JOURDONNAIS:     return "jourdonnais";
-    case CHARACTER_EL_GRINGO:       return "el gringo";
-    case CHARACTER_KIT_CARLSON:     return "kit carlson";
-    case CHARACTER_JESSE_JONES:     return "jesse jones";
-    case CHARACTER_PEDRO_RAMIREZ:   return "pedro ramirez";
-    case CHARACTER_CALAMITY_JANET:  return "calamity janet";
-    case CHARACTER_ROSE_DOOLAN:     return "rose doolan";
-    case CHARACTER_BART_CASSIDY:    return "bart cassidy";
-    case CHARACTER_PAUL_REGRET:     return "paul regret";
-    case CHARACTER_WILLY_THE_KID:   return "willy the kid";
+    case CharacterType::UNKNOWN:         return "unknown";
+    case CharacterType::SLAB_THE_KILLER: return "slab the killer";
+    case CharacterType::LUCKY_DUKE:      return "lucky duke";
+    case CharacterType::SUZY_LAFAYETTE:  return "suzy lafayette";
+    case CharacterType::VULTURE_SAM:     return "vulture sam";
+    case CharacterType::BLACK_JACK:      return "black jack";
+    case CharacterType::SID_KETCHUM:     return "sid ketchum";
+    case CharacterType::JOURDONNAIS:     return "jourdonnais";
+    case CharacterType::EL_GRINGO:       return "el gringo";
+    case CharacterType::KIT_CARLSON:     return "kit carlson";
+    case CharacterType::JESSE_JONES:     return "jesse jones";
+    case CharacterType::PEDRO_RAMIREZ:   return "pedro ramirez";
+    case CharacterType::CALAMITY_JANET:  return "calamity janet";
+    case CharacterType::ROSE_DOOLAN:     return "rose doolan";
+    case CharacterType::BART_CASSIDY:    return "bart cassidy";
+    case CharacterType::PAUL_REGRET:     return "paul regret";
+    case CharacterType::WILLY_THE_KID:   return "willy the kid";
     }
     return "unknown";
 }
 
-PlayingCardType stringToPlayingCardType(const QString& s)
-{
-    if (s == "bang")             return CARD_BANG;
-    if (s == "missed")           return CARD_MISSED;
-    if (s == "beer")             return CARD_BEER;
-    if (s == "saloon")           return CARD_SALOON;
-    if (s == "wellsfargo")       return CARD_WELLSFARGO;
-    if (s == "diligenza")        return CARD_DILIGENZA;
-    if (s == "generalstore")     return CARD_GENERALSTORE;
-    if (s == "panic")            return CARD_PANIC;
-    if (s == "catbalou")         return CARD_CATBALOU;
-    if (s == "indians")          return CARD_INDIANS;
-    if (s == "duel")             return CARD_DUEL;
-    if (s == "gatling")          return CARD_GATLING;
-    if (s == "mustang")          return CARD_MUSTANG;
-    if (s == "appalossa")        return CARD_APPALOSSA;
-    if (s == "barrel")           return CARD_BARREL;
-    if (s == "dynamite")         return CARD_DYNAMITE;
-    if (s == "jail")             return CARD_JAIL;
-    if (s == "volcanic")         return CARD_VOLCANIC;
-    if (s == "schofield")        return CARD_SCHOFIELD;
-    if (s == "remington")        return CARD_REMINGTON;
-    if (s == "carabine")         return CARD_CARABINE;
-    if (s == "winchester")       return CARD_WINCHESTER;
-    return CARD_UNKNOWN;
+PlayingCardType stringToPlayingCardType(const QString& s) {
+    if (s == "bang")             return PlayingCardType::BANG;
+    if (s == "missed")           return PlayingCardType::MISSED;
+    if (s == "beer")             return PlayingCardType::BEER;
+    if (s == "saloon")           return PlayingCardType::SALOON;
+    if (s == "wellsfargo")       return PlayingCardType::WELLSFARGO;
+    if (s == "diligenza")        return PlayingCardType::DILIGENZA;
+    if (s == "generalstore")     return PlayingCardType::GENERALSTORE;
+    if (s == "panic")            return PlayingCardType::PANIC;
+    if (s == "catbalou")         return PlayingCardType::CATBALOU;
+    if (s == "indians")          return PlayingCardType::INDIANS;
+    if (s == "duel")             return PlayingCardType::DUEL;
+    if (s == "gatling")          return PlayingCardType::GATLING;
+    if (s == "mustang")          return PlayingCardType::MUSTANG;
+    if (s == "appalossa")        return PlayingCardType::APPALOSSA;
+    if (s == "barrel")           return PlayingCardType::BARREL;
+    if (s == "dynamite")         return PlayingCardType::DYNAMITE;
+    if (s == "jail")             return PlayingCardType::JAIL;
+    if (s == "volcanic")         return PlayingCardType::VOLCANIC;
+    if (s == "schofield")        return PlayingCardType::SCHOFIELD;
+    if (s == "remington")        return PlayingCardType::REMINGTON;
+    if (s == "carabine")         return PlayingCardType::CARABINE;
+    if (s == "winchester")       return PlayingCardType::WINCHESTER;
+    return PlayingCardType::UNKNOWN;
 }
 
-QString playingCardTypeToString(const PlayingCardType& c)
-{
+QString playingCardTypeToString(const PlayingCardType& c) {
     switch(c) {
-        case CARD_BANG:           return "bang";
-        case CARD_MISSED:         return "missed";
-        case CARD_BEER:           return "beer";
-        case CARD_SALOON:         return "saloon";
-        case CARD_WELLSFARGO:     return "wellsfargo";
-        case CARD_DILIGENZA:      return "diligenza";
-        case CARD_GENERALSTORE:   return "generalstore";
-        case CARD_PANIC:          return "panic";
-        case CARD_CATBALOU:       return "catbalou";
-        case CARD_INDIANS:        return "indians";
-        case CARD_DUEL:           return "duel";
-        case CARD_GATLING:        return "gatling";
-        case CARD_MUSTANG:        return "mustang";
-        case CARD_APPALOSSA:      return "appalossa";
-        case CARD_BARREL:         return "barrel";
-        case CARD_DYNAMITE:       return "dynamite";
-        case CARD_JAIL:           return "jail";
-        case CARD_VOLCANIC:       return "volcanic";
-        case CARD_SCHOFIELD:      return "schofield";
-        case CARD_REMINGTON:      return "remington";
-        case CARD_CARABINE:       return "carabine";
-        case CARD_WINCHESTER:     return "winchester";
-        case CARD_UNKNOWN:        return "";
+    case PlayingCardType::BANG:           return "bang";
+    case PlayingCardType::MISSED:         return "missed";
+    case PlayingCardType::BEER:           return "beer";
+    case PlayingCardType::SALOON:         return "saloon";
+    case PlayingCardType::WELLSFARGO:     return "wellsfargo";
+    case PlayingCardType::DILIGENZA:      return "diligenza";
+    case PlayingCardType::GENERALSTORE:   return "generalstore";
+    case PlayingCardType::PANIC:          return "panic";
+    case PlayingCardType::CATBALOU:       return "catbalou";
+    case PlayingCardType::INDIANS:        return "indians";
+    case PlayingCardType::DUEL:           return "duel";
+    case PlayingCardType::GATLING:        return "gatling";
+    case PlayingCardType::MUSTANG:        return "mustang";
+    case PlayingCardType::APPALOSSA:      return "appalossa";
+    case PlayingCardType::BARREL:         return "barrel";
+    case PlayingCardType::DYNAMITE:       return "dynamite";
+    case PlayingCardType::JAIL:           return "jail";
+    case PlayingCardType::VOLCANIC:       return "volcanic";
+    case PlayingCardType::SCHOFIELD:      return "schofield";
+    case PlayingCardType::REMINGTON:      return "remington";
+    case PlayingCardType::CARABINE:       return "carabine";
+    case PlayingCardType::WINCHESTER:     return "winchester";
+    case PlayingCardType::UNKNOWN:        return "";
     }
     return "";
 }
 
-PlayerRole stringToPlayerRole(const QString& s)
-{
-    if (s == "unknown")  return ROLE_UNKNOWN;
-    if (s == "outlaw")   return ROLE_OUTLAW;
-    if (s == "deputy")   return ROLE_DEPUTY;
-    if (s == "sheriff")  return ROLE_SHERIFF;
-    if (s == "renegade") return ROLE_RENEGADE;
-    return ROLE_INVALID;
+PlayerRole stringToPlayerRole(const QString& s) {
+    if (s == "unknown")  return PlayerRole::UNKNOWN;
+    if (s == "outlaw")   return PlayerRole::OUTLAW;
+    if (s == "deputy")   return PlayerRole::DEPUTY;
+    if (s == "sheriff")  return PlayerRole::SHERIFF;
+    if (s == "renegade") return PlayerRole::RENEGADE;
+    return PlayerRole::INVALID;
 }
 
-QString playerRoleToString(const PlayerRole& r)
-{
-    if (r == ROLE_UNKNOWN)  return "unknown";
-    if (r == ROLE_OUTLAW)   return "outlaw";
-    if (r == ROLE_DEPUTY)   return "deputy";
-    if (r == ROLE_SHERIFF)  return "sheriff";
-    if (r == ROLE_RENEGADE) return "renegade";
-    if (r == ROLE_INVALID)  return "invalid";
+QString playerRoleToString(const PlayerRole& r) {
+    if (r == PlayerRole::UNKNOWN)  return "unknown";
+    if (r == PlayerRole::OUTLAW)   return "outlaw";
+    if (r == PlayerRole::DEPUTY)   return "deputy";
+    if (r == PlayerRole::SHERIFF)  return "sheriff";
+    if (r == PlayerRole::RENEGADE) return "renegade";
+    if (r == PlayerRole::INVALID)  return "invalid";
     NOT_REACHED();
     return "invalid";
 }
 
 
-GamePlayState stringToGamePlayState(const QString& s)
-{
-    if (s == "draw")     return GAMEPLAYSTATE_DRAW;
-    if (s == "turn")     return GAMEPLAYSTATE_TURN;
-    if (s == "response") return GAMEPLAYSTATE_RESPONSE;
-    if (s == "discard")  return GAMEPLAYSTATE_DISCARD;
-    return GAMEPLAYSTATE_INVALID;
+GamePlayState stringToGamePlayState(const QString& s) {
+    if (s == "draw")     return GamePlayState::DRAW;
+    if (s == "turn")     return GamePlayState::TURN;
+    if (s == "response") return GamePlayState::RESPONSE;
+    if (s == "discard")  return GamePlayState::DISCARD;
+    return GamePlayState::INVALID;
 }
 
-QString gamePlayStateToString(const GamePlayState& s)
-{
-    if (s == GAMEPLAYSTATE_DRAW)     return "draw";
-    if (s == GAMEPLAYSTATE_TURN)     return "turn";
-    if (s == GAMEPLAYSTATE_RESPONSE) return "response";
-    if (s == GAMEPLAYSTATE_DISCARD)  return "discard";
-    if (s == GAMEPLAYSTATE_INVALID)  return "invalid";
+QString gamePlayStateToString(const GamePlayState& s) {
+    if (s == GamePlayState::DRAW)     return "draw";
+    if (s == GamePlayState::TURN)     return "turn";
+    if (s == GamePlayState::RESPONSE) return "response";
+    if (s == GamePlayState::DISCARD)  return "discard";
+    if (s == GamePlayState::INVALID)  return "invalid";
     NOT_REACHED();
     return "invalid";
 }
 
-ReactionType stringToReactionType(const QString& s)
-{
-    if (s == "bang")            return REACTION_BANG;
-    if (s == "gatling")         return REACTION_GATLING;
-    if (s == "indians")         return REACTION_INDIANS;
-    if (s == "duel")            return REACTION_DUEL;
-    if (s == "general-store")   return REACTION_GENERALSTORE;
-    if (s == "last-save")       return REACTION_LASTSAVE;
-    if (s == "lucky-duke")      return REACTION_LUCKYDUKE;
-    if (s == "kit-carlson")     return REACTION_KITCARLSON;
-    return REACTION_NONE;
+ReactionType stringToReactionType(const QString& s) {
+    if (s == "bang")            return ReactionType::BANG;
+    if (s == "gatling")         return ReactionType::GATLING;
+    if (s == "indians")         return ReactionType::INDIANS;
+    if (s == "duel")            return ReactionType::DUEL;
+    if (s == "general-store")   return ReactionType::GENERALSTORE;
+    if (s == "last-save")       return ReactionType::LASTSAVE;
+    if (s == "lucky-duke")      return ReactionType::LUCKYDUKE;
+    if (s == "kit-carlson")     return ReactionType::KITCARLSON;
+    return ReactionType::NONE;
 }
 
-QString reactionTypeToString(const ReactionType& r)
-{
+QString reactionTypeToString(const ReactionType& r) {
     switch(r) {
-    case REACTION_BANG:         return "bang";
-    case REACTION_GATLING:      return "gatling";
-    case REACTION_INDIANS:      return "indians";
-    case REACTION_DUEL:         return "duel";
-    case REACTION_GENERALSTORE: return "general-store";
-    case REACTION_LASTSAVE:     return "last-save";
-    case REACTION_LUCKYDUKE:    return "lucky-duke";
-    case REACTION_KITCARLSON:   return "kit-carlson";
-    case REACTION_NONE:         return "";
+    case ReactionType::BANG:         return "bang";
+    case ReactionType::GATLING:      return "gatling";
+    case ReactionType::INDIANS:      return "indians";
+    case ReactionType::DUEL:         return "duel";
+    case ReactionType::GENERALSTORE: return "general-store";
+    case ReactionType::LASTSAVE:     return "last-save";
+    case ReactionType::LUCKYDUKE:    return "lucky-duke";
+    case ReactionType::KITCARLSON:   return "kit-carlson";
+    case ReactionType::NONE:         return "";
     }
     return "";
 }
 
-PocketType stringToPocketType(const QString& s)
-{
-    if (s == "deck")      return POCKET_DECK;
-    if (s == "graveyard") return POCKET_GRAVEYARD;
-    if (s == "hand")      return POCKET_HAND;
-    if (s == "table")     return POCKET_TABLE;
-    if (s == "selection") return POCKET_SELECTION;
-    return POCKET_INVALID;
+PocketType stringToPocketType(const QString& s) {
+    if (s == "deck")      return PocketType::DECK;
+    if (s == "graveyard") return PocketType::GRAVEYARD;
+    if (s == "hand")      return PocketType::HAND;
+    if (s == "table")     return PocketType::TABLE;
+    if (s == "selection") return PocketType::SELECTION;
+    return PocketType::INVALID;
 }
 
-QString pocketTypeToString(const PocketType& p)
-{
-    if (p == POCKET_DECK)       return "deck";
-    if (p == POCKET_GRAVEYARD)  return "graveyard";
-    if (p == POCKET_HAND)       return "hand";
-    if (p == POCKET_TABLE)      return "table";
-    if (p == POCKET_SELECTION)  return "selection";
+QString pocketTypeToString(const PocketType& p) {
+    if (p == PocketType::DECK)       return "deck";
+    if (p == PocketType::GRAVEYARD)  return "graveyard";
+    if (p == PocketType::HAND)       return "hand";
+    if (p == PocketType::TABLE)      return "table";
+    if (p == PocketType::SELECTION)  return "selection";
     return "";
 }
 
 
-GameState stringToGameState(const QString& s)
-{
-    if (s == "WaitingForPlayers")   return GAMESTATE_WAITINGFORPLAYERS;
-    if (s == "Playing")             return GAMESTATE_PLAYING;
-    if (s == "Finished")            return GAMESTATE_FINISHED;
-    return GAMESTATE_INVALID;
+GameState stringToGameState(const QString& s) {
+    if (s == "WaitingForPlayers")   return GameState::WAITINGFORPLAYERS;
+    if (s == "Playing")             return GameState::PLAYING;
+    if (s == "Finished")            return GameState::FINISHED;
+    return GameState::INVALID;
 }
 
-QString gameStateToString(const GameState& s)
-{
+QString gameStateToString(const GameState& s) {
     switch(s) {
-    case GAMESTATE_WAITINGFORPLAYERS:   return "WaitingForPlayers";
-    case GAMESTATE_PLAYING:             return "Playing";
-    case GAMESTATE_FINISHED:            return "Finished";
+    case GameState::WAITINGFORPLAYERS:   return "WaitingForPlayers";
+    case GameState::PLAYING:             return "Playing";
+    case GameState::FINISHED:            return "Finished";
     default:                            break;
     }
     return "Invalid";
 }
 
 ClientType stringToClientType(const QString& s) {
-    if (s == "player") return CLIENT_PLAYER;
-    else return CLIENT_SPECTATOR;
+    if (s == "player") return ClientType::PLAYER;
+    else return ClientType::SPECTATOR;
 }
 
 QString clientTypeToString(const ClientType& t) {
     switch(t) {
-    case CLIENT_PLAYER:     return "player";
-    case CLIENT_SPECTATOR:  return "spectator";
+    case ClientType::PLAYER:     return "player";
+    case ClientType::SPECTATOR:  return "spectator";
     }
     return "";
 }
 
 GameMessageType stringToGameMessageType(const QString& s) {
-    if (s == "game-started")                return GAMEMESSAGE_GAMESTARTED;
-    if (s == "game-finished")               return GAMEMESSAGE_GAMEFINISHED;
-    if (s == "player-draw-from-deck")       return GAMEMESSAGE_PLAYERDRAWFROMDECK;
-    if (s == "player-draw-from-graveyard")  return GAMEMESSAGE_PLAYERDRAWFROMGRAVEYARD;
-    if (s == "player-discard-card")         return GAMEMESSAGE_PLAYERDISCARDCARD;
-    if (s == "player-play-card")            return GAMEMESSAGE_PLAYERPLAYCARD;
-    if (s == "player-respond-with-card")    return GAMEMESSAGE_PLAYERRESPONDWITHCARD;
-    if (s == "player-pass")                 return GAMEMESSAGE_PLAYERPASS;
-    if (s == "player-pick-from-selection")  return GAMEMESSAGE_PLAYERPICKFROMSELECTION;
-    if (s == "player-check-deck")           return GAMEMESSAGE_PLAYERCHECKDECK;
-    if (s == "player-steal-card")           return GAMEMESSAGE_PLAYERSTEALCARD;
-    if (s == "player-cancel-card")          return GAMEMESSAGE_PLAYERCANCELCARD;
-    if (s == "deck-regenerate")             return GAMEMESSAGE_DECKREGENERATE;
-    if (s == "player-died")                 return GAMEMESSAGE_PLAYERDIED;
-    return GAMEMESSAGE_INVALID;
+    if (s == "game-started")                return GameMessageType::GAMESTARTED;
+    if (s == "game-finished")               return GameMessageType::GAMEFINISHED;
+    if (s == "player-draw-from-deck")       return GameMessageType::PLAYERDRAWFROMDECK;
+    if (s == "player-draw-from-graveyard")  return GameMessageType::PLAYERDRAWFROMGRAVEYARD;
+    if (s == "player-discard-card")         return GameMessageType::PLAYERDISCARDCARD;
+    if (s == "player-play-card")            return GameMessageType::PLAYERPLAYCARD;
+    if (s == "player-respond-with-card")    return GameMessageType::PLAYERRESPONDWITHCARD;
+    if (s == "player-pass")                 return GameMessageType::PLAYERPASS;
+    if (s == "player-pick-from-selection")  return GameMessageType::PLAYERPICKFROMSELECTION;
+    if (s == "player-check-deck")           return GameMessageType::PLAYERCHECKDECK;
+    if (s == "player-steal-card")           return GameMessageType::PLAYERSTEALCARD;
+    if (s == "player-cancel-card")          return GameMessageType::PLAYERCANCELCARD;
+    if (s == "deck-regenerate")             return GameMessageType::DECKREGENERATE;
+    if (s == "player-died")                 return GameMessageType::PLAYERDIED;
+    return GameMessageType::INVALID;
 }
 
 QString gameMessageTypeToString(const GameMessageType& g) {
     switch(g) {
-    case GAMEMESSAGE_GAMESTARTED:               return "game-started";
-    case GAMEMESSAGE_GAMEFINISHED:              return "game-finished";
-    case GAMEMESSAGE_PLAYERDRAWFROMDECK:        return "player-draw-from-deck";
-    case GAMEMESSAGE_PLAYERDRAWFROMGRAVEYARD:   return "player-draw-from-graveyard";
-    case GAMEMESSAGE_PLAYERDISCARDCARD:         return "player-discard-card";
-    case GAMEMESSAGE_PLAYERPLAYCARD:            return "player-play-card";
-    case GAMEMESSAGE_PLAYERRESPONDWITHCARD:     return "player-respond-with-card";
-    case GAMEMESSAGE_PLAYERPASS:                return "player-pass";
-    case GAMEMESSAGE_PLAYERPICKFROMSELECTION:   return "player-pick-from-selection";
-    case GAMEMESSAGE_PLAYERCHECKDECK:           return "player-check-deck";
-    case GAMEMESSAGE_PLAYERSTEALCARD:           return "player-steal-card";
-    case GAMEMESSAGE_PLAYERCANCELCARD:          return "player-cancel-card";
-    case GAMEMESSAGE_DECKREGENERATE:            return "deck-regenerate";
-    case GAMEMESSAGE_PLAYERDIED:                return "player-died";
-    case GAMEMESSAGE_INVALID:                   return "";
+    case GameMessageType::GAMESTARTED:               return "game-started";
+    case GameMessageType::GAMEFINISHED:              return "game-finished";
+    case GameMessageType::PLAYERDRAWFROMDECK:        return "player-draw-from-deck";
+    case GameMessageType::PLAYERDRAWFROMGRAVEYARD:   return "player-draw-from-graveyard";
+    case GameMessageType::PLAYERDISCARDCARD:         return "player-discard-card";
+    case GameMessageType::PLAYERPLAYCARD:            return "player-play-card";
+    case GameMessageType::PLAYERRESPONDWITHCARD:     return "player-respond-with-card";
+    case GameMessageType::PLAYERPASS:                return "player-pass";
+    case GameMessageType::PLAYERPICKFROMSELECTION:   return "player-pick-from-selection";
+    case GameMessageType::PLAYERCHECKDECK:           return "player-check-deck";
+    case GameMessageType::PLAYERSTEALCARD:           return "player-steal-card";
+    case GameMessageType::PLAYERCANCELCARD:          return "player-cancel-card";
+    case GameMessageType::DECKREGENERATE:            return "deck-regenerate";
+    case GameMessageType::PLAYERDIED:                return "player-died";
+    case GameMessageType::INVALID:                   return "";
     }
     return "";
 }

@@ -42,7 +42,7 @@ public:
 
     virtual void checkResult(bool result);
 
-    virtual ReactionType reactionType() const { return REACTION_BANG; }
+    virtual ReactionType reactionType() const { return ReactionType::BANG; }
     virtual Player* causedBy() const { return mp_attackingPlayer; }
 private:
     void missed();

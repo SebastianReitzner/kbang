@@ -4,7 +4,7 @@
 #include "gamecycle.h"
 
 CharacterJourdonnais::CharacterJourdonnais(QObject* parent):
-        CharacterBase(parent, CHARACTER_JOURDONNAIS),
+        CharacterBase(parent, CharacterType::JOURDONNAIS),
         mp_integratedBarrel(0)
 {
 }
@@ -12,8 +12,8 @@ CharacterJourdonnais::CharacterJourdonnais(QObject* parent):
 void CharacterJourdonnais::useAbility()
 {
     if (mp_integratedBarrel == 0) {
-        mp_integratedBarrel = new CardBarrel(mp_player->game(), 0, SUIT_CLUBS, 2);
-        mp_integratedBarrel->setVirtual(mp_player, POCKET_TABLE);
+        mp_integratedBarrel = new CardBarrel(mp_player->game(), 0, CardSuit::CLUBS, 2);
+        mp_integratedBarrel->setVirtual(mp_player, PocketType::TABLE);
     }
     gameCycle().playCard(mp_player, mp_integratedBarrel);
 }

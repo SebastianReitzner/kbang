@@ -43,11 +43,11 @@ OpponentWidget::OpponentWidget(QWidget *parent):
     setContentsMargins(5, 5, 5, 5);
 
     mp_hand->setCardSize(CardWidget::SIZE_SMALL);
-    mp_hand->setPocketType(POCKET_HAND);
+    mp_hand->setPocketType(PocketType::HAND);
     mp_hand->setOwnerId(id());
 
     mp_table->setCardSize(CardWidget::SIZE_SMALL);
-    mp_table->setPocketType(POCKET_TABLE);
+    mp_table->setPocketType(PocketType::TABLE);
     mp_table->setOwnerId(id());
 
     clear();
@@ -115,7 +115,7 @@ void OpponentWidget::createRoleCard()
 {
     if (mp_roleCard != 0)
         return;
-    mp_roleCard = cardWidgetFactory()->createRoleCard(this, ROLE_UNKNOWN);
+    mp_roleCard = cardWidgetFactory()->createRoleCard(this, PlayerRole::UNKNOWN);
 }
 
 void OpponentWidget::updateRoleCard()

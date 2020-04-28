@@ -91,7 +91,7 @@ struct CreateGameData
 };
 
 struct CardData {
-    CardData(): id(0), type(CARD_UNKNOWN) {}
+    CardData(): id(0), type(PlayingCardType::UNKNOWN) {}
     int             id;
     PlayingCardType type;
     CardSuit        suit;
@@ -160,7 +160,7 @@ struct GameSyncData {
 };
 
 struct GameMessage {
-    GameMessage(): type(GAMEMESSAGE_INVALID), player(0), targetPlayer(0), causedBy(0) {}
+    GameMessage(): type(GameMessageType::INVALID), player(0), targetPlayer(0), causedBy(0) {}
     GameMessageType type;
     int player;
     int targetPlayer;

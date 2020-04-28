@@ -6,19 +6,14 @@
 using namespace client;
 
 
-
-
-
 CardActionsWidget::CardActionsWidget(QWidget* parent, CardWidget* cardWidget):
         QWidget(parent),
-        mp_cardWidget(cardWidget)
-{
-    resize(100, 100);
-    move(500,500);
+        mp_cardWidget(cardWidget) {
+    this->resize(100, 100);
+    this->move(500,500);
 }
 
-void CardActionsWidget::paintEvent(QPaintEvent*)
-{
+void CardActionsWidget::paintEvent(QPaintEvent*) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
     painter.setPen(QPen(Qt::black, 12, Qt::DashDotLine, Qt::RoundCap));

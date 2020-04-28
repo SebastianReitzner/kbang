@@ -106,7 +106,7 @@ public:
                                   { return m_publicGameView; }
 
     bool canBeStarted() const { return m_startable; }
-    bool isFinished() const { return m_state == GAMESTATE_FINISHED; }
+    bool isFinished() const { return m_state == GameState::FINISHED; }
 
     /**
      * Returns the list of players, respecting the order

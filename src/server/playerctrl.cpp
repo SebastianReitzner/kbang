@@ -94,14 +94,14 @@ PlayingCard* PlayerCtrl::card(int cardId) const
     if (c == 0)
         return c;
 
-    if (c->pocket() == POCKET_TABLE)
+    if (c->pocket() == PocketType::TABLE)
         return c;
 
-    if (c->pocket() == POCKET_SELECTION &&
+    if (c->pocket() == PocketType::SELECTION &&
         (c->owner() == 0 || c->owner() == mp_player))
         return c;
 
-    if (c->pocket() == POCKET_HAND &&
+    if (c->pocket() == PocketType::HAND &&
         c->owner() == mp_player)
         return c;
     return 0;

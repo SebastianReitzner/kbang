@@ -5,7 +5,7 @@
 #include "gameexceptions.h"
 
 CardBarrel::CardBarrel(Game *game, int id, CardSuit suit, CardRank rank):
-        TableCard(game, id, CARD_BARREL, suit, rank)
+        TableCard(game, id, PlayingCardType::BARREL, suit, rank)
 {
 }
 
@@ -39,5 +39,5 @@ void CardBarrel::check(CheckDeckResultHandler* resultHandler)
 
 bool CardBarrel::checkBarrel(PlayingCard* card)
 {
-    return  (card->suit() == SUIT_HEARTS);
+    return  (card->suit() == CardSuit::HEARTS);
 }

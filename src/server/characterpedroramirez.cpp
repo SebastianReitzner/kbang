@@ -5,7 +5,7 @@
 #include "gameexceptions.h"
 
 CharacterPedroRamirez::CharacterPedroRamirez(QObject *parent):
-        CharacterBase(parent, CHARACTER_PEDRO_RAMIREZ)
+        CharacterBase(parent, CharacterType::PEDRO_RAMIREZ)
 {
 }
 

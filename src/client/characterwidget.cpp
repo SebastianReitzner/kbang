@@ -38,7 +38,7 @@ const int timerInterval = 100;
 
 CharacterWidget::CharacterWidget(QWidget *parent):
         QWidget(parent),
-        m_character(CHARACTER_UNKNOWN),
+        m_character(CharacterType::UNKNOWN),
         m_lifePoints(0),
         mp_backCard(0),
         mp_characterCard(0),
@@ -103,7 +103,7 @@ void CharacterWidget::setLifePoints(int lifePoints)
 
 bool CharacterWidget::isEmpty() const
 {
-    return m_character == CHARACTER_UNKNOWN;
+    return m_character == CharacterType::UNKNOWN;
 }
 
 void CharacterWidget::lifePointsChanged()

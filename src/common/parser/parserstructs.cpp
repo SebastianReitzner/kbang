@@ -446,7 +446,7 @@ void GameMessage::write(QXmlStreamWriter* writer) const
         writer->writeAttribute("targetPlayer", QString::number(targetPlayer));
     if (causedBy)
         writer->writeAttribute("causedBy", QString::number(causedBy));
-    if (type == GAMEMESSAGE_PLAYERCHECKDECK)
+    if (type == GameMessageType::PLAYERCHECKDECK)
         writer->writeAttribute("checkResult", checkResult ? "true" : "false");
     if (card.id) {
         card.write(writer);

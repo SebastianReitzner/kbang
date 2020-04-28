@@ -36,7 +36,7 @@ Player::Player(Game* game, int id, const CreatePlayerData& createPlayerData):
         m_name(createPlayerData.name),
         m_password(createPlayerData.password),
         m_avatar(createPlayerData.avatar),
-        m_role(ROLE_UNKNOWN),
+        m_role(PlayerRole::UNKNOWN),
         mp_character(0),
         m_isAlive(1),
         m_isWinner(0),
@@ -65,7 +65,7 @@ Player::~Player()
 CharacterType Player::characterType() const
 {
     if (mp_character == 0)
-        return CHARACTER_UNKNOWN;
+        return CharacterType::UNKNOWN;
     return mp_character->characterType();
 }
 
@@ -76,7 +76,7 @@ bool Player::isAI() const
 
 bool Player::isPublicRole() const
 {
-    return role() == ROLE_SHERIFF || !isAlive() || mp_game->isFinished();
+    return role() == PlayerRole::SHERIFF || !isAlive() || mp_game->isFinished();
 }
 
 bool Player::isCreator() const
@@ -233,7 +233,7 @@ void Player::setRoleAndCharacter(const PlayerRole& role, CharacterBase* characte
     mp_character = character;
     mp_character->setPlayer(this);
     m_maxLifePoints = character->maxLifePoints();
-    if (m_role == ROLE_SHERIFF) {
+    if (m_role == PlayerRole::SHERIFF) {
         m_maxLifePoints++;
     }
 

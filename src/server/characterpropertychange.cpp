@@ -2,21 +2,21 @@
 #include "player.h"
 
 CharacterPropertyChange::CharacterPropertyChange(QObject* parent, Type type):
-        CharacterBase(parent, CHARACTER_UNKNOWN),
+        CharacterBase(parent, CharacterType::UNKNOWN),
         m_type(type)
 {
     switch(type) {
     case RoseDoolan:
-        setCharacterType(CHARACTER_ROSE_DOOLAN);
+        setCharacterType(CharacterType::ROSE_DOOLAN);
         break;
     case PaulRegret:
-        setCharacterType(CHARACTER_PAUL_REGRET);
+        setCharacterType(CharacterType::PAUL_REGRET);
         break;
     case WillyTheKid:
-        setCharacterType(CHARACTER_WILLY_THE_KID);
+        setCharacterType(CharacterType::WILLY_THE_KID);
         break;
     case SlabTheKiller:
-        setCharacterType(CHARACTER_SLAB_THE_KILLER);
+        setCharacterType(CharacterType::SLAB_THE_KILLER);
         break;
     }
 }

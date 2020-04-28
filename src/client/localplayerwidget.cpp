@@ -40,11 +40,11 @@ LocalPlayerWidget::LocalPlayerWidget(QWidget *parent):
     mp_roleCardWidget->setType(Card::Role);
 
     mp_hand->setCardSize(CardWidget::SIZE_SMALL);
-    mp_hand->setPocketType(POCKET_HAND);
+    mp_hand->setPocketType(PocketType::HAND);
     mp_hand->setOwnerId(id());
 
     mp_table->setCardSize(CardWidget::SIZE_SMALL);
-    mp_table->setPocketType(POCKET_TABLE);
+    mp_table->setPocketType(PocketType::TABLE);
     mp_table->setOwnerId(id());
 
     clear();
@@ -99,31 +99,31 @@ void LocalPlayerWidget::setFromContext(const GameContextData& gameContext)
     }
 
     switch(gameContext.gamePlayState) {
-    case GAMEPLAYSTATE_DRAW:
+    case GamePlayState::DRAW:
         mp_buttonPass->setEnabled(0);
         mp_buttonEndTurn->setEnabled(0);
         mp_buttonDiscard->setEnabled(0);
         mp_buttonDiscard->setChecked(0);
         break;
-    case GAMEPLAYSTATE_TURN:
+    case GamePlayState::TURN:
         mp_buttonPass->setEnabled(0);
         mp_buttonEndTurn->setEnabled(1);
         mp_buttonDiscard->setEnabled(1);
         mp_buttonDiscard->setChecked(0);
         break;
-    case GAMEPLAYSTATE_RESPONSE:
+    case GamePlayState::RESPONSE:
         mp_buttonPass->setEnabled(1);
         mp_buttonEndTurn->setEnabled(0);
         mp_buttonDiscard->setEnabled(0);
         mp_buttonDiscard->setChecked(0);
         break;
-    case GAMEPLAYSTATE_DISCARD:
+    case GamePlayState::DISCARD:
         mp_buttonPass->setEnabled(0);
         mp_buttonEndTurn->setEnabled(0);
         mp_buttonDiscard->setEnabled(0);
         mp_buttonDiscard->setChecked(1);
         break;
-    case GAMEPLAYSTATE_INVALID:
+    case GamePlayState::INVALID:
         break;
     }
 }
@@ -184,7 +184,7 @@ void LocalPlayerWidget::onDiscardClicked()
 
 void LocalPlayerWidget::updateRoleCardWidget()
 {
-    if (m_playerRole != ROLE_UNKNOWN) {
+    if (m_playerRole != PlayerRole::UNKNOWN) {
         mp_roleCardWidget->setPlayerRole(m_playerRole);
     } else {
         mp_roleCardWidget->setEmpty();

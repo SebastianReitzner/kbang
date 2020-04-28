@@ -8,7 +8,7 @@
 
 
 CharacterSidKetchum::CharacterSidKetchum(QObject *parent):
-        CharacterBase(parent, CHARACTER_SID_KETCHUM)
+        CharacterBase(parent, CharacterType::SID_KETCHUM)
 {
 }
 
@@ -19,11 +19,11 @@ void CharacterSidKetchum::useAbility(QList<PlayingCard*> cards)
 
     foreach (PlayingCard* card, cards) {
         if (card->owner() != mp_player ||
-            card->pocket() != POCKET_HAND)
+            card->pocket() != PocketType::HAND)
             throw BadCardException();
     }
 
-    if (gameCycle().gamePlayState() == GAMEPLAYSTATE_TURN &&
+    if (gameCycle().gamePlayState() == GamePlayState::TURN &&
         gameCycle().currentPlayer() == mp_player) {
         notifyAbilityUse();
         foreach (PlayingCard* card, cards) {
@@ -33,9 +33,9 @@ void CharacterSidKetchum::useAbility(QList<PlayingCard*> cards)
         return;
     }
 
-    if (gameCycle().gamePlayState() == GAMEPLAYSTATE_RESPONSE &&
+    if (gameCycle().gamePlayState() == GamePlayState::RESPONSE &&
         gameCycle().requestedPlayer() == mp_player &&
-        gameCycle().reactionHandler()->reactionType() == REACTION_LASTSAVE) {
+        gameCycle().reactionHandler()->reactionType() == ReactionType::LASTSAVE) {
         notifyAbilityUse();
         foreach (PlayingCard* card, cards) {
             gameTable().playerDiscardCard(card);

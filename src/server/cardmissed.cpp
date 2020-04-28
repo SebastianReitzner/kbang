@@ -20,7 +20,7 @@
 #include "cardmissed.h"
 
 CardMissed::CardMissed(Game* game, int id, CardSuit cardSuit, CardRank cardRank):
-        PlayingCard(game, id, CARD_MISSED, cardSuit, cardRank)
+        PlayingCard(game, id, PlayingCardType::MISSED, cardSuit, cardRank)
 {
 }
 

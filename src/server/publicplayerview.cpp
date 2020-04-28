@@ -49,7 +49,7 @@ bool PublicPlayerView::isCreator() const
 
 bool PublicPlayerView::isSheriff() const
 {
-    return (mp_player->role() == ROLE_SHERIFF);
+    return (mp_player->role() == PlayerRole::SHERIFF);
 }
 
 bool PublicPlayerView::isAlive() const
@@ -91,7 +91,7 @@ PlayerRole PublicPlayerView::role() const
 {
     if (mp_player->isPublicRole())
         return mp_player->role();
-    return ROLE_UNKNOWN;
+    return PlayerRole::UNKNOWN;
 }
 
 QList<PlayingCard*> PublicPlayerView::table() const
@@ -127,7 +127,7 @@ PlayingCard* PublicPlayerView::cardFromTable(PlayingCardType cardType) const
         return 0;
     }
 
-    if (cardType == CARD_UNKNOWN) {
+    if (cardType == PlayingCardType::UNKNOWN) {
         return table()[qrand() % table().size()];
     }
 

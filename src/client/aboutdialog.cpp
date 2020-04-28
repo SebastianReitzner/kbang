@@ -7,8 +7,7 @@ using namespace client;
 
 AboutDialog::AboutDialog(QWidget *parent):
         QDialog(parent),
-        mp_ui(new Ui::AboutDialog)
-{
+        mp_ui(new Ui::AboutDialog) {
     mp_ui->setupUi(this);
     mp_ui->labelAppName->setText(QApplication::instance()->applicationName());
     mp_ui->labelAppVersion->setText(QString("Version: %1").arg(

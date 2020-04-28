@@ -3,13 +3,13 @@
 #include "player.h"
 
 CharacterCassidyGringo::CharacterCassidyGringo(QObject* parent, Type type):
-    CharacterBase(parent, CHARACTER_UNKNOWN),
+    CharacterBase(parent, CharacterType::UNKNOWN),
     m_type(type)
 {
     if (type == BartCassidy)
-        setCharacterType(CHARACTER_BART_CASSIDY);
+        setCharacterType(CharacterType::BART_CASSIDY);
     else if (type == ElGringo)
-        setCharacterType(CHARACTER_EL_GRINGO);
+        setCharacterType(CharacterType::EL_GRINGO);
 }
 
 void CharacterCassidyGringo::setPlayer(Player* player)

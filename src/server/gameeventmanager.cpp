@@ -141,7 +141,7 @@ void GameEventManager::onPlayerPlayCard(Player* p, PlayingCard* card, PlayingCar
 {
     PublicPlayerView* owner = targetCard->owner() ? &targetCard->owner()->publicView() : 0;
     foreach(Handler* h, m_handlers) {
-        if (targetCard->pocket() == POCKET_HAND && targetCard->owner() == h->player || h->isSupervisor) {
+        if (targetCard->pocket() == PocketType::HAND && targetCard->owner() == h->player || h->isSupervisor) {
             h->handler->onPlayerPlayCard(p->publicView(), card, targetCard, owner);
         } else {
             h->handler->onPlayerPlayCard(p->publicView(), card, 0, owner);
@@ -217,7 +217,7 @@ void GameEventManager::onPlayerCheckDeck(Player* p, PlayingCard* checkedCard, Pl
 void GameEventManager::onPlayerStealCard(Player* p, Player* targetPlayer, PocketType pocketFrom, PlayingCard* card)
 {
     foreach(Handler* h, m_handlers) {
-        if (pocketFrom != POCKET_HAND || h->player == p || h->player == targetPlayer || h->isSupervisor)
+        if (pocketFrom != PocketType::HAND || h->player == p || h->player == targetPlayer || h->isSupervisor)
             h->handler->onPlayerStealCard(p->publicView(), targetPlayer->publicView(), pocketFrom, card);
         else
             h->handler->onPlayerStealCard(p->publicView(), targetPlayer->publicView(), pocketFrom, 0);

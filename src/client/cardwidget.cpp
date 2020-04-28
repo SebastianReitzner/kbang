@@ -44,10 +44,10 @@ int CardWidget::sm_lifeLevels[6] = {0, 19, 31, 44, 57, 68};
 CardWidget::CardWidget(QWidget* parent, Card::Type cardType):
         QLabel(parent),
         m_cardType(cardType),
-        m_pocket(POCKET_INVALID),
+        m_pocket(PocketType::INVALID),
         m_ownerId(0),
-        m_playerRole(ROLE_UNKNOWN),
-        m_characterType(CHARACTER_UNKNOWN),
+        m_playerRole(PlayerRole::UNKNOWN),
+        m_characterType(CharacterType::UNKNOWN),
         m_qsize(sm_qsizeSmall),
         m_shadowMode(0),
         m_hasHighlight(0),
@@ -114,7 +114,7 @@ void CardWidget::validate()
         if (card->image().isNull()) {
             qWarning(qPrintable(QString("Card '%1' has null pixmap.").arg(card->name())));
         }
-        if (m_cardType == Card::Playing && m_cardData.type != CARD_UNKNOWN) {
+        if (m_cardType == Card::Playing && m_cardData.type != PlayingCardType::UNKNOWN) {
             setPixmap(card->image(m_cardData.suit, m_cardData.rank).
                       scaled(m_qsize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
         } else {

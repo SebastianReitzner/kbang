@@ -41,7 +41,7 @@ PlayerWidget::PlayerWidget(QWidget* parent):
         m_isWinner(0),
         m_isCurrent(0),
         m_isRequested(0),
-        m_playerRole(ROLE_UNKNOWN),
+        m_playerRole(PlayerRole::UNKNOWN),
         mp_winnerIcon(0),
         mp_game(0),
         mp_cardWidgetSizeManager(0)
@@ -75,9 +75,9 @@ void PlayerWidget::clear()
     m_name = QString();
     m_isAlive = m_hasController = 1;
     m_avatar = QPixmap();
-    m_playerRole = ROLE_UNKNOWN;
+    m_playerRole = PlayerRole::UNKNOWN;
 
-    characterWidget()->setCharacter(CHARACTER_UNKNOWN);
+    characterWidget()->setCharacter(CharacterType::UNKNOWN);
     hand()->clear();
     table()->clear();
 

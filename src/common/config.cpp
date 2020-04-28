@@ -24,17 +24,15 @@
 
 Config* Config::smp_instance = 0;
 
-Config::Config()
-{
-    QString kbangDirName;
-    QString kbangConfigName = "kbang.conf";
+Config::Config() {
+    const QString kbangConfigName = "kbang.conf";
 #ifdef Q_OS_WIN
-    kbangDirName = "KBang";
+    const QString kbangDirName = "KBang";
 #else
-    kbangDirName = ".kbang";
+    const QString kbangDirName = ".kbang";
 #endif
-    if (QDir::home().cd(kbangDirName) == 0) {
-        if (QDir::home().mkdir(kbangDirName) == 0) {
+    if (!QDir::home().cd(kbangDirName)) {
+        if (!QDir::home().mkdir(kbangDirName)) {
             qFatal("Cannot create KBang config directory.");
         }
     }
@@ -45,66 +43,64 @@ Config::Config()
     m_configFileName = kbangDir.absolutePath() + "/" + kbangConfigName;
     if (!kbangDir.exists(kbangConfigName)) {
         createDefaultConfig();
-        store();
+        this->store();
     } else {
-        refresh();
+        this->refresh();
     }
 }
 
-Config::~Config()
-{
-    store();
+Config::~Config() {
+    this->store();
 }
 
 
-QString Config::readString(QString group, QString varName)
-{
+QString Config::readString(QString group, QString varName) {
     ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != CONFIG_RECORD_SINGLE)
+    if (record == 0 || record->type != CONFIG_RECORD_SINGLE) {
         return QString();
+    }
     return record->valueSingle;
 }
 
-QStringList Config::readStringList(QString group, QString varName)
-{
+QStringList Config::readStringList(QString group, QString varName) {
     ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != CONFIG_RECORD_LIST)
+    if (record == 0 || record->type != CONFIG_RECORD_LIST) {
         return QStringList();
+    }
     return record->valueList;
 }
 
 int Config::readInt(QString group, QString varName) {
     ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != CONFIG_RECORD_SINGLE)
+    if (record == 0 || record->type != CONFIG_RECORD_SINGLE) {
         return 0;
+    }
     return record->valueSingle.toInt();
 }
 
-QList<int> Config::readIntList(QString group, QString varName)
-{
+QList<int> Config::readIntList(QString group, QString varName) {
     ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != CONFIG_RECORD_LIST)
+    if (record == 0 || record->type != CONFIG_RECORD_LIST) {
         return QList<int>();
+    }
     QList<int> res;
-    foreach(const QString& s, record->valueList)
+    for (const QString& s: record->valueList) {
         res.append(s.toInt());
+    }
     return res;
 }
 
-void Config::writeString(QString group, QString varName, QString varValue)
-{
+void Config::writeString(QString group, QString varName, QString varValue) {
     createGroupIfNeeded(group);
     m_groups[group].records[varName] = ConfigRecord(varName, CONFIG_RECORD_SINGLE, varValue);
 }
 
-void Config::writeStringList(QString group, QString varName, QStringList varValue)
-{
+void Config::writeStringList(QString group, QString varName, QStringList varValue) {
     createGroupIfNeeded(group);
     m_groups[group].records[varName] = ConfigRecord(varName, CONFIG_RECORD_LIST, QString(), varValue);
 }
 
-void Config::writeInt(QString group, QString varName, int varValue)
-{
+void Config::writeInt(QString group, QString varName, int varValue) {
     createGroupIfNeeded(group);
     m_groups[group].records[varName] = ConfigRecord(varName, CONFIG_RECORD_SINGLE, QString::number(varValue));
 }
@@ -118,13 +114,11 @@ void Config::writeIntList(QString group, QString varName, QList<int> varValue)
     m_groups[group].records[varName] = ConfigRecord(varName, CONFIG_RECORD_LIST, QString(), val);
 }
 
-bool Config::hasGroup(QString group)
-{
+bool Config::hasGroup(QString group) {
     return m_groups.contains(group);
 }
 
-void Config::refresh()
-{
+void Config::refresh() {
     QFile file(m_configFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qCritical(qPrintable(QString("%1: cannot open config file for reading.").arg(m_configFileName)));
@@ -140,8 +134,9 @@ void Config::refresh()
     m_groups.clear();
 
     int lineNum = 0;
-    while (!in.atEnd())
-    {
+    while (!in.atEnd()) {
+        // Note: This is dangerpus if in the read config a listVar is found before a group, this will have
+        // undefined behaviour
         QString line = in.readLine();
         lineNum++;
         int commentChar = line.indexOf('#');
@@ -161,8 +156,8 @@ void Config::refresh()
             }
             if (singleVarRegExp.exactMatch(line)) {
 
-                QString varName = singleVarRegExp.capturedTexts()[1];
-                QString varValue = singleVarRegExp.capturedTexts()[2];
+                const QString varName = singleVarRegExp.capturedTexts()[1];
+                const QString varValue = singleVarRegExp.capturedTexts()[2];
                 if (currentGroup->records.contains(varName)) {
                     qWarning(qPrintable(QString("%1: %2: variable %3 already assigned.").arg(m_configFileName).
                                         arg(lineNum).arg(varName)));
@@ -170,8 +165,8 @@ void Config::refresh()
                 }
                 currentGroup->records[varName] = ConfigRecord(varName, CONFIG_RECORD_SINGLE, varValue);
             } else if (listVarRegExp.exactMatch(line)) {
-                QString varName = listVarRegExp.capturedTexts()[1];
-                QString varValue = listVarRegExp.capturedTexts()[2];
+                const QString varName = listVarRegExp.capturedTexts()[1];
+                const QString varValue = listVarRegExp.capturedTexts()[2];
                 if (!currentGroup->records.contains(varName)) {
                     currentGroup->records[varName] = ConfigRecord(varName, CONFIG_RECORD_LIST, QString());
                 } else if (currentGroup->records[varName].type != CONFIG_RECORD_LIST) {
@@ -187,23 +182,22 @@ void Config::refresh()
     }
 }
 
-void Config::store()
-{
+void Config::store() {
     QFile file(m_configFileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         qCritical(qPrintable(QString("%1: cannot open config file for writing.").arg(m_configFileName)));
         return;
     }
     QTextStream out(&file);
-    foreach(const ConfigGroup& group, m_groups.values()) {
+    for(const ConfigGroup& group: m_groups.values()) {
         out << "[" << group.name << "]" << endl;
-        foreach(const ConfigRecord& record, group.records.values()) {
+        for(const ConfigRecord& record: group.records.values()) {
             switch(record.type) {
             case CONFIG_RECORD_SINGLE:
                 out << record.name << "=" << record.valueSingle << endl;
                 break;
             case CONFIG_RECORD_LIST:
-                foreach(const QString& value, record.valueList) {
+                for(const QString& value: record.valueList) {
                     out << record.name << "[]" << "=" << value << endl;
                 }
                 break;
@@ -213,15 +207,13 @@ void Config::store()
     file.close();
 }
 
-void Config::createGroupIfNeeded(QString group)
-{
+void Config::createGroupIfNeeded(QString group) {
     if (!m_groups.contains(group)) {
         m_groups[group] = ConfigGroup(group);
     }
 }
 
-void Config::createDefaultConfig()
-{
+void Config::createDefaultConfig() {
     {
         ConfigGroup& network = m_groups["network"];
         network.name = "network";
@@ -259,14 +251,13 @@ Config::ConfigRecord* Config::configRecord(QString group, QString varName) {
 
 
 /* static */ QString
-Config::dataPathString()
-{
+Config::dataPathString() {
     QString path(QCoreApplication::instance()->applicationDirPath());
 
     #ifdef Q_OS_WIN32
         path += "/data/";
     #else
-        #ifdef Q_WS_MAC
+        #ifdef Q_OS_MAC
             if (QRegExp("Contents/MacOS/?$").indexIn(path) != -1) {
                 // pointing into an macosx application bundle
                 path += "/../Resources/data/";

@@ -49,7 +49,7 @@
 Game::Game(GameServer* parent, int gameId, const CreateGameData& createGameData):
     QObject(parent),
     m_id(gameId),
-    m_state(GAMESTATE_WAITINGFORPLAYERS),
+    m_state(GameState::WAITINGFORPLAYERS),
     m_publicGameView(this),
     m_nextUnusedPlayerId(0),
     m_startable(0)
@@ -150,7 +150,7 @@ int Game::getDistance(Player *fromPlayer, Player *toPlayer) const
 
 Player* Game::createPlayer(const CreatePlayerData& createPlayerData, GameEventListener* handler)
 {
-    if (m_state != GAMESTATE_WAITINGFORPLAYERS) {
+    if (m_state != GameState::WAITINGFORPLAYERS) {
         throw BadGameStateException();
     }
     while ((m_nextUnusedPlayerId == 0) || m_playerMap.contains(m_nextUnusedPlayerId))
@@ -207,20 +207,20 @@ void Game::removePlayer(Player* player)
     Q_ASSERT(m_playerMap[playerId] == player);
     qDebug(qPrintable(QString("Removing player #%1.").arg(playerId)));
 
-    if (player->isCreator() && m_state == GAMESTATE_WAITINGFORPLAYERS) {
+    if (player->isCreator() && m_state == GameState::WAITINGFORPLAYERS) {
         foreach(Player* p, m_playerList) {
             p->unregisterGameEventListener();
         }
         GameServer::instance().removeGame(this);
         return;
     }
-    if (m_state == GAMESTATE_WAITINGFORPLAYERS) {
+    if (m_state == GameState::WAITINGFORPLAYERS) {
         m_publicPlayerList.removeAll(&player->publicView());
         m_playerList.removeAll(player);
         m_playerMap.remove(playerId);
         player->unregisterGameEventListener();
         gameEventManager().onPlayerLeavedGame(player);
-        if (m_state == GAMESTATE_WAITINGFORPLAYERS)
+        if (m_state == GameState::WAITINGFORPLAYERS)
             checkStartable();
         player->deleteLater();
         return;
@@ -256,14 +256,14 @@ void Game::buryPlayer(Player* player, Player* causedBy)
     gameEventManager().onPlayerDied(player, causedBy);
 
     switch(player->role()) {
-        case ROLE_SHERIFF:
-        case ROLE_DEPUTY:
+        case PlayerRole::SHERIFF:
+        case PlayerRole::DEPUTY:
             m_goodGuysCount--;
             break;
-        case ROLE_OUTLAW:
+        case PlayerRole::OUTLAW:
             m_outlawsCount--;
             break;
-        case ROLE_RENEGADE:
+        case PlayerRole::RENEGADE:
             m_renegadesCount--;
             break;
         default:
@@ -271,17 +271,17 @@ void Game::buryPlayer(Player* player, Player* causedBy)
     }
 
     /// game winning condition check
-    if (player->role() == ROLE_SHERIFF) {
+    if (player->role() == PlayerRole::SHERIFF) {
         if (m_goodGuysCount == 0 && m_outlawsCount == 0 && m_renegadesCount == 1)
-            winningSituation(ROLE_RENEGADE);
+            winningSituation(PlayerRole::RENEGADE);
         else
-            winningSituation(ROLE_OUTLAW);
+            winningSituation(PlayerRole::OUTLAW);
     } else if (m_outlawsCount == 0 && m_renegadesCount == 0) {
-        winningSituation(ROLE_SHERIFF);
-    } else if (player->role() == ROLE_OUTLAW && causedBy != 0 && causedBy != player) {
+        winningSituation(PlayerRole::SHERIFF);
+    } else if (player->role() == PlayerRole::OUTLAW && causedBy != 0 && causedBy != player) {
         /// killer draws 3 cards for killing an outlaw
         mp_gameTable->playerDrawFromDeck(causedBy, 3);
-    } else if (player->role() == ROLE_DEPUTY && causedBy != 0 && causedBy->role() == ROLE_SHERIFF) {
+    } else if (player->role() == PlayerRole::DEPUTY && causedBy != 0 && causedBy->role() == PlayerRole::SHERIFF) {
         /// sheriff killed his deputy and has to cancel all his cards
         foreach(PlayingCard* card, causedBy->hand())
             gameTable().cancelCard(card);
@@ -292,20 +292,20 @@ void Game::buryPlayer(Player* player, Player* causedBy)
 
 void Game::winningSituation(PlayerRole winners)
 {
-    m_state = GAMESTATE_FINISHED;
+    m_state = GameState::FINISHED;
     foreach(Player* player, m_playerList) {
         switch(winners) {
-        case ROLE_SHERIFF:
-            if (player->role() == ROLE_SHERIFF ||
-                player->role() == ROLE_DEPUTY)
+        case PlayerRole::SHERIFF:
+            if (player->role() == PlayerRole::SHERIFF ||
+                player->role() == PlayerRole::DEPUTY)
                 player->setWinner(1);
             break;
-        case ROLE_OUTLAW:
-            if (player->role() == ROLE_OUTLAW)
+        case PlayerRole::OUTLAW:
+            if (player->role() == PlayerRole::OUTLAW)
                 player->setWinner(1);
             break;
-        case ROLE_RENEGADE:
-            if (player->role() == ROLE_RENEGADE &&
+        case PlayerRole::RENEGADE:
+            if (player->role() == PlayerRole::RENEGADE &&
                 player->isAlive())
                 player->setWinner(1);
             break;
@@ -332,13 +332,13 @@ void Game::startGame(Player* player)
     if (player->id() != mp_gameInfo->creatorId()) {
         throw BadPlayerException(player->id());
     }
-    if (m_state != GAMESTATE_WAITINGFORPLAYERS) {
+    if (m_state != GameState::WAITINGFORPLAYERS) {
         throw BadGameStateException();
     }
     if (!m_startable) {
         throw BadGameStateException();
     }
-    m_state = GAMESTATE_PLAYING;
+    m_state = GameState::PLAYING;
     if (mp_gameInfo->hasShufflePlayers())
         shufflePlayers();
 
@@ -392,14 +392,14 @@ void Game::setRolesAndCharacters()
     {
         pIt.peekNext()->setRoleAndCharacter(rIt.peekNext(), cIt.peekNext());
         switch(rIt.peekNext()) {
-            case ROLE_SHERIFF:
-            case ROLE_DEPUTY:
+            case PlayerRole::SHERIFF:
+            case PlayerRole::DEPUTY:
                 m_goodGuysCount++;
                 break;
-            case ROLE_OUTLAW:
+            case PlayerRole::OUTLAW:
                 m_outlawsCount++;
                 break;
-            case ROLE_RENEGADE:
+            case PlayerRole::RENEGADE:
                 m_renegadesCount++;
                 break;
             default:
@@ -412,19 +412,16 @@ void Game::setRolesAndCharacters()
 
 QList<PlayerRole> Game::getRoleList()
 {
-    const char* roleSets[] = {"", "S", "SB", "SRB", "SBBR", "SVBBR", "SVBBBR", "SVVBBBR"};
+    const static char* roleSets[] = {"", "S", "SB", "SRB", "SBBR", "SVBBR", "SVBBBR", "SVVBBBR"};
     QList<PlayerRole> res;
-    const char* i = roleSets[m_playerList.count()];
-    while(*i != '\0')
-    {
-        switch(*i)
-        {
-            case 'S': res.append(ROLE_SHERIFF); break;
-            case 'B': res.append(ROLE_OUTLAW); break;
-            case 'V': res.append(ROLE_DEPUTY); break;
-            case 'R': res.append(ROLE_RENEGADE); break;
+    for (const char* i = roleSets[m_playerList.count()];
+        *i != '\0'; ++i) {
+        switch(*i){
+            case 'S': res.append(PlayerRole::SHERIFF); break;
+            case 'B': res.append(PlayerRole::OUTLAW); break;
+            case 'V': res.append(PlayerRole::DEPUTY); break;
+            case 'R': res.append(PlayerRole::RENEGADE); break;
         }
-        ++i;
     }
     return res;
 }

@@ -5,7 +5,7 @@
 #include "gameexceptions.h"
 
 CharacterJesseJones::CharacterJesseJones(QObject *parent):
-        CharacterBase(parent, CHARACTER_JESSE_JONES)
+        CharacterBase(parent, CharacterType::JESSE_JONES)
 {
 }
 

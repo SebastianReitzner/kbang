@@ -15,7 +15,7 @@ public:
 
     virtual void respondPass();
     virtual void respondCard(PlayingCard* targetCard);
-    virtual ReactionType reactionType() const { return REACTION_DUEL; }
+    virtual ReactionType reactionType() const { return ReactionType::DUEL; }
     virtual Player* causedBy() const { return mp_shootingPlayer; }
 
 private:

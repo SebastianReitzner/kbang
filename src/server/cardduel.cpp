@@ -6,7 +6,7 @@
 #include "gameexceptions.h"
 
 CardDuel::CardDuel(Game* game, int id, CardSuit cardSuit, CardRank cardRank):
-        ReactionCard(game, id, CARD_DUEL, cardSuit, cardRank)
+        ReactionCard(game, id, PlayingCardType::DUEL, cardSuit, cardRank)
 {
 }
 
@@ -46,7 +46,7 @@ void CardDuel::respondCard(PlayingCard* targetCard)
 {
     targetCard->assertInHand();
     switch(targetCard->type()) {
-    case CARD_BANG:
+    case PlayingCardType::BANG:
         gameTable()->playerRespondWithCard(targetCard);
         game()->gameCycle().unsetResponseMode();
         requestNext();

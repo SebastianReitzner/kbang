@@ -25,10 +25,10 @@ public:
     inline  Player*         requestedPlayer() const { return mp_requestedPlayer; }
     inline  int             turnNumber()      const { return m_turnNum; }
 
-    inline bool isDraw()     const { return m_state == GAMEPLAYSTATE_DRAW; }
-    inline bool isTurn()     const { return m_state == GAMEPLAYSTATE_TURN; }
-    inline bool isResponse() const { return m_state == GAMEPLAYSTATE_RESPONSE; }
-    inline bool isDiscard()  const { return m_state == GAMEPLAYSTATE_DISCARD; }
+    inline bool isDraw()     const { return m_state == GamePlayState::DRAW; }
+    inline bool isTurn()     const { return m_state == GamePlayState::TURN; }
+    inline bool isResponse() const { return m_state == GamePlayState::RESPONSE; }
+    inline bool isDiscard()  const { return m_state == GamePlayState::DISCARD; }
 
     void assertDraw() const;
     void assertTurn() const;

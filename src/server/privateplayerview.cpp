@@ -74,7 +74,7 @@ PlayingCard* PrivatePlayerView::card(int cardId) const
     PlayingCard* res = mp_player->game()->gameTable().card(cardId);
     if (res == 0 || res->owner() == mp_player)
         return res;
-    if (res->pocket() == POCKET_HAND || res->pocket() == POCKET_DECK)
+    if (res->pocket() == PocketType::HAND || res->pocket() == PocketType::DECK)
         return 0;
     return res;
 }

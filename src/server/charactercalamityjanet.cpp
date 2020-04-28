@@ -7,7 +7,7 @@
 
 
 CharacterCalamityJanet::CharacterCalamityJanet(QObject *parent):
-        CharacterBase(parent, CHARACTER_CALAMITY_JANET),
+        CharacterBase(parent, CharacterType::CALAMITY_JANET),
         mp_bang(0),
         mp_missed(0)
 {
@@ -79,14 +79,14 @@ void CharacterCalamityJanet::respondCard(ReactionHandler* reactionHandler, Playi
 PlayingCard* CharacterCalamityJanet::swapCards(PlayingCard* card)
 {
     switch(card->type()) {
-    case CARD_BANG:
+    case PlayingCardType::BANG:
         if (!mp_missed)
-            mp_missed = new CardMissed(mp_player->game(), 0, SUIT_CLUBS, 2);
+            mp_missed = new CardMissed(mp_player->game(), 0, CardSuit::CLUBS, 2);
         mp_missed->setVirtual(card);
         return mp_missed;
-    case CARD_MISSED:
+    case PlayingCardType::MISSED:
         if (!mp_bang)
-            mp_bang = new CardBang(mp_player->game(), 0, SUIT_CLUBS, 2);
+            mp_bang = new CardBang(mp_player->game(), 0, CardSuit::CLUBS, 2);
         mp_bang->setVirtual(card);
         return mp_bang;
     default:

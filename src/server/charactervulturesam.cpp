@@ -5,7 +5,7 @@
 
 
 CharacterVultureSam::CharacterVultureSam(QObject* parent):
-        CharacterBase(parent, CHARACTER_VULTURE_SAM)
+        CharacterBase(parent, CharacterType::VULTURE_SAM)
 {
 }
 

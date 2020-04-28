@@ -6,13 +6,13 @@
 #include "game.h"
 
 CardTaker::CardTaker(Game* game, int id, CardTaker::Type type, CardSuit cardSuit, CardRank cardRank):
-        PlayingCard(game, id, CARD_UNKNOWN, cardSuit, cardRank),
+        PlayingCard(game, id, PlayingCardType::UNKNOWN, cardSuit, cardRank),
         m_type(type)
 {
     if (m_type == Panic)
-        setType(CARD_PANIC);
+        setType(PlayingCardType::PANIC);
     else
-        setType(CARD_CATBALOU);
+        setType(PlayingCardType::CATBALOU);
 }
 
 CardTaker::~CardTaker()

@@ -26,7 +26,7 @@
 #include "cardbarrel.h"
 
 CardBang::CardBang(Game* game, int id, CardSuit cardSuit, CardRank cardRank):
-        ReactionCard(game, id, CARD_BANG, cardSuit, cardRank),
+        ReactionCard(game, id, PlayingCardType::BANG, cardSuit, cardRank),
         mp_attackedPlayer(0)
 {
 }
@@ -74,13 +74,13 @@ void CardBang::respondPass()
 void CardBang::respondCard(PlayingCard* targetCard)
 {
     switch(targetCard->type()) {
-    case CARD_MISSED:
+    case PlayingCardType::MISSED:
         targetCard->assertInHand();
         game()->gameCycle().unsetResponseMode();
         gameTable()->playerRespondWithCard(targetCard);
         missed();
         return;
-    case CARD_BARREL: {
+    case PlayingCardType::BARREL: {
         if (m_usedBarrels.contains(targetCard))
             break;
         targetCard->assertOnTable();

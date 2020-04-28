@@ -18,7 +18,7 @@ public:
 
     virtual bool isAI() { return 1; }
 
-    virtual void onHandlerRegistered(const PublicGameView* publicGameView, PlayerCtrl* playerCtrl);
+    virtual void onHandlerRegistered(const PublicGameView* _publicGameView, PlayerCtrl* playerCtrl);
     virtual void onHandlerUnregistered() {}
 
     virtual void onGameStartabilityChanged(bool) {}

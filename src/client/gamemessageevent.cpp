@@ -22,30 +22,30 @@ void GameMessageEvent::run()
     QString causedByName     = m_gameMessage.causedBy ? mp_game->playerWidget(m_gameMessage.causedBy)->name() : "";
 
     switch(m_gameMessage.type) {
-    case GAMEMESSAGE_GAMESTARTED:
-        mp_game->setGameState(GAMESTATE_PLAYING);
+    case GameMessageType::GAMESTARTED:
+        mp_game->setGameState(GameState::PLAYING);
         msg = tr("The game has just started.");
         break;
-    case GAMEMESSAGE_GAMEFINISHED:
-        mp_game->setGameState(GAMESTATE_FINISHED);
+    case GameMessageType::GAMEFINISHED:
+        mp_game->setGameState(GameState::FINISHED);
         msg = tr("The game has finished.");
         break;
-    case GAMEMESSAGE_PLAYERDRAWFROMDECK:
+    case GameMessageType::PLAYERDRAWFROMDECK:
         msg = tr("%1 drew %2 from the deck.").
                     arg(decoratePlayerName(playerName)).
                     arg(cardListWidgetToString(m_gameMessage.cards));
         break;
-    case GAMEMESSAGE_PLAYERDRAWFROMGRAVEYARD:
+    case GameMessageType::PLAYERDRAWFROMGRAVEYARD:
         msg = tr("%1 drew %2 from the discard pile.").
                     arg(decoratePlayerName(playerName)).
                     arg(cardToString(m_gameMessage.card));
         break;
-    case GAMEMESSAGE_PLAYERDISCARDCARD:
+    case GameMessageType::PLAYERDISCARDCARD:
         msg = tr("%1 discarded %2.").
                     arg(decoratePlayerName(playerName)).
                     arg(cardToString(m_gameMessage.card));
         break;
-    case GAMEMESSAGE_PLAYERPLAYCARD:
+    case GameMessageType::PLAYERPLAYCARD:
         if (m_gameMessage.targetCard.id) {
             msg = tr("%1 played %2 on %3%4.").
                         arg(decoratePlayerName(playerName)).
@@ -64,21 +64,21 @@ void GameMessageEvent::run()
                         arg(cardToString(m_gameMessage.card));
         }
         break;
-    case GAMEMESSAGE_PLAYERRESPONDWITHCARD:
+    case GameMessageType::PLAYERRESPONDWITHCARD:
         msg = tr("&nbsp;&nbsp;&nbsp;&nbsp;%1 responded with %2.").
                     arg(decoratePlayerName(playerName)).
                     arg(cardToString(m_gameMessage.card));
         break;
-    case GAMEMESSAGE_PLAYERPASS:
+    case GameMessageType::PLAYERPASS:
         msg = tr("&nbsp;&nbsp;&nbsp;&nbsp;%1 did not react.").
                     arg(decoratePlayerName(playerName));
         break;
-    case GAMEMESSAGE_PLAYERPICKFROMSELECTION:
+    case GameMessageType::PLAYERPICKFROMSELECTION:
         msg = tr("&nbsp;&nbsp;&nbsp;&nbsp;%1 took %2 from selection.").
                     arg(decoratePlayerName(playerName)).
                     arg(cardToString(m_gameMessage.card));
         break;
-    case GAMEMESSAGE_PLAYERCHECKDECK:
+    case GameMessageType::PLAYERCHECKDECK:
         msg = tr("%1 \"drew!\" %2 (because of %3) and ").
                     arg(decoratePlayerName(playerName)).
                     arg(cardToString(m_gameMessage.targetCard, 1)).
@@ -88,26 +88,26 @@ void GameMessageEvent::run()
         else
             msg += tr("failed.");
         break;
-    case GAMEMESSAGE_PLAYERSTEALCARD:
+    case GameMessageType::PLAYERSTEALCARD:
         msg = tr("%1 drew %2 from %3.").
                     arg(decoratePlayerName(playerName)).
                     arg(cardToString(m_gameMessage.card)).
                     arg(decoratePlayerName(targetPlayerName, 1));
         break;
-    case GAMEMESSAGE_PLAYERCANCELCARD:
+    case GameMessageType::PLAYERCANCELCARD:
         msg = tr("%1 forced %3 to discard %2.").
                     arg(decoratePlayerName(playerName)).
                     arg(cardToString(m_gameMessage.card)).
                     arg(decoratePlayerName(targetPlayerName, 1));
         break;
-    case GAMEMESSAGE_DECKREGENERATE:
+    case GameMessageType::DECKREGENERATE:
         msg = tr("The deck ran out of cards. Cards from the discard pile were shuffled and are now used as new deck.");
         break;
-    case GAMEMESSAGE_PLAYERDIED:
+    case GameMessageType::PLAYERDIED:
         msg = tr("%1 passed away. R.I.P.").
                     arg(decoratePlayerName(playerName));
         break;
-    case GAMEMESSAGE_INVALID:
+    case GameMessageType::INVALID:
         break;
     }
     if (!msg.isEmpty())
