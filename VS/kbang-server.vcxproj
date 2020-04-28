@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\server\cardbang.cpp" />
+    <ClCompile Include="..\src\server\cardbarrel.cpp" />
+    <ClCompile Include="..\src\server\cardbeer.cpp" />
+    <ClCompile Include="..\src\server\carddrawcards.cpp" />
+    <ClCompile Include="..\src\server\cardduel.cpp" />
+    <ClCompile Include="..\src\server\carddynamite.cpp" />
+    <ClCompile Include="..\src\server\cardfactory.cpp" />
+    <ClCompile Include="..\src\server\cardgeneralstore.cpp" />
+    <ClCompile Include="..\src\server\cardhorse.cpp" />
+    <ClCompile Include="..\src\server\cardjail.cpp" />
+    <ClCompile Include="..\src\server\cardmissed.cpp" />
+    <ClCompile Include="..\src\server\cardmultishoot.cpp" />
+    <ClCompile Include="..\src\server\cardtaker.cpp" />
+    <ClCompile Include="..\src\server\characterbase.cpp" />
+    <ClCompile Include="..\src\server\characterblackjack.cpp" />
+    <ClCompile Include="..\src\server\charactercalamityjanet.cpp" />
+    <ClCompile Include="..\src\server\charactercassidygringo.cpp" />
+    <ClCompile Include="..\src\server\characterjessejones.cpp" />
+    <ClCompile Include="..\src\server\characterjourdonnais.cpp" />
+    <ClCompile Include="..\src\server\characterkitcarlson.cpp" />
+    <ClCompile Include="..\src\server\characterlist.cpp" />
+    <ClCompile Include="..\src\server\characterluckyduke.cpp" />
+    <ClCompile Include="..\src\server\characterpedroramirez.cpp" />
+    <ClCompile Include="..\src\server\characterpropertychange.cpp" />
+    <ClCompile Include="..\src\server\charactersidketchum.cpp" />
+    <ClCompile Include="..\src\server\charactersuzylafayette.cpp" />
+    <ClCompile Include="..\src\server\charactervulturesam.cpp" />
+    <ClCompile Include="..\src\server\client.cpp" />
+    <ClCompile Include="..\src\server\common.cpp" />
+    <ClCompile Include="..\src\server\console.cpp" />
+    <ClCompile Include="..\src\server\consolecommand.cpp" />
+    <ClCompile Include="..\src\server\game.cpp" />
+    <ClCompile Include="..\src\server\gamecycle.cpp" />
+    <ClCompile Include="..\src\server\gameeventlistener.cpp" />
+    <ClCompile Include="..\src\server\gameeventmanager.cpp" />
+    <ClCompile Include="..\src\server\gameinfo.cpp" />
+    <ClCompile Include="..\src\server\gamelogger.cpp" />
+    <ClCompile Include="..\src\server\gameserver.cpp" />
+    <ClCompile Include="..\src\server\gametable.cpp" />
+    <ClCompile Include="..\src\server\main.cpp" />
+    <ClCompile Include="..\src\server\player.cpp" />
+    <ClCompile Include="..\src\server\playerctrl.cpp" />
+    <ClCompile Include="..\src\server\playerreaper.cpp" />
+    <ClCompile Include="..\src\server\playingcard.cpp" />
+    <ClCompile Include="..\src\server\privateplayerview.cpp" />
+    <ClCompile Include="..\src\server\publicgameview.cpp" />
+    <ClCompile Include="..\src\server\publicplayerview.cpp" />
+    <ClCompile Include="..\src\server\reactioncard.cpp" />
+    <ClCompile Include="..\src\server\reactionhandler.cpp" />
+    <ClCompile Include="..\src\server\tablecard.cpp" />
+    <ClCompile Include="..\src\server\tcpserver.cpp" />
+    <ClCompile Include="..\src\server\voidai.cpp" />
+    <ClCompile Include="..\src\server\weaponcard.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="..\src\server\cardbang.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="..\src\server\cardbarrel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="..\src\server\cardbeer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="..\src\server\carddrawcards.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="..\src\server\cardduel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\server\carddynamite.h" />
+    <ClInclude Include="..\src\server\cardfactory.h" />
+    <ClInclude Include="..\src\server\cardgeneralstore.h" />
+    <ClInclude Include="..\src\server\cardjail.h" />
+    <ClInclude Include="..\src\server\cards.h" />
+    <ClInclude Include="..\src\server\cardtaker.h" />
+    <ClInclude Include="..\src\server\characterlist.h" />
+    <ClInclude Include="..\src\server\common.h" />
+    <ClInclude Include="..\src\server\consolecommand.h" />
+    <ClInclude Include="..\src\server\gameeventlistener.h" />
+    <ClInclude Include="..\src\server\gameeventmanager.h" />
+    <ClInclude Include="..\src\server\gameexceptions.h" />
+    <ClInclude Include="..\src\server\gameinfo.h" />
+    <ClInclude Include="..\src\server\gamelogger.h" />
+    <ClInclude Include="..\src\server\gametable.h" />
+    <ClInclude Include="..\src\server\playerreaper.h" />
+    <ClInclude Include="..\src\server\privateplayerview.h" />
+    <ClInclude Include="..\src\server\publicgameview.h" />
+    <ClInclude Include="..\src\server\publicplayerview.h" />
+    <ClInclude Include="..\src\server\reactionhandler.h" />
+    <QtMoc Include="..\src\server\weaponcard.h" />
+    <QtMoc Include="..\src\server\voidai.h" />
+    <QtMoc Include="..\src\server\tcpserver.h" />
+    <QtMoc Include="..\src\server\tablecard.h" />
+    <QtMoc Include="..\src\server\reactioncard.h" />
+    <QtMoc Include="..\src\server\playingcard.h" />
+    <QtMoc Include="..\src\server\playerctrl.h" />
+    <QtMoc Include="..\src\server\player.h" />
+    <QtMoc Include="..\src\server\gameserver.h" />
+    <QtMoc Include="..\src\server\gamecycle.h" />
+    <QtMoc Include="..\src\server\game.h" />
+    <QtMoc Include="..\src\server\console.h" />
+    <QtMoc Include="..\src\server\client.h" />
+    <QtMoc Include="..\src\server\charactervulturesam.h" />
+    <QtMoc Include="..\src\server\charactersuzylafayette.h" />
+    <QtMoc Include="..\src\server\charactersidketchum.h" />
+    <QtMoc Include="..\src\server\characterpropertychange.h" />
+    <QtMoc Include="..\src\server\characterpedroramirez.h" />
+    <QtMoc Include="..\src\server\characterluckyduke.h" />
+    <QtMoc Include="..\src\server\characterkitcarlson.h" />
+    <QtMoc Include="..\src\server\characterjourdonnais.h" />
+    <QtMoc Include="..\src\server\characterjessejones.h" />
+    <QtMoc Include="..\src\server\charactercassidygringo.h" />
+    <QtMoc Include="..\src\server\charactercalamityjanet.h" />
+    <QtMoc Include="..\src\server\characterblackjack.h" />
+    <QtMoc Include="..\src\server\characterbase.h" />
+    <QtMoc Include="..\src\server\cardmultishoot.h" />
+    <QtMoc Include="..\src\server\cardmissed.h" />
+    <QtMoc Include="..\src\server\cardhorse.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6F80433F-D0DB-3D73-801C-AE93799CCCCE}</ProjectGuid>
+    <RootNamespace>kbang-server</RootNamespace>
+    <Keyword>QtVS_v302</Keyword>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.18362.0</WindowsTargetPlatformMinVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v142</PlatformToolset>
+    <OutputDirectory>release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>obj\server\</IntermediateDirectory>
+    <PrimaryOutput>kbang-server</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v142</PlatformToolset>
+    <OutputDirectory>debug\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>obj\server\</IntermediateDirectory>
+    <PrimaryOutput>kbang-server</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
+    <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>msvc2017_64</QtInstall>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>msvc2017_64</QtInstall>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\build\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\build\obj\server\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">kbang-server</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\build\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\build\obj\server\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">kbang-server</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;..\.;.;..\src\server;..\src\common;$(QTDIR)\include;..\build\mocs\server;../include;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>..\build\obj\server\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>..\build\obj\server\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DISABLE_DEPRECATED_BEFORE=0x000000;NDEBUG;QT_NO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>
+      </ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>kbang_common.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\build\debug\lib;..\build\release\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.7.25-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)\kbang-server.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DISABLE_DEPRECATED_BEFORE=0x000000;NDEBUG;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>
+      </Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocDir>..\build\mocs\server</QtMocDir>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;..\.;.;..\src\server;..\src\common;$(QTDIR)\include;..\build\mocs\server;../include;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>..\build\obj\server\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>..\build\obj\server\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DISABLE_DEPRECATED_BEFORE=0x000000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>kbang_common.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\build\debug\lib;..\build\release\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.7.25-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\kbang-server.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DISABLE_DEPRECATED_BEFORE=0x000000;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>
+      </Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocDir>..\build\mocs\server</QtMocDir>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
