@@ -109,6 +109,7 @@
     <QtUic Include="..\src\client\mainwindow.ui" />
     <QtUic Include="..\src\client\newserverdialog.ui" />
     <QtUic Include="..\src\client\opponentwidget.ui" />
+    <QtUic Include="cardwidget.ui" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8F447AB6-4A3A-396E-8793-0B0347238E51}</ProjectGuid>

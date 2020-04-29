@@ -31,10 +31,11 @@ QMap<PlayingCardType, Card*> Card::sm_playingCards;
 QMap<PlayerRole,      Card*> Card::sm_roleCards;
 QMap<CharacterType,   Card*> Card::sm_characterCards;
 
-Card::Card(const QString& name, PlayingCardType playingCardType, const QString& imageFileName):
+Card::Card(const QString& name, PlayingCardType playingCardType, const QString& imageFileName, const QString& cardText):
         m_name(name),
         m_type(Card::Playing),
-        m_imageFileName(imageFileName)
+        m_imageFileName(imageFileName),
+        m_cardText(cardText)
 
 {
     if (sm_playingCards.contains(playingCardType)) {
@@ -45,10 +46,11 @@ Card::Card(const QString& name, PlayingCardType playingCardType, const QString& 
     sm_playingCards[playingCardType] = this;
 }
 
-Card::Card(const QString& name, PlayerRole role, const QString& imageFileName):
+Card::Card(const QString& name, PlayerRole role, const QString& imageFileName, const QString& cardText):
         m_name(name),
         m_type(Card::Role),
-        m_imageFileName(imageFileName)
+        m_imageFileName(imageFileName),
+        m_cardText(cardText)
 
 {
     if (sm_roleCards.contains(role)) {
@@ -59,10 +61,11 @@ Card::Card(const QString& name, PlayerRole role, const QString& imageFileName):
     sm_roleCards[role] = this;
 }
 
-Card::Card(const QString& name, CharacterType character, const QString& imageFileName):
+Card::Card(const QString& name, CharacterType character, const QString& imageFileName, const QString& cardText):
         m_name(name),
         m_type(Card::Character),
-        m_imageFileName(imageFileName)
+        m_imageFileName(imageFileName),
+        m_cardText(cardText)
 {
     if (sm_characterCards.contains(character)) {
         qCritical("Unable to create a character card. Given character card already created.");
@@ -118,15 +121,15 @@ QPixmap Card::image(const CardSuit& suit, const CardRank& rank) const
 
 void Card::loadDefaultRuleset()
 {
-    new Card("Bang!",       PlayingCardType::BANG,       "gfx/cards/bang.png");
-    new Card("Mancato",     PlayingCardType::MISSED,     "gfx/cards/missed.png");
-    new Card("Birra",       PlayingCardType::BEER,       "gfx/cards/beer.png");
-    new Card("Saloon",      PlayingCardType::SALOON,     "gfx/cards/saloon.png");
-    new Card("Wells Fargo", PlayingCardType::WELLSFARGO,  "gfx/cards/wellsfargo.png");
-    new Card("Diligenza",   PlayingCardType::DILIGENZA,   "gfx/cards/diligenza.png");
-    new Card("Emporio",     PlayingCardType::GENERALSTORE,"gfx/cards/emporio.png");
-    new Card("Panico!",     PlayingCardType::PANIC,       "gfx/cards/panico.png");
-    new Card("Cat Balou",   PlayingCardType::CATBALOU,    "gfx/cards/catbalou.png");
+    new Card("Bang!",         PlayingCardType::BANG,       "gfx/cards/bang.png", "Bang");
+    new Card("Missed",        PlayingCardType::MISSED,     "gfx/cards/missed.png", "Missed");
+    new Card("Beer",          PlayingCardType::BEER,       "gfx/cards/beer.png", "Beer");
+    new Card("Saloon",        PlayingCardType::SALOON,     "gfx/cards/saloon.png", "Saloon");
+    new Card("Wells Fargo",   PlayingCardType::WELLSFARGO,  "gfx/cards/wellsfargo.png", "WellsFargo");
+    new Card("Diligenza",     PlayingCardType::DILIGENZA,   "gfx/cards/diligenza.png", "Diligenza");
+    new Card("General Store", PlayingCardType::GENERALSTORE,"gfx/cards/emporio.png", "GeneralStore");
+    new Card("Panic!",        PlayingCardType::PANIC,       "gfx/cards/panico.png", "Panic");
+    new Card("Cat Balou",     PlayingCardType::CATBALOU,    "gfx/cards/catbalou.png", "CatBalou");
     new Card("Indiani!",    PlayingCardType::INDIANS,     "gfx/cards/indians.png");
     new Card("Duello",      PlayingCardType::DUEL,        "gfx/cards/duel.png");
     new Card("Gatling",     PlayingCardType::GATLING,     "gfx/cards/gatling.png");

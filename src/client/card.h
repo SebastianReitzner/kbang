@@ -68,14 +68,16 @@ private:
      * @param name The localized card name (should be used with QObject::tr).
      * @param image The filename of the image, as used in QPixmap constructor.
      */
-     Card(const QString& name, PlayingCardType, const QString& imageFileName);
-     Card(const QString& name, PlayerRole, const QString& imageFileName);
-     Card(const QString& name, CharacterType, const QString& imageFileName);
+     Card(const QString& name, PlayingCardType, const QString& imageFileName, const QString& cardText);
+     Card(const QString& name, PlayerRole, const QString& imageFileName, const QString& cardText);
+     Card(const QString& name, CharacterType, const QString& imageFileName, const QString& cardText);
 
 public:
-    inline QString name()  const { return m_name;  } ///< Returns card name.
-    inline Type    type()  const { return m_type;  } ///< Returns card type. @see Card::Type
-    inline QPixmap image() const { return m_image; } ///< Returns image pixmap.
+    inline QString name()      const { return m_name;  } ///< Returns card name.
+    inline Type    type()      const { return m_type;  } ///< Returns card type. @see Card::Type
+    inline QPixmap image()     const { return m_image; } ///< Returns image pixmap.
+    inline QString cardText()  const { return m_cardText; } ///< Returns card name.
+
     QPixmap image(const CardSuit&, const CardRank&) const;
 
 public: /* static */
@@ -98,6 +100,7 @@ private:
     Type    m_type;
     QPixmap m_image;
     QString m_imageFileName;
+    QString m_cardText;
 
     static QMap<PlayingCardType, Card*> sm_playingCards;
     static QMap<PlayerRole,      Card*> sm_roleCards;

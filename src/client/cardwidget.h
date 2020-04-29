@@ -24,6 +24,10 @@
 #include "parser/parserstructs.h"
 #include "card.h"
 
+namespace Ui {
+    class CardWidget;
+}
+
 namespace client
 {
 
@@ -108,7 +112,11 @@ private:
     GameActionManager* mp_gameActionManager;
 
     const static QSize sm_qsizeSmall, sm_qsizeNormal, sm_qsizeBig;
+    const int sm_textSmall = 2, sm_textNormal = 8, sm_textBig = 14;
     static int sm_lifeLevels[];
+
+    Ui::CardWidget* mp_ui;
+
 };
 }
 
