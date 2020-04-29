@@ -116,7 +116,7 @@ QString playingCardTypeToString(const PlayingCardType& c) {
     case PlayingCardType::BEER:           return "beer";
     case PlayingCardType::SALOON:         return "saloon";
     case PlayingCardType::WELLSFARGO:     return "wellsfargo";
-    case PlayingCardType::DILIGENCE:      return "diligenza";
+    case PlayingCardType::DILIGENCE:      return "diligence";
     case PlayingCardType::GENERALSTORE:   return "generalstore";
     case PlayingCardType::PANIC:          return "panic";
     case PlayingCardType::CATBALOU:       return "catbalou";

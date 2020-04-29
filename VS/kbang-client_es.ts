@@ -470,7 +470,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/client/mainwindow.ui" line="662"/>
         <source>&amp;Game</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Juego</translation>
     </message>
     <message>
         <location filename="../src/client/mainwindow.ui" line="674"/>
@@ -578,11 +578,11 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>QLabel</name>
+    <name>client::CardWidget</name>
     <message>
         <location filename="../src/client/cardwidget.cpp" line="121"/>
         <source>textBang</source>
-        <translation type="finished">Beng!</translation>
+        <translation>Beng!</translation>
     </message>
 </context>
 <context>

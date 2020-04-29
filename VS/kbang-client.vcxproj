@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\src\client\aboutdialog.ui" />
+    <QtUic Include="..\src\client\cardwidget.ui" />
     <QtUic Include="..\src\client\chatwidget.ui" />
     <QtUic Include="..\src\client\connecttoserverdialog.ui" />
     <QtUic Include="..\src\client\creategamedialog.ui" />
@@ -109,7 +110,6 @@
     <QtUic Include="..\src\client\mainwindow.ui" />
     <QtUic Include="..\src\client\newserverdialog.ui" />
     <QtUic Include="..\src\client\opponentwidget.ui" />
-    <QtUic Include="cardwidget.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="kbang-client_es.ts" />

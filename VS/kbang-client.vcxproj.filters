@@ -306,7 +306,7 @@
     <QtUic Include="..\src\client\opponentwidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="cardwidget.ui">
+    <QtUic Include="..\src\client\cardwidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

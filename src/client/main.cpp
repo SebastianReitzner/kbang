@@ -54,11 +54,8 @@ int main(int argc, char *argv[])
                                                   arg(KBANG_CLIENT_VERSION_MINOR).
                                                   arg(KBANG_CLIENT_VERSION_REVISION));
     QTranslator translator;
-    if (QFile::exists("kbang-client_es.qm"))
-        qWarning("failed-no file");
-
     if (!translator.load("kbang-client_es.qm"))
-        qWarning("failed loading"); //the warning appears ****
+        qWarning("failed loading translations file"); 
     app.installTranslator(&translator);
 
 
