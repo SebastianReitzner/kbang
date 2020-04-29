@@ -68,9 +68,9 @@ private:
      * @param name The localized card name (should be used with QObject::tr).
      * @param image The filename of the image, as used in QPixmap constructor.
      */
-     Card(const QString& name, PlayingCardType, const QString& imageFileName, const QString& cardText);
-     Card(const QString& name, PlayerRole, const QString& imageFileName, const QString& cardText);
-     Card(const QString& name, CharacterType, const QString& imageFileName, const QString& cardText);
+     Card(const QString& name, PlayingCardType, const QString& imageFileName);
+     Card(const QString& name, PlayerRole, const QString& imageFileName);
+     Card(const QString& name, CharacterType, const QString& imageFileName);
 
 public:
     inline QString name()      const { return m_name;  } ///< Returns card name.

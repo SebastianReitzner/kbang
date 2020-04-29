@@ -58,7 +58,7 @@ enum class PlayingCardType {
     BEER,
     SALOON,
     WELLSFARGO,
-    DILIGENZA,
+    DILIGENCE,
     GENERALSTORE,
     PANIC,
     CATBALOU,

@@ -32,6 +32,9 @@
     <QtMoc Include="..\src\common\parser\ioproxy.h" />
     <ClInclude Include="..\src\common\util.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="kbang_common_es.ts" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B0018CE9-184E-35B5-8214-8412C6CF16D6}</ProjectGuid>
     <RootNamespace>kbang_common</RootNamespace>

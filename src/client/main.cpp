@@ -20,6 +20,8 @@
 
 #include <QApplication>
 #include <QDialog>
+#include <QTranslator>
+
 #include <cstdlib>
 #include <time.h>
 #include "mainwindow.h"
@@ -51,6 +53,15 @@ int main(int argc, char *argv[])
     app.setApplicationVersion(QString("%1.%2.%3").arg(KBANG_CLIENT_VERSION_MAJOR).
                                                   arg(KBANG_CLIENT_VERSION_MINOR).
                                                   arg(KBANG_CLIENT_VERSION_REVISION));
+    QTranslator translator;
+    if (QFile::exists("kbang-client_es.qm"))
+        qWarning("failed-no file");
+
+    if (!translator.load("kbang-client_es.qm"))
+        qWarning("failed loading"); //the warning appears ****
+    app.installTranslator(&translator);
+
+
     MainWindow mainWindow;
     mainWindow.show();
     return app.exec();

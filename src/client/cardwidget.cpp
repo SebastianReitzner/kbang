@@ -118,7 +118,7 @@ void CardWidget::validate()
         if (card->image().isNull()) {
             qWarning(qPrintable(QString("Card '%1' has null pixmap.").arg(card->name())));
         }
-        mp_ui->lblCardText->setText(card->name());
+        mp_ui->lblCardText->setText(tr(card->name().toStdString().c_str()));
         if (m_cardType == Card::Playing && m_cardData.type != PlayingCardType::UNKNOWN) {
             setPixmap(card->image(m_cardData.suit, m_cardData.rank).
                       scaled(m_qsize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));

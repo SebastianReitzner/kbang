@@ -31,11 +31,11 @@ QMap<PlayingCardType, Card*> Card::sm_playingCards;
 QMap<PlayerRole,      Card*> Card::sm_roleCards;
 QMap<CharacterType,   Card*> Card::sm_characterCards;
 
-Card::Card(const QString& name, PlayingCardType playingCardType, const QString& imageFileName, const QString& cardText):
+Card::Card(const QString& name, PlayingCardType playingCardType, const QString& imageFileName):
         m_name(name),
         m_type(Card::Playing),
         m_imageFileName(imageFileName),
-        m_cardText(cardText)
+        m_cardText("text" + name)
 
 {
     if (sm_playingCards.contains(playingCardType)) {
@@ -46,11 +46,11 @@ Card::Card(const QString& name, PlayingCardType playingCardType, const QString& 
     sm_playingCards[playingCardType] = this;
 }
 
-Card::Card(const QString& name, PlayerRole role, const QString& imageFileName, const QString& cardText):
+Card::Card(const QString& name, PlayerRole role, const QString& imageFileName):
         m_name(name),
         m_type(Card::Role),
         m_imageFileName(imageFileName),
-        m_cardText(cardText)
+        m_cardText("text" + name)
 
 {
     if (sm_roleCards.contains(role)) {
@@ -61,11 +61,11 @@ Card::Card(const QString& name, PlayerRole role, const QString& imageFileName, c
     sm_roleCards[role] = this;
 }
 
-Card::Card(const QString& name, CharacterType character, const QString& imageFileName, const QString& cardText):
+Card::Card(const QString& name, CharacterType character, const QString& imageFileName):
         m_name(name),
         m_type(Card::Character),
         m_imageFileName(imageFileName),
-        m_cardText(cardText)
+        m_cardText("text" + name)
 {
     if (sm_characterCards.contains(character)) {
         qCritical("Unable to create a character card. Given character card already created.");
@@ -121,47 +121,47 @@ QPixmap Card::image(const CardSuit& suit, const CardRank& rank) const
 
 void Card::loadDefaultRuleset()
 {
-    new Card("Bang!",         PlayingCardType::BANG,       "gfx/cards/bang.png", "Bang");
-    new Card("Missed",        PlayingCardType::MISSED,     "gfx/cards/missed.png", "Missed");
-    new Card("Beer",          PlayingCardType::BEER,       "gfx/cards/beer.png", "Beer");
-    new Card("Saloon",        PlayingCardType::SALOON,     "gfx/cards/saloon.png", "Saloon");
-    new Card("Wells Fargo",   PlayingCardType::WELLSFARGO,  "gfx/cards/wellsfargo.png", "WellsFargo");
-    new Card("Diligenza",     PlayingCardType::DILIGENZA,   "gfx/cards/diligenza.png", "Diligenza");
-    new Card("General Store", PlayingCardType::GENERALSTORE,"gfx/cards/emporio.png", "GeneralStore");
-    new Card("Panic!",        PlayingCardType::PANIC,       "gfx/cards/panico.png", "Panic");
-    new Card("Cat Balou",     PlayingCardType::CATBALOU,    "gfx/cards/catbalou.png", "CatBalou");
-    new Card("Indiani!",    PlayingCardType::INDIANS,     "gfx/cards/indians.png");
-    new Card("Duello",      PlayingCardType::DUEL,        "gfx/cards/duel.png");
-    new Card("Gatling",     PlayingCardType::GATLING,     "gfx/cards/gatling.png");
-    new Card("Mustang",     PlayingCardType::MUSTANG,    "gfx/cards/mustang.png");
-    new Card("Appaloosa",   PlayingCardType::APPALOSSA,  "gfx/cards/appaloosa.png");
-    new Card("Barile",      PlayingCardType::BARREL,     "gfx/cards/barrel.png");
-    new Card("Dinamite",    PlayingCardType::DYNAMITE,   "gfx/cards/dynamite.png");
-    new Card("Prigione",    PlayingCardType::JAIL,       "gfx/cards/jail.png");
-    new Card("Volcanic",    PlayingCardType::VOLCANIC,   "gfx/cards/volcanic.png");
-    new Card("Schofield",   PlayingCardType::SCHOFIELD,  "gfx/cards/schofield.png");
-    new Card("Winchester",  PlayingCardType::WINCHESTER, "gfx/cards/winchester.png");
-    new Card("Remington",   PlayingCardType::REMINGTON,  "gfx/cards/remington.png");
-    new Card("Carabine",    PlayingCardType::CARABINE,   "gfx/cards/carabine.png");
-    new Card("",            PlayingCardType::UNKNOWN,    "gfx/cards/back-playing.png");
+    new Card("Bang",         PlayingCardType::BANG,       "gfx/cards/bang.png");
+    new Card("Missed",       PlayingCardType::MISSED,     "gfx/cards/missed.png");
+    new Card("Beer",         PlayingCardType::BEER,       "gfx/cards/beer.png");
+    new Card("Saloon",       PlayingCardType::SALOON,     "gfx/cards/saloon.png");
+    new Card("WellsFargo",   PlayingCardType::WELLSFARGO,  "gfx/cards/wellsfargo.png");
+    new Card("Diligence",    PlayingCardType::DILIGENCE,   "gfx/cards/diligenza.png");
+    new Card("GeneralStore", PlayingCardType::GENERALSTORE,"gfx/cards/emporio.png");
+    new Card("Panic",        PlayingCardType::PANIC,       "gfx/cards/panico.png");
+    new Card("CatBalou",     PlayingCardType::CATBALOU,    "gfx/cards/catbalou.png");
+    new Card("Indians",      PlayingCardType::INDIANS,     "gfx/cards/indians.png");
+    new Card("Duel",         PlayingCardType::DUEL,        "gfx/cards/duel.png");
+    new Card("Gatling",      PlayingCardType::GATLING,     "gfx/cards/gatling.png");
+    new Card("Mustang",      PlayingCardType::MUSTANG,    "gfx/cards/mustang.png");
+    new Card("Appaloosa",    PlayingCardType::APPALOSSA,  "gfx/cards/appaloosa.png");
+    new Card("Barrel",       PlayingCardType::BARREL,     "gfx/cards/barrel.png");
+    new Card("Dynamite",     PlayingCardType::DYNAMITE,   "gfx/cards/dynamite.png");
+    new Card("Jail",         PlayingCardType::JAIL,       "gfx/cards/jail.png");
+    new Card("Volcanic",     PlayingCardType::VOLCANIC,   "gfx/cards/volcanic.png");
+    new Card("Schofield",    PlayingCardType::SCHOFIELD,  "gfx/cards/schofield.png");
+    new Card("Winchester",   PlayingCardType::WINCHESTER, "gfx/cards/winchester.png");
+    new Card("Remington",    PlayingCardType::REMINGTON,  "gfx/cards/remington.png");
+    new Card("Carabine",     PlayingCardType::CARABINE,   "gfx/cards/carabine.png");
+    new Card("",             PlayingCardType::UNKNOWN,    "gfx/cards/back-playing.png");
 
-    new Card("Bart Cassidy",    CharacterType::BART_CASSIDY,     "gfx/characters/bart-cassidy.png");
-    new Card("Black Jack",      CharacterType::BLACK_JACK,       "gfx/characters/black-jack.png");
-    new Card("Calamity Janet",  CharacterType::CALAMITY_JANET,   "gfx/characters/calamity-janet.png");
-    new Card("El Gringo",       CharacterType::EL_GRINGO,        "gfx/characters/el-gringo.png");
-    new Card("Jesse Jones",     CharacterType::JESSE_JONES,      "gfx/characters/jesse-jones.png");
-    new Card("Jourdonnais",     CharacterType::JOURDONNAIS,      "gfx/characters/jourdonnais.png");
-    new Card("Kit Carlson",     CharacterType::KIT_CARLSON,      "gfx/characters/kit-carlson.png");
-    new Card("Lucky Duke",      CharacterType::LUCKY_DUKE,       "gfx/characters/lucky-duke.png");
-    new Card("Paul Regret",     CharacterType::PAUL_REGRET,      "gfx/characters/paul-regret.png");
-    new Card("Pedro Ramirez",   CharacterType::PEDRO_RAMIREZ,    "gfx/characters/pedro-ramirez.png");
-    new Card("Rose Doolan",     CharacterType::ROSE_DOOLAN,      "gfx/characters/rose-doolan.png");
-    new Card("Sid Ketchum",     CharacterType::SID_KETCHUM,      "gfx/characters/sid-ketchum.png");
-    new Card("Slab the Killer", CharacterType::SLAB_THE_KILLER,  "gfx/characters/slab-the-killer.png");
-    new Card("Suzy Lafayette",  CharacterType::SUZY_LAFAYETTE,   "gfx/characters/suzy-lafayette.png");
-    new Card("Vulture Sam",     CharacterType::VULTURE_SAM,      "gfx/characters/vulture-sam.png");
-    new Card("Willy the Kid",   CharacterType::WILLY_THE_KID,    "gfx/characters/willy-the-kid.png");
-    new Card("",                CharacterType::UNKNOWN,          "gfx/cards/back-character.png");
+    new Card("BartCassidy",    CharacterType::BART_CASSIDY,     "gfx/characters/bart-cassidy.png");
+    new Card("BlackJack",      CharacterType::BLACK_JACK,       "gfx/characters/black-jack.png");
+    new Card("CalamityJanet",  CharacterType::CALAMITY_JANET,   "gfx/characters/calamity-janet.png");
+    new Card("ElGringo",       CharacterType::EL_GRINGO,        "gfx/characters/el-gringo.png");
+    new Card("JesseJones",     CharacterType::JESSE_JONES,      "gfx/characters/jesse-jones.png");
+    new Card("Jourdonnais",    CharacterType::JOURDONNAIS,      "gfx/characters/jourdonnais.png");
+    new Card("KitCarlson",     CharacterType::KIT_CARLSON,      "gfx/characters/kit-carlson.png");
+    new Card("LuckyDuke",      CharacterType::LUCKY_DUKE,       "gfx/characters/lucky-duke.png");
+    new Card("PaulRegret",     CharacterType::PAUL_REGRET,      "gfx/characters/paul-regret.png");
+    new Card("PedroRamirez",   CharacterType::PEDRO_RAMIREZ,    "gfx/characters/pedro-ramirez.png");
+    new Card("RoseDoolan",     CharacterType::ROSE_DOOLAN,      "gfx/characters/rose-doolan.png");
+    new Card("SidKetchum",     CharacterType::SID_KETCHUM,      "gfx/characters/sid-ketchum.png");
+    new Card("Slabthe Killer", CharacterType::SLAB_THE_KILLER,  "gfx/characters/slab-the-killer.png");
+    new Card("SuzyLafayette",  CharacterType::SUZY_LAFAYETTE,   "gfx/characters/suzy-lafayette.png");
+    new Card("VultureSam",     CharacterType::VULTURE_SAM,      "gfx/characters/vulture-sam.png");
+    new Card("WillyTheKid",    CharacterType::WILLY_THE_KID,    "gfx/characters/willy-the-kid.png");
+    new Card("",               CharacterType::UNKNOWN,          "gfx/cards/back-character.png");
 
 
     new Card("Sheriff",  PlayerRole::SHERIFF,    "gfx/cards/sheriff.png");
