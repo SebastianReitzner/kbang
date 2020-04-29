@@ -255,7 +255,7 @@ Config::dataPathString() {
     QString path(QCoreApplication::instance()->applicationDirPath());
 
     #ifdef Q_OS_WIN32
-        path += "/data/";
+        path += "/../../data/";
     #else
         #ifdef Q_OS_MAC
             if (QRegExp("Contents/MacOS/?$").indexIn(path) != -1) {
