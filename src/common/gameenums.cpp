@@ -89,7 +89,7 @@ PlayingCardType stringToPlayingCardType(const QString& s) {
     if (s == "beer")             return PlayingCardType::BEER;
     if (s == "saloon")           return PlayingCardType::SALOON;
     if (s == "wellsfargo")       return PlayingCardType::WELLSFARGO;
-    if (s == "diligence")        return PlayingCardType::DILIGENCE;
+    if (s == "diligenza")        return PlayingCardType::DILIGENZA;
     if (s == "generalstore")     return PlayingCardType::GENERALSTORE;
     if (s == "panic")            return PlayingCardType::PANIC;
     if (s == "catbalou")         return PlayingCardType::CATBALOU;
@@ -116,7 +116,7 @@ QString playingCardTypeToString(const PlayingCardType& c) {
     case PlayingCardType::BEER:           return "beer";
     case PlayingCardType::SALOON:         return "saloon";
     case PlayingCardType::WELLSFARGO:     return "wellsfargo";
-    case PlayingCardType::DILIGENCE:      return "diligence";
+    case PlayingCardType::DILIGENZA:      return "diligenza";
     case PlayingCardType::GENERALSTORE:   return "generalstore";
     case PlayingCardType::PANIC:          return "panic";
     case PlayingCardType::CATBALOU:       return "catbalou";

@@ -84,7 +84,7 @@ void VoidAI::requestWithAction()
                         case PlayingCardType::REMINGTON:
                         case PlayingCardType::CARABINE:
                         case PlayingCardType::WINCHESTER:
-                        case PlayingCardType::DILIGENCE:
+                        case PlayingCardType::DILIGENZA:
                         case PlayingCardType::WELLSFARGO:
                         case PlayingCardType::INDIANS:
                         case PlayingCardType::GATLING:

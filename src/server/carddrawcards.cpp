@@ -7,8 +7,8 @@ CardDrawCards::CardDrawCards(Game* game, int id, CardDrawCards::Type type, CardS
         m_type(type)
 {
     switch(m_type) {
-    case Diligence:
-        setType(PlayingCardType::DILIGENCE);
+    case Diligenza:
+        setType(PlayingCardType::DILIGENZA);
         m_cardCount = 2;
         break;
     case WellsFargo:

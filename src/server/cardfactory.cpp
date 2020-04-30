@@ -65,8 +65,8 @@ struct CardFactory::CardFactoryImp
         ////////////////
        // DRAW CARDS //
       ////////////////
-        list.append(new CardDrawCards(game, id(), CardDrawCards::Diligence,  CardSuit::SPADES,  9));
-        list.append(new CardDrawCards(game, id(), CardDrawCards::Diligence,  CardSuit::SPADES,  9));
+        list.append(new CardDrawCards(game, id(), CardDrawCards::Diligenza,  CardSuit::SPADES,  9));
+        list.append(new CardDrawCards(game, id(), CardDrawCards::Diligenza,  CardSuit::SPADES,  9));
         list.append(new CardDrawCards(game, id(), CardDrawCards::WellsFargo, CardSuit::HEARTS,  3));
 
         ////////////////

@@ -126,7 +126,7 @@ void Card::loadDefaultRuleset()
     new Card("Beer",         PlayingCardType::BEER,       "gfx/cards/beer.png");
     new Card("Saloon",       PlayingCardType::SALOON,     "gfx/cards/saloon.png");
     new Card("WellsFargo",   PlayingCardType::WELLSFARGO,  "gfx/cards/wellsfargo.png");
-    new Card("Diligence",    PlayingCardType::DILIGENCE,   "gfx/cards/diligenza.png");
+    new Card("Diligenza",    PlayingCardType::DILIGENZA,   "gfx/cards/diligenza.png");
     new Card("GeneralStore", PlayingCardType::GENERALSTORE,"gfx/cards/emporio.png");
     new Card("Panic",        PlayingCardType::PANIC,       "gfx/cards/panico.png");
     new Card("CatBalou",     PlayingCardType::CATBALOU,    "gfx/cards/catbalou.png");

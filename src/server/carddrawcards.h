@@ -10,7 +10,7 @@ class CardDrawCards : public PlayingCard
 Q_OBJECT;
 public:
     enum Type {
-        Diligence,
+        Diligenza,
         WellsFargo
     };
     CardDrawCards(Game* game, int id, Type, CardSuit, CardRank);
