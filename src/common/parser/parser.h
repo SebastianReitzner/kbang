@@ -28,9 +28,10 @@
 #include "parserstructs.h"
 #include "queryget.h"
 #include "queryresult.h"
+#include "ioproxy.h"
 
-class IOProxy;
 class QIODevice;
+class QAbstractSocket;
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class XmlNode;
@@ -47,9 +48,8 @@ class Parser: public QObject
 {
 Q_OBJECT
 public:
-    //Parser(QObject* parent);
-    Parser(QObject* parent, QIODevice* socket);
-    virtual ~Parser();
+    Parser(QObject* parent, QAbstractSocket* socket);
+    virtual ~Parser() {};
 
     typedef QString QueryId;
 
@@ -57,7 +57,7 @@ public:
     void setKeepAlive(bool keepAlive);
 
 public slots:
-    void attachSocket(QIODevice* socket);
+    void attachSocket(QAbstractSocket* socket);
     void detachSocket();
     void terminate();
     void ping();
@@ -172,10 +172,10 @@ private:
         Terminated,
         Error
     } ;
-    IOProxy*          mp_ioProxy;
-    QIODevice*        mp_socket;
-    QXmlStreamReader* mp_streamReader;
-    QXmlStreamWriter* mp_streamWriter;
+    std::unique_ptr<IOProxy>          mp_ioProxy;
+    QAbstractSocket*        mp_socket;
+    std::unique_ptr<QXmlStreamReader> mp_streamReader;
+    std::shared_ptr<QXmlStreamWriter> mp_streamWriter;
     bool              m_streamInitialized;
     ReaderState       m_readerState;
     int               m_readerDepth;

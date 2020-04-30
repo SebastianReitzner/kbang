@@ -26,32 +26,31 @@
 #include "cardbarrel.h"
 
 CardBang::CardBang(Game* game, int id, CardSuit cardSuit, CardRank cardRank):
-        ReactionCard(game, id, PlayingCardType::BANG, cardSuit, cardRank),
-        mp_attackedPlayer(0)
-{
+        ReactionCard(game, id, PlayingCardType::BANG, cardSuit, cardRank){
 }
 
 
-CardBang::~CardBang()
-{
+CardBang::~CardBang(){
 }
 
-void CardBang::play(Player *targetPlayer)
-{
+void CardBang::play(Player *targetPlayer) {
     gameCycle()->assertTurn();
     assertInHand();
 
     /* don't allow shoot yourself */
-    if (owner() == targetPlayer)
+    if (owner() == targetPlayer) {
         throw BadTargetPlayerException();
+    }
 
     /* distance check */
-    if (game()->getDistance(owner(), targetPlayer) > owner()->weaponRange())
+    if (game()->getDistance(owner(), targetPlayer) > owner()->weaponRange()) {
         throw PlayerOutOfRangeException();
+    }
 
     /* one-bang-per-turn check */
-    if (!owner()->canPlayBang())
+    if (!owner()->canPlayBang()) {
         throw OneBangPerTurnException();
+    }
 
     owner()->onBangPlayed();
     mp_attackingPlayer = owner();
@@ -62,8 +61,7 @@ void CardBang::play(Player *targetPlayer)
     game()->gameCycle().setResponseMode(this, targetPlayer);
 }
 
-void CardBang::respondPass()
-{
+void CardBang::respondPass() {
     Q_ASSERT(mp_attackedPlayer != 0);
     gameCycle()->unsetResponseMode();
     gameTable()->playerPass(mp_attackedPlayer);
@@ -103,8 +101,7 @@ void CardBang::checkResult(bool result)
     }
 }
 
-void CardBang::missed()
-{
+void CardBang::missed() {
     m_missedLeft--;
     if (m_missedLeft > 0) {
         game()->gameCycle().setResponseMode(this, mp_attackedPlayer);

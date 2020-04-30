@@ -107,7 +107,7 @@ void VoidAI::requestWithAction()
                     e.debug();
                 }
             }
-            foreach (PlayingCard* card, hand) {
+            for(PlayingCard* card: hand) {
                 try {
                     switch(card->type()) {
                         case PlayingCardType::BANG:
@@ -118,7 +118,7 @@ void VoidAI::requestWithAction()
                         {
                             QList<PublicPlayerView*> players = mp_playerCtrl->publicGameView().publicPlayerList();
                             shuffleList(players);
-                            foreach(const PublicPlayerView* p, players) {
+                            for(const PublicPlayerView* p: players) {
                                 if (mp_playerCtrl->privatePlayerView().id() == p->id()) {
                                     continue;
                                 }

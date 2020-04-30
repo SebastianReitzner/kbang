@@ -12,32 +12,26 @@
 
 PlayerCtrl::PlayerCtrl(Player* player):
         QObject(player),
-        mp_player(player)
-{
+        mp_player(player) {
 }
 
-void PlayerCtrl::disconnect()
-{
+void PlayerCtrl::disconnect() {
     mp_player->game()->removePlayer(mp_player);
 }
 
-void PlayerCtrl::startGame()
-{
+void PlayerCtrl::startGame() {
     mp_player->game()->startGame(mp_player);
 }
 
-void PlayerCtrl::draw()
-{
+void PlayerCtrl::draw() {
     mp_player->game()->gameCycle().draw(mp_player);
 }
 
-void PlayerCtrl::finishTurn()
-{
+void PlayerCtrl::finishTurn() {
     mp_player->game()->gameCycle().finishTurn(mp_player);
 }
 
-void PlayerCtrl::discardCard(PlayingCard* card)
-{
+void PlayerCtrl::discardCard(PlayingCard* card) {
     mp_player->game()->gameCycle().discardCard(mp_player, card);
 }
 
@@ -142,54 +136,56 @@ void PlayerCtrl::joinGame(int gameId, const QString& gamePassword,
                           const CreatePlayerData& player, GameEventListener* handler)
 {
     Game* game = GameServer::instance().game(gameId);
-    if (game == 0)
+    if (game == nullptr) {
         throw BadGameException();
+    }
 
-    if (!game->gameInfo().comparePlayerPassword(gamePassword))
+    if (!game->gameInfo().comparePlayerPassword(gamePassword)) {
         throw BadGamePasswordException();
+    }
 
     Player* newPlayer = game->createPlayer(player, handler);
-    Q_ASSERT(newPlayer != 0);
+    Q_ASSERT(newPlayer != nullptr);
 }
 
 
 void PlayerCtrl::replacePlayer(int gameId, int playerId, const QString& gamePassword,
                                 const CreatePlayerData& createPlayerData,
-                                GameEventListener* gameEventListener)
-{
+                                GameEventListener* gameEventListener) {
     Game* game = GameServer::instance().game(gameId);
-    if (game == 0)
+    if (game == nullptr) {
         throw BadGameException();
+    }
 
-    if (!game->gameInfo().comparePlayerPassword(gamePassword))
+    if (!game->gameInfo().comparePlayerPassword(gamePassword)) {
         throw BadGamePasswordException();
+    }
 
     Player* player = game->player(playerId);
-    if (player == 0)
+    if (player == nullptr) {
         throw BadTargetPlayerException();
+    }
 
     game->replacePlayer(player, createPlayerData, gameEventListener);
 }
 
 
-ServerInfoData PlayerCtrl::serverInfo()
-{
+ServerInfoData PlayerCtrl::serverInfo() {
     return GameServer::instance().serverInfo();
 }
 
-QList<const PublicGameView*> PlayerCtrl::publicGameList()
-{
+QList<const PublicGameView*> PlayerCtrl::publicGameList() {
     QList<const PublicGameView*> result;
-    foreach(Game* game,GameServer::instance().gameList()) {
+    for(const Game* game: GameServer::instance().gameList()) {
         result.append(&game->publicGameView());
     }
     return result;
 }
 
-const PublicGameView& PlayerCtrl::publicGameView(int gameId)
-{
-    Game* game = GameServer::instance().game(gameId);
-    if (game == 0)
+const PublicGameView& PlayerCtrl::publicGameView(int gameId) {
+    const Game* game = GameServer::instance().game(gameId);
+    if (game == nullptr) {
         throw BadGameException();
+    }
     return game->publicGameView();
 }

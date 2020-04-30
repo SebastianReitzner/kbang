@@ -48,13 +48,13 @@ QString ActionUseAbilityData::elementName("use-ability");
 // local functions //
 /////////////////////
 
-void readAvatar(XmlNode* node, QImage& avatar)
+void readAvatar(const XmlNode* node, QImage& avatar)
 {
     QByteArray bytes = QByteArray::fromBase64(node->getFirstChild()->text().toAscii());
     if (!avatar.loadFromData(bytes)) {
         qWarning("Cannot load image from network.");
     }
-
+    avatar.loadFromData(bytes);
 }
 
 void writeAvatar(QXmlStreamWriter* writer, const QImage& avatar)
@@ -234,7 +234,7 @@ void CreateGameData::write(QXmlStreamWriter* writer) const
     writer->writeEndElement();
 }
 
-void CardData::read(XmlNode* node)
+void CardData::read(const XmlNode* node)
 {
     Q_ASSERT(node->name() == elementName);
     id          = node->attribute("id").toInt();
@@ -270,10 +270,10 @@ void PublicPlayerData::read(XmlNode* node)
     isAlive         = node->attribute("isAlive") == "true";
     isWinner        = node->attribute("isWinner") == "true";
     role            = stringToPlayerRole(node->attribute("role"));
-    foreach(XmlNode* child, node->getChildren()) {
+    for(const XmlNode* child: node->getChildren()) {
         if (child->name() == "cards-table") {
             table.clear();
-            foreach(XmlNode* card, child->getChildren()) {
+            for(const XmlNode* card: child->getChildren()) {
                 CardData cardData;
                 cardData.read(card);
                 table.append(cardData);
@@ -421,13 +421,13 @@ void GameMessage::read(XmlNode* node)
     causedBy        = node->attribute("causedBy").toInt();
     checkResult     = node->attribute("checkResult") == "true";
     cards.clear();
-    foreach(XmlNode* child, node->getChildren()) {
+    for(const XmlNode* child: node->getChildren()) {
         if (child->name() == "card")
             card.read(child);
         else if (child->name() == "target-card")
             targetCard.read(child->getFirstChild());
         else if (child->name() == "cards") {
-            foreach (XmlNode* cardNode, child->getChildren()) {
+            for(const XmlNode* cardNode: child->getChildren()) {
                 CardData cardData;
                 cardData.read(cardNode);
                 cards.append(cardData);

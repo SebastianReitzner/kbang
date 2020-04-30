@@ -74,7 +74,7 @@ int PublicPlayerView::maxLifePoints() const
 
 int PublicPlayerView::handSize() const
 {
-    return mp_player->handSize();
+    return int(mp_player->handSize());
 }
 
 CharacterType PublicPlayerView::character() const

@@ -470,47 +470,47 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/client/mainwindow.ui" line="662"/>
         <source>&amp;Game</source>
-        <translation type="unfinished">Juego</translation>
+        <translation type="unfinished">&amp;Juego</translation>
     </message>
     <message>
         <location filename="../src/client/mainwindow.ui" line="674"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ayuda</translation>
     </message>
     <message>
         <location filename="../src/client/mainwindow.ui" line="687"/>
         <source>&amp;Connect to Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Conectar a un servidor</translation>
     </message>
     <message>
         <location filename="../src/client/mainwindow.ui" line="692"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Salir</translation>
     </message>
     <message>
         <location filename="../src/client/mainwindow.ui" line="701"/>
         <source>&amp;Disconnect from Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Desconectar del servidor</translation>
     </message>
     <message>
         <location filename="../src/client/mainwindow.ui" line="706"/>
         <source>&amp;Join Game</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Unirse a un juego</translation>
     </message>
     <message>
         <location filename="../src/client/mainwindow.ui" line="711"/>
         <source>&amp;Leave Game</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Dejar el juego</translation>
     </message>
     <message>
         <location filename="../src/client/mainwindow.ui" line="716"/>
         <source>C&amp;reate Game</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">C&amp;rear un juego</translation>
     </message>
     <message>
         <location filename="../src/client/mainwindow.ui" line="721"/>
         <source>&amp;About KBang</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Acerca de KBang</translation>
     </message>
 </context>
 <context>

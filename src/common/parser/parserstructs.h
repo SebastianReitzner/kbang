@@ -97,7 +97,7 @@ struct CardData {
     PlayingCardType type;
     CardSuit        suit;
     CardRank        rank;
-    void read(XmlNode*);
+    void read(const XmlNode*);
     void write(QXmlStreamWriter*) const;
     static QString elementName;
 };

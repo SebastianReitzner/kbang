@@ -24,40 +24,34 @@
 
 
 XmlNode::XmlNode(XmlNode* parent, const QString& elementName, bool isTextElement)
- : QObject(parent), m_elementName(elementName), m_isTextElement(isTextElement)
-{
+ : QObject(parent), m_elementName(elementName), m_isTextElement(isTextElement) {
 }
 
 
-XmlNode::~XmlNode()
-{
+XmlNode::~XmlNode() {
 }
 
-XmlNode* XmlNode::parentNode()
-{
+XmlNode* XmlNode::parentNode() {
     XmlNode* p = qobject_cast<XmlNode* >(parent());
     Q_ASSERT(p != 0);
     return p;
 }
 
-XmlNode* XmlNode::createChildNode(const QString& elementName)
-{
+XmlNode* XmlNode::createChildNode(const QString& elementName) {
     if (m_isTextElement) return 0;
     XmlNode* newNode = new XmlNode(this, elementName);
     m_children.append(newNode);
     return newNode;
 }
 
-XmlNode* XmlNode::createChildNode(const QStringRef& elementName, const QXmlStreamAttributes& attributes)
-{
+XmlNode* XmlNode::createChildNode(const QStringRef& elementName, const QXmlStreamAttributes& attributes) {
     if (m_isTextElement) return 0;
     XmlNode* newNode = createChildNode(elementName.toString());
     newNode->createAttributes(attributes);
     return newNode;
 }
 
-XmlNode* XmlNode::createChildTextNode(const QStringRef& text)
-{
+XmlNode* XmlNode::createChildTextNode(const QStringRef& text) {
     if (m_isTextElement) return 0;
     XmlNode* newNode = new XmlNode(this, text.toString(), 1);
     m_children.append(newNode);
@@ -65,18 +59,15 @@ XmlNode* XmlNode::createChildTextNode(const QStringRef& text)
 }
 
 
-void XmlNode::createAttribute(const QString& name, const QString& value)
-{
+void XmlNode::createAttribute(const QString& name, const QString& value) {
     if (m_isTextElement) return;
     m_attributes[name] = value;
 }
 
 
-void XmlNode::createAttributes(const QXmlStreamAttributes& attributes)
-{
+void XmlNode::createAttributes(const QXmlStreamAttributes& attributes) {
     if (m_isTextElement) return;
-    foreach(QXmlStreamAttribute attr, attributes)
-    {
+    for(QXmlStreamAttribute attr: attributes) {
         QString name = attr.name().toString();
         QString value = attr.value().toString();
         createAttribute(name, value);
@@ -85,60 +76,50 @@ void XmlNode::createAttributes(const QXmlStreamAttributes& attributes)
 
 
 
-void XmlNode::debugPrint(int indent) const
-{
-    if (indent == 0)
-    {
+void XmlNode::debugPrint(int indent) const {
+    if (indent == 0){
         qDebug() << "debugPrint of XmlNode:";
     }
     qDebug("%s%s", qPrintable(QString(indent, ' ')), qPrintable(m_elementName));
     qDebug("%s%s", qPrintable(QString(indent, ' ')), "ARGUMENTS:");
     
-    foreach(QString key, m_attributes.keys())
-    {
+    for(QString key: m_attributes.keys()) {
         qDebug("%s%s=%s", qPrintable(QString(indent + 1, ' ')), qPrintable(key), qPrintable(m_attributes[key]));
     }
     
     qDebug("%s%s", qPrintable(QString(indent, ' ')), "CHILDREN:");
-    foreach(XmlNode* child, m_children)
-    {
+    for(const XmlNode* child: m_children) {
         child->debugPrint(indent + 2);
     }
 }
 
-QString XmlNode::name() const
-{
+QString XmlNode::name() const {
     if (m_isTextElement) return QString();
     return m_elementName;
 }
 
-QString XmlNode::text() const
-{
+QString XmlNode::text() const {
     if (!m_isTextElement) return QString();
     return m_elementName;
 }
 
 
-QString XmlNode::attribute(const QString& name) const
-{
+QString XmlNode::attribute(const QString& name) const {
     if (m_isTextElement) return QString();
     return m_attributes[name];
 }
 
-XmlNode* XmlNode::getFirstChild() const
-{
+XmlNode* XmlNode::getFirstChild() const {
     if (m_isTextElement) return 0;
     if (m_children.size() == 0) return 0;
     return m_children[0];
 }
 
-QList<XmlNode*> XmlNode::getChildren() const
-{
+QList<XmlNode*> XmlNode::getChildren() const {
     return m_children;
 }
 
-bool XmlNode::isTextElement() const
-{
+bool XmlNode::isTextElement() const {
     return m_isTextElement;
 }
 

@@ -37,8 +37,7 @@ class CardFactory;
  * attributes of the server such as the server name, description, etc.
  * @author MacJariel <echo "badmailet@gbalt.dob" | tr "edibmlt" "ecrmjil">
  */
-class GameServer: public QObject, private NonCopyable
-{
+class GameServer: public QObject, private NonCopyable {
     Q_OBJECT;
 public:
     /**

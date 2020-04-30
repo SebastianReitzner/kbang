@@ -22,7 +22,7 @@
 #include "config.h"
 
 
-Config* Config::smp_instance = 0;
+Config* Config::smp_instance = nullptr;
 
 Config::Config() {
     const QString kbangConfigName = "kbang.conf";
@@ -54,33 +54,33 @@ Config::~Config() {
 }
 
 
-QString Config::readString(QString group, QString varName) {
-    ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != ConfigRecordType::SINGLE) {
+QString Config::readString(QString group, QString varName) const {
+    const ConfigRecord* record = configRecord(group, varName);
+    if (record == nullptr || record->type != ConfigRecordType::SINGLE) {
         return QString();
     }
     return record->valueSingle;
 }
 
-QStringList Config::readStringList(QString group, QString varName) {
-    ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != ConfigRecordType::LIST) {
+QStringList Config::readStringList(QString group, QString varName) const {
+    const ConfigRecord* record = configRecord(group, varName);
+    if (record == nullptr || record->type != ConfigRecordType::LIST) {
         return QStringList();
     }
     return record->valueList;
 }
 
-int Config::readInt(QString group, QString varName) {
-    ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != ConfigRecordType::SINGLE) {
+int Config::readInt(QString group, QString varName) const {
+    const ConfigRecord* record = configRecord(group, varName);
+    if (record == nullptr || record->type != ConfigRecordType::SINGLE) {
         return 0;
     }
     return record->valueSingle.toInt();
 }
 
-QList<int> Config::readIntList(QString group, QString varName) {
-    ConfigRecord* record = configRecord(group, varName);
-    if (record == 0 || record->type != ConfigRecordType::LIST) {
+QList<int> Config::readIntList(QString group, QString varName) const {
+    const ConfigRecord* record = configRecord(group, varName);
+    if (record == nullptr || record->type != ConfigRecordType::LIST) {
         return QList<int>();
     }
     QList<int> res;
@@ -109,12 +109,13 @@ void Config::writeIntList(QString group, QString varName, QList<int> varValue)
 {
     createGroupIfNeeded(group);
     QStringList val;
-    foreach(int v, varValue)
+    for (int v : varValue) {
         val.append(QString::number(v));
+    }
     m_groups[group].records[varName] = ConfigRecord(varName, ConfigRecordType::LIST, QString(), val);
 }
 
-bool Config::hasGroup(QString group) {
+bool Config::hasGroup(QString group) const {
     return m_groups.contains(group);
 }
 
@@ -182,7 +183,7 @@ void Config::refresh() {
     }
 }
 
-void Config::store() {
+void Config::store() const {
     QFile file(m_configFileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         qCritical(qPrintable(QString("%1: cannot open config file for writing.").arg(m_configFileName)));
@@ -243,7 +244,7 @@ void Config::createDefaultConfig() {
     }
 }
 
-Config::ConfigRecord* Config::configRecord(QString group, QString varName) {
+const Config::ConfigRecord* Config::configRecord(QString group, QString varName) const {
     if (!m_groups.contains(group) || !m_groups[group].records.contains(varName))
         return 0;
     return &(m_groups[group].records[varName]);

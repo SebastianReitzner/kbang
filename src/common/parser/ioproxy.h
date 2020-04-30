@@ -22,15 +22,14 @@
 
 #include <QIODevice>
 
-class IOProxy: public QIODevice
-{
+class IOProxy: public QIODevice {
 Q_OBJECT
 public:
     IOProxy(QObject* parent);
     virtual ~IOProxy();
 
-    virtual qint64 readData(char* data, qint64 maxSize);
-    virtual qint64 writeData(const char* data, qint64 maxSize);
+    qint64 readData(char* data, qint64 maxSize) override;
+    qint64 writeData(const char* data, qint64 maxSize) override;
 
 signals:
     void networkOut(QByteArray data);

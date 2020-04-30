@@ -243,7 +243,7 @@ void Player::setRoleAndCharacter(const PlayerRole& role, CharacterBase* characte
 void Player::registerPredrawCheck(int priority)
 {
     m_predrawChecks.append(priority);
-    qSort(m_predrawChecks.begin(), m_predrawChecks.end());
+    std::sort(m_predrawChecks.begin(), m_predrawChecks.end());
 }
 
 void Player::unregisterPredrawCheck(int priority)

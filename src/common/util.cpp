@@ -41,8 +41,8 @@ QString randomToken(int minLength, int maxLength)
 
 bool randomBool(qreal probability)
 {
-    int random_val_size = 4096;
-    int true_val_treshold = (int)(random_val_size * probability);
-    int random_val = qrand() % random_val_size;
+    const int random_val_size = 4096;
+    const int true_val_treshold = (int)(random_val_size * probability);
+    const int random_val = qrand() % random_val_size;
     return (random_val < true_val_treshold);
 }
