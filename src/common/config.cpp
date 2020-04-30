@@ -228,6 +228,7 @@ void Config::createDefaultConfig() {
         group.name = "player";
         group.records["name"] = ConfigRecord("name", ConfigRecordType::SINGLE, "Player");
         group.records["password"] = ConfigRecord("password", ConfigRecordType::SINGLE, "");
+        group.records["languaje"] = ConfigRecord("languaje", ConfigRecordType::SINGLE, "spanish");
     }
     {
         ConfigGroup& group = m_groups["server-list"];

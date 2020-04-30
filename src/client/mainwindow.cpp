@@ -32,6 +32,7 @@
 #include "game.h"
 #include "card.h"
 #include "cardwidgetsizemanager.h"
+#include "translator.h"
 
 #include <QPainter>
 #include <QPaintEvent>
@@ -65,6 +66,15 @@ MainWindow::MainWindow():
             this,                SLOT(enterGameMode(int, const QString&, ClientType)));
     connect(&m_serverConnection, SIGNAL(exitGameMode()),
             this,                SLOT(exitGameMode()));
+
+    QObject::connect(mp_actionSpanish, &QAction::triggered, [=]() {
+       Translator::GetTranslatorSingleton()->ChangeLanguaje(Languajes::SPANISH);
+    });    
+    QObject::connect(mp_actionEnglish, &QAction::triggered, [=]() {
+       Translator::GetTranslatorSingleton()->ChangeLanguaje(Languajes::ENGLISH);
+    });
+
+    Translator::GetTranslatorSingleton()->UpdateUI(this);
 }
 
 

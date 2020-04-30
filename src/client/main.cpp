@@ -54,11 +54,7 @@ int main(int argc, char *argv[])
                                                   arg(KBANG_CLIENT_VERSION_MINOR).
                                                   arg(KBANG_CLIENT_VERSION_REVISION));
     
-    if (QFile::exists("trans.txt")) {
-       Translator* translator = Translator::GetTranslatorSingleton();
-       translator->LoadLanguajeMap(&QFile("trans.txt"));
-    }
-
+    Translator::GetTranslatorSingleton(); // Init translator
 
     MainWindow mainWindow;
     mainWindow.show();
