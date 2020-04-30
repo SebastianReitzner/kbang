@@ -51,6 +51,7 @@
     <ClCompile Include="..\src\client\playerwidget.cpp" />
     <ClCompile Include="..\src\client\selectplayericonwidget.cpp" />
     <ClCompile Include="..\src\client\serverconnection.cpp" />
+    <ClCompile Include="..\src\client\Translator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\src\client\aboutdialog.h" />
@@ -64,6 +65,7 @@
     <ClInclude Include="..\src\client\gamesyncevent.h" />
     <ClInclude Include="..\src\client\opponentwidget.h" />
     <ClInclude Include="..\src\client\selectplayericonwidget.h" />
+    <ClInclude Include="..\src\client\translator.h" />
     <QtMoc Include="..\src\client\serverconnection.h" />
     <QtMoc Include="..\src\client\playerwidget.h" />
     <QtMoc Include="..\src\client\playerevent.h" />

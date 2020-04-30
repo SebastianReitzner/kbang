@@ -148,6 +148,9 @@
     <ClCompile Include="..\src\client\serverconnection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\client\Translator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\src\client\aboutdialog.h">
@@ -267,6 +270,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\client\selectplayericonwidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\client\translator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

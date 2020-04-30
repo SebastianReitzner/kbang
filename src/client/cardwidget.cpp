@@ -27,6 +27,7 @@
 #include "cardwidget.h"
 #include "cardactionswidget.h"
 #include "gameactionmanager.h"
+#include "translator.h"
 
 #include "ui_cardwidget.h"
 
@@ -118,7 +119,8 @@ void CardWidget::validate()
         if (card->image().isNull()) {
             qWarning(qPrintable(QString("Card '%1' has null pixmap.").arg(card->name())));
         }
-        mp_ui->lblCardText->setText(QLabel::tr(card->cardText().toStdString().c_str()));
+        QString text = Translator::Translate(card->cardText());
+        mp_ui->lblCardText->setText(text);
         if (m_cardType == Card::Playing && m_cardData.type != PlayingCardType::UNKNOWN) {
             setPixmap(card->image(m_cardData.suit, m_cardData.rank).
                       scaled(m_qsize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));

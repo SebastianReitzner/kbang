@@ -20,12 +20,12 @@
 
 #include <QApplication>
 #include <QDialog>
-#include <QTranslator>
 
 #include <cstdlib>
 #include <time.h>
 #include "mainwindow.h"
 #include "config.h"
+#include "translator.h"
 
 #ifdef Q_OS_UNIX
 #include <signal.h>
@@ -53,10 +53,11 @@ int main(int argc, char *argv[])
     app.setApplicationVersion(QString("%1.%2.%3").arg(KBANG_CLIENT_VERSION_MAJOR).
                                                   arg(KBANG_CLIENT_VERSION_MINOR).
                                                   arg(KBANG_CLIENT_VERSION_REVISION));
-    QTranslator translator;
-    if (!translator.load("kbang-client_es.qm"))
-        qWarning("failed loading translations file"); 
-    app.installTranslator(&translator);
+    
+    if (QFile::exists("trans.txt")) {
+       Translator* translator = Translator::GetTranslatorSingleton();
+       translator->LoadLanguajeMap(&QFile("trans.txt"));
+    }
 
 
     MainWindow mainWindow;

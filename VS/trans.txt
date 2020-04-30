@@ -1,0 +1,4 @@
+textBang;beng
+test;work!
+textIndians;wow
+textMissed;yeee
