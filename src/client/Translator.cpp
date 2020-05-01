@@ -72,7 +72,7 @@ void Translator::UpdateUI(QWidget* widget) {
       else if (auto action = dynamic_cast<QAction*>(wid)) {
          text = Translate(action->objectName());
          if (text != "") {
-            action->setIconText(text);
+            action->setText(text);
          }
       }
       else if (auto menu = dynamic_cast<QMenu*>(wid)) {
@@ -119,15 +119,6 @@ QString Translator::Translate(QString textToTranslate) {
    if (m_translatorInstance->m_translationsMaps->contains(textToTranslate)) {
       return m_translatorInstance->m_translationsMaps->value(textToTranslate);
    }
-   m_translatorInstance->WriteTxtWantedTranslations(textToTranslate);
+
    return "";
-}
-void Translator::WriteTxtWantedTranslations(QString key) {
-   QFile* wantedTranslations = new QFile("../data/translations/wantedTranslations.txt");
-   if (!wantedTranslations->open(QIODevice::WriteOnly | QIODevice::Append)) {
-      return;
-   }
-   QTextStream stream(wantedTranslations);
-   stream << key << endl;
-   wantedTranslations->close();
 }

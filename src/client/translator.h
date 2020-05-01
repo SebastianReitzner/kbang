@@ -23,7 +23,6 @@ public:
 private:
    Translator();
    QHash<QString, QString>* GetTransmap() { return m_translationsMaps; }
-   void WriteTxtWantedTranslations(QString key);
 
 private:
    QHash<QString, QString> *m_translationsMaps = nullptr;
