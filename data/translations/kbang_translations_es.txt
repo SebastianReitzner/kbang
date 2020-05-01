@@ -48,7 +48,7 @@ textBlackJack;Muestra la segunda carta que roba. Si es de corazones o diamantes,
 textCalamityJanet;Puede jugar las cartas !BANG! como !Fallaste! y viceversa.
 textElGringo;Cada vez que es herido por un jugador, roba una carta de la mano de ese jugador.
 textJesseJones;Puede robar su primera carta de la mano de otro jugador.
-textJoudonnais;Siempre que sea objetivo de un !BANG!, puede desenfundar: si sale un corazon, el !BANG! no tiene efecto.
+textJourdonnais;Siempre que sea objetivo de un !BANG!, puede desenfundar: si sale un corazon, el !BANG! no tiene efecto.
 textKitCarlson;Mira las tres primeras cartas del mazo y elige cuáles dos roba.
 textLuckyDuke;Cada vez que desenfunda, les da la vuelta a las dos primeras cartas del mazo, y elige el resultado que prefiera.
 textPaulRegret;Todos los jugadores lo ves a una distancia incrementada en 1.
