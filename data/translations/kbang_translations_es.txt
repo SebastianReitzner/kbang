@@ -1,3 +1,4 @@
+# UI
 menuGame;Juego
 mp_actionConnectToServer;Conectar a servidor
 mp_actionDisconnectFromServer;Desconectar del servidor
@@ -10,3 +11,9 @@ mp_actionAbout;About
 menuLanguaje;Idioma
 mp_actionSpanish;Español
 mp_actionEnglish;Inglés
+
+# CardsTitles
+titleBang;Bong!
+
+# CardsTexts
+textBang;Beng!

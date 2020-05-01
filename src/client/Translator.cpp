@@ -29,16 +29,16 @@ Translator::Translator() {
 void Translator::ChangeLanguaje(Languajes newLang) {
    
    m_translationsMaps->clear();
-
+   QString path("../data/translations/");
    switch (newLang)   {
       case Languajes::SPANISH:
-         if (QFile::exists("kbang_translations_es.txt")) {
-            LoadLanguajeMap(&QFile("kbang_translations_es.txt"));
+         if (QFile::exists(path + "kbang_translations_es.txt")) {
+            LoadLanguajeMap(&QFile(path + "kbang_translations_es.txt"));
             break;
          }
       default:
-         if (QFile::exists("kbang_translations_en.txt")) {
-            LoadLanguajeMap(&QFile("kbang_translations_en.txt"));
+         if (QFile::exists(path + "kbang_translations_en.txt")) {
+            LoadLanguajeMap(&QFile(path + "kbang_translations_en.txt"));
          }
          else {
             // Error
@@ -72,13 +72,19 @@ void Translator::UpdateUI(QWidget* widget) {
       else if (auto action = dynamic_cast<QAction*>(wid)) {
          text = Translate(action->objectName());
          if (text != "") {
-            action->setText(text);
+            action->setIconText(text);
          }
       }
       else if (auto menu = dynamic_cast<QMenu*>(wid)) {
          text = Translate(menu->objectName());
          if (text != "") {
             menu->setTitle(text);
+         }
+         for (auto action : menu->findChildren<QAction*>()) {
+            text = Translate(action->objectName());
+            if (text != "") {
+               action->setIconText(text);
+            }
          }
       }
    }
@@ -94,6 +100,8 @@ void Translator::LoadLanguajeMap(QFile* translationsFile) {
 
    do {
       line = instream.readLine();
+      if (line == "") { continue; }
+      if (line.at(0) == '#') { continue; }
       QStringList words = line.split(";");
       m_translationsMaps->insert(words[0], words[1]);
    } while (!instream.atEnd());
@@ -111,5 +119,15 @@ QString Translator::Translate(QString textToTranslate) {
    if (m_translatorInstance->m_translationsMaps->contains(textToTranslate)) {
       return m_translatorInstance->m_translationsMaps->value(textToTranslate);
    }
+   m_translatorInstance->WriteTxtWantedTranslations(textToTranslate);
    return "";
+}
+void Translator::WriteTxtWantedTranslations(QString key) {
+   QFile* wantedTranslations = new QFile("../data/translations/wantedTranslations.txt");
+   if (!wantedTranslations->open(QIODevice::WriteOnly | QIODevice::Append)) {
+      return;
+   }
+   QTextStream stream(wantedTranslations);
+   stream << key << endl;
+   wantedTranslations->close();
 }
