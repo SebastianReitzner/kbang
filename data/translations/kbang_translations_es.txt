@@ -25,6 +25,22 @@ textJail;Descarta la Cárcel y juega con normalidad. En cualquier otro caso, des
 textVolcanic;Puedes jugar tantos !BANG! como quieras.
 
 # CharacterTitles
+titlebartCassidy;BART CASSIDY
+titleBlackJack;BLACK JACK
+titleCalamityJanet;CALAMITY JANET
+titleElGringo;EL GRINGO
+titleJesseJones;JESSE JONES
+titleJoudonnais;JOURDONNAIS
+titleKitCarlson;KIT CARLSON
+titleLuckyDuke;LUCKY DUKE
+titlePaulRegret;PAUL REGRET
+titlePedroRamirez;PEDRO RAMÍREZ
+titleRoseDoolan;ROSE DOOLAN
+titleSidKetchum;SID KETCHUM
+titleSlabTheKiller;SLAB "EL ASESINO"
+titleSuzyLafayette;SUZY LAFAYETTE
+titleVultureSam;SAM "EL BUITRE"
+titleWillyTheKid;WILLY "EL NIÑO"
 
 # CharacterTexts
 textBartCassidy;Cada vez que recibe un impacto, recibe una carta.
@@ -45,6 +61,10 @@ textVultureSam;Siempre que un jugador sea eliminado, añade a su mano todas las 
 textWillyTheKid;Puede jugar tantas cartas !BANG! como quiera.
 
 # RoleTitles
+titleSheriff;SHERIFF
+titleRenegade;RENEGADO
+titleOutlaw;FORAJIDO
+titleDeputy;ALGUACIL
 
 # RoleTexts
 textSheriff;!Mata a todos los Forajidos y al Renegado!
