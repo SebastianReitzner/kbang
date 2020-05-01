@@ -157,7 +157,7 @@ void Card::loadDefaultRuleset()
     new Card("PedroRamirez",   CharacterType::PEDRO_RAMIREZ,    "gfx/characters/pedro-ramirez.png");
     new Card("RoseDoolan",     CharacterType::ROSE_DOOLAN,      "gfx/characters/rose-doolan.png");
     new Card("SidKetchum",     CharacterType::SID_KETCHUM,      "gfx/characters/sid-ketchum.png");
-    new Card("Slabthe Killer", CharacterType::SLAB_THE_KILLER,  "gfx/characters/slab-the-killer.png");
+    new Card("SlabTheKiller",  CharacterType::SLAB_THE_KILLER,  "gfx/characters/slab-the-killer.png");
     new Card("SuzyLafayette",  CharacterType::SUZY_LAFAYETTE,   "gfx/characters/suzy-lafayette.png");
     new Card("VultureSam",     CharacterType::VULTURE_SAM,      "gfx/characters/vulture-sam.png");
     new Card("WillyTheKid",    CharacterType::WILLY_THE_KID,    "gfx/characters/willy-the-kid.png");
