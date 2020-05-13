@@ -51,7 +51,7 @@ textJesseJones;Puede robar su primera carta de la mano de otro jugador.
 textJourdonnais;Siempre que sea objetivo de un !BANG!, puede desenfundar: si sale un corazon, el !BANG! no tiene efecto.
 textKitCarlson;Mira las tres primeras cartas del mazo y elige cuáles dos roba.
 textLuckyDuke;Cada vez que desenfunda, les da la vuelta a las dos primeras cartas del mazo, y elige el resultado que prefiera.
-textPaulRegret;Todos los jugadores lo ves a una distancia incrementada en 1.
+textPaulRegret;Todos los jugadores lo ven a una distancia incrementada en 1.
 textPedroRamirez;Puede robar su primera carta del mazo de descartes.
 textRoseDoolan;Ve a todos los jugadores a una distancia reducida en 1.
 textSidKetchum;Puede descartar dos cartas para recuperar 1 punto de vida.

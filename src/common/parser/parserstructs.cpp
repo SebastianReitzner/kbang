@@ -126,7 +126,7 @@ void GameInfoData::read(XmlNode* node)
     totalPlayersCnt     = node->attribute("totalPlayersCnt").toInt();
     spectatorsCnt       = node->attribute("spectatorsCnt").toInt();
     AIPlayersCnt        = node->attribute("AIPlayersCnt").toInt();
-    hasPlayerPassword   = node->attribute("hasPlayerpassword") == "true";
+    hasPlayerPassword   = node->attribute("hasPlayerPassword") == "true";
     hasSpectatorPassword= node->attribute("hasSpectatorPassword") == "true";
     state               = stringToGameState(node->attribute("state"));
     players.clear();

@@ -257,7 +257,11 @@ Config::dataPathString() {
     QString path(QCoreApplication::instance()->applicationDirPath());
 
     #ifdef Q_OS_WIN32
+#ifdef _DEGUB
         path += "/../../data/";
+#else
+        path += "/data/";
+#endif
     #else
         #ifdef Q_OS_MAC
             if (QRegExp("Contents/MacOS/?$").indexIn(path) != -1) {

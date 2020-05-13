@@ -29,7 +29,7 @@ Translator::Translator() {
 void Translator::ChangeLanguaje(Languajes newLang) {
    
    m_translationsMaps->clear();
-   QString path("../data/translations/");
+   QString path(Config::dataPathString() + "translations/");
    switch (newLang)   {
       case Languajes::SPANISH:
          if (QFile::exists(path + "kbang_translations_es.txt")) {

@@ -49,7 +49,7 @@ void SelectPlayerIconWidget::setImageFileName(QString fileName)
         clearImage();
         return;
     }
-    m_image = image.scaled(iconSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    m_image = image.scaled(iconSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     m_imageFileName = fileName;
     setPixmap(QPixmap::fromImage(m_image));
 }
