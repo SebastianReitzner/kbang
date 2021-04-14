@@ -5,7 +5,7 @@
 #include "gameexceptions.h"
 
 CharacterKitCarlson::CharacterKitCarlson(QObject *parent):
-        CharacterBase(parent, CHARACTER_KIT_CARLSON)
+        CharacterBase(parent, CharacterType::KIT_CARLSON)
 {
 }
 
@@ -30,7 +30,7 @@ void CharacterKitCarlson::draw(bool specialDraw)
 
 void CharacterKitCarlson::respondCard(PlayingCard* targetCard)
 {
-    if (targetCard->pocket() != POCKET_SELECTION)
+    if (targetCard->pocket() != PocketType::SELECTION)
         throw BadCardException();
     gameTable().playerPickFromSelection(mp_player, targetCard);
     if (gameTable().selection().size() == 1) {

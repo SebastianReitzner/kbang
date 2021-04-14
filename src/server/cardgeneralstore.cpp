@@ -5,7 +5,7 @@
 #include "gameexceptions.h"
 
 CardGeneralStore::CardGeneralStore(Game* game, int id, CardSuit cardSuit, CardRank cardRank):
-        ReactionCard(game, id, CARD_GENERALSTORE, cardSuit, cardRank)
+        ReactionCard(game, id, PlayingCardType::GENERALSTORE, cardSuit, cardRank)
 {
 }
 
@@ -29,7 +29,7 @@ void CardGeneralStore::play()
 
 void CardGeneralStore::respondCard(PlayingCard* targetCard)
 {
-    if (targetCard->pocket() != POCKET_SELECTION)
+    if (targetCard->pocket() != PocketType::SELECTION)
         throw BadCardException();
     gameTable()->playerPickFromSelection(mp_currentPlayer,targetCard);
     game()->gameCycle().unsetResponseMode();

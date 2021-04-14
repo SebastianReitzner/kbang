@@ -91,63 +91,63 @@ void CardMovementEvent::setCardAndPocket()
 
     switch(m_cardMovementData.pocketTypeFrom)
     {
-    case POCKET_DECK:
+    case PocketType::DECK:
         mp_card = mp_game->deck()->pop();
         break;
-    case POCKET_GRAVEYARD:
+    case PocketType::GRAVEYARD:
         if (m_cardMovementData.secondCard.id != 0) {
             mp_game->graveyard()->setSecondCard(m_cardMovementData.secondCard);
         }
         mp_card = mp_game->graveyard()->pop();
         break;
-    case POCKET_HAND:
+    case PocketType::HAND:
         if (!srcPlayer) {
-            qCritical("Invalid card movement from POCKET_HAND (unknown player).");
+            qCritical("Invalid card movement from PocketType::HAND (unknown player).");
             break;
         }
         if (srcPlayer->isLocalPlayer() && m_cardMovementData.card.id == 0) {
-            qCritical("Invalid card movement from POCKET_HAND (unknown card).");
+            qCritical("Invalid card movement from PocketType::HAND (unknown card).");
             break;
         }
         mp_card = srcPlayer->hand()->take(srcPlayer->isLocalPlayer() ?
                                           m_cardMovementData.card.id : 0);
         break;
-    case POCKET_TABLE:
+    case PocketType::TABLE:
         if (!srcPlayer) {
-            qCritical("Invalid card movement from POCKET_TABLE (unknown player).");
+            qCritical("Invalid card movement from PocketType::TABLE (unknown player).");
             break;
         }
         if (m_cardMovementData.card.id == 0) {
-            qCritical("Invalid card movement from POCKET_TABLE (unknown card).");
+            qCritical("Invalid card movement from PocketType::TABLE (unknown card).");
             break;
         }
         mp_card = srcPlayer->table()->take(m_cardMovementData.card.id);
         break;
-    case POCKET_SELECTION:
+    case PocketType::SELECTION:
         mp_card = mp_game->selection()->take(m_cardMovementData.card.id);
         break;
-    case POCKET_INVALID:
+    case PocketType::INVALID:
         break;
     }
 
     switch(m_cardMovementData.pocketTypeTo)
     {
-    case POCKET_DECK:
+    case PocketType::DECK:
         mp_destPocket = mp_game->deck();
         break;
-    case POCKET_GRAVEYARD:
+    case PocketType::GRAVEYARD:
         mp_destPocket = mp_game->graveyard();
         break;
-    case POCKET_HAND:
+    case PocketType::HAND:
         mp_destPocket = destPlayer != 0 ? destPlayer->hand() : 0;
         break;
-    case POCKET_TABLE:
+    case PocketType::TABLE:
         mp_destPocket = destPlayer != 0 ? destPlayer->table() : 0;
         break;
-    case POCKET_SELECTION:
+    case PocketType::SELECTION:
         mp_destPocket = mp_game->selection();
         break;
-    case POCKET_INVALID:
+    case PocketType::INVALID:
         break;
     }
     if (mp_card == 0)
@@ -217,9 +217,9 @@ void CardMovementEvent::stopTransition()
     mp_card->unsetShadowMode();
     mp_destPocket->push(mp_card);
     
-    if (mp_card->cardData().id != 0 && (mp_card->pocketType() == POCKET_HAND &&
+    if (mp_card->cardData().id != 0 && (mp_card->pocketType() == PocketType::HAND &&
                                         mp_card->ownerId() != mp_game->playerId() ||
-                                        mp_card->pocketType() == POCKET_DECK)) {
+                                        mp_card->pocketType() == PocketType::DECK)) {
         QTimer::singleShot(500, this, SLOT(unrevealCard()));
     } else {
         mp_card = 0;

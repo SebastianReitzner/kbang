@@ -22,7 +22,7 @@
 
 #include "parserstructs.h"
 #include <QObject>
-#include <QTime>
+#include <QElapsedTimer>
 
 class Parser;
 class QXmlStreamWriter;
@@ -45,17 +45,16 @@ signals:
     void pong(int latency);
 
 private:
-    QueryGet(Parser* parser, QXmlStreamWriter* streamWriter, const QString& id);
+    QueryGet(Parser* parser, const std::shared_ptr<QXmlStreamWriter> &streamWriter, const QString& id);
     virtual ~QueryGet();
     void writeStartQuery();
     void writeEndQuery();
     void parseResult(XmlNode*);
 
 private:
-    Parser*             mp_parser;
-    QXmlStreamWriter*   mp_streamWriter;
+    std::shared_ptr<QXmlStreamWriter>   mp_streamWriter;
     QString             m_id;
-    QTime               m_pingTime;
+    QElapsedTimer       m_pingTime;
 };
 
 #endif

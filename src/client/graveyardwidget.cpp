@@ -9,7 +9,7 @@ GraveyardWidget::GraveyardWidget(QWidget* parent):
         mp_firstCard(0),
         mp_secondCard(0)
 {
-    setPocketType(POCKET_GRAVEYARD);
+    setPocketType(PocketType::GRAVEYARD);
 }
 
 GraveyardWidget::~GraveyardWidget()
@@ -72,6 +72,6 @@ CardWidget* GraveyardWidget::setCard(const CardData& cardData)
     res->validate();
     res->move(newCardPosition());
     res->setOwnerId(0);
-    res->setPocketType(POCKET_GRAVEYARD);
+    res->setPocketType(PocketType::GRAVEYARD);
     return res;
 }

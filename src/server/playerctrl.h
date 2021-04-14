@@ -136,10 +136,10 @@ public:
 
 private:
     PlayerCtrl(Player* player);
-    PlayerCtrl(const PlayerCtrl&): QObject(0) {}
+    PlayerCtrl(const PlayerCtrl&): QObject(nullptr) {}
     PlayerCtrl& operator=(const PlayerCtrl&) { return *this; }
 
-    Player*                     mp_player;
+    Player*                     mp_player = nullptr;
 
 };
 

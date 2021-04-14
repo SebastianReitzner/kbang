@@ -56,7 +56,7 @@ public:
     /**
      * Returns a random card of given type from player's table.
      */
-    PlayingCard* cardFromTable(PlayingCardType cardType = CARD_UNKNOWN) const;
+    PlayingCard* cardFromTable(PlayingCardType cardType = PlayingCardType::UNKNOWN) const;
 
 protected:
     Player* mp_player;

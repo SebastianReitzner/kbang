@@ -28,7 +28,7 @@ bool GameActionManager::onCardClicked(CardWidget* cardWidget)
 
     switch(m_state) {
     case STATE_DISCARD:
-        if (cardWidget->pocketType() != POCKET_HAND ||
+        if (cardWidget->pocketType() != PocketType::HAND ||
             cardWidget->ownerId()    != mp_game->playerId())
             return 0;
         mp_game->serverConnection()->discardCard(cardWidget->cardData().id);
@@ -67,7 +67,7 @@ bool GameActionManager::onCardClicked(CardWidget* cardWidget)
             return 1;
         }
 
-        if (cardWidget->pocketType() == POCKET_DECK) {
+        if (cardWidget->pocketType() == PocketType::DECK) {
             mp_game->serverConnection()->drawCard();
             return 1;
         }
@@ -75,12 +75,12 @@ bool GameActionManager::onCardClicked(CardWidget* cardWidget)
         if (cardWidget->cardData().id == 0)
             return 0;
 
-        if (mp_game->gamePlayState() == GAMEPLAYSTATE_RESPONSE) {
+        if (mp_game->gamePlayState() == GamePlayState::RESPONSE) {
             mp_game->serverConnection()->playCard(cardWidget->cardData().id);
             return 1;
         }
 
-        if (cardWidget->pocketType() == POCKET_HAND && cardWidget->ownerId() == mp_game->playerId())
+        if (cardWidget->pocketType() == PocketType::HAND && cardWidget->ownerId() == mp_game->playerId())
             onMainCardClicked(cardWidget);
         else
             mp_game->serverConnection()->playCard(cardWidget->cardData().id);
@@ -130,18 +130,18 @@ void GameActionManager::setDiscardMode(bool inDiscardMode)
 void GameActionManager::onMainCardClicked(CardWidget* cardWidget)
 {
     switch (cardWidget->cardData().type) {
-        case CARD_BANG:
-        case CARD_DUEL:
-        case CARD_JAIL:
+    case PlayingCardType::BANG:
+    case PlayingCardType::DUEL:
+    case PlayingCardType::JAIL:
                 selectPlayer(cardWidget);
                 break;
-        case CARD_PANIC:
-        case CARD_CATBALOU:
+    case PlayingCardType::PANIC:
+    case PlayingCardType::CATBALOU:
                 selectCards(cardWidget, 1);
                 break;
         default:
-            if (cardWidget->cardData().type == CARD_MISSED &&
-                mp_game->character() == CHARACTER_CALAMITY_JANET) {
+            if (cardWidget->cardData().type == PlayingCardType::MISSED &&
+                mp_game->character() == CharacterType::CALAMITY_JANET) {
                 selectPlayer(cardWidget);
                 break;
             }
@@ -153,10 +153,10 @@ void GameActionManager::onMainCardClicked(CardWidget* cardWidget)
 void GameActionManager::onCharacterClicked(CardWidget* cardWidget)
 {
     switch(mp_game->character()) {
-    case CHARACTER_JESSE_JONES:
+    case CharacterType::JESSE_JONES:
         selectPlayer(cardWidget);
         break;
-    case CHARACTER_SID_KETCHUM:
+    case CharacterType::SID_KETCHUM:
         selectCards(cardWidget, 2);
         break;
     default:
@@ -225,7 +225,7 @@ void GameActionManager::playWithCards()
 {
     if (m_cardSelection.size() == 1) {
         CardWidget* card = m_cardSelection[0];
-        if (card->pocketType() == POCKET_HAND) {
+        if (card->pocketType() == PocketType::HAND) {
             mp_game->serverConnection()->playCardWithPlayer(mp_activeCard->cardData().id, card->ownerId());
         } else {
             mp_game->serverConnection()->playCardWithCard(mp_activeCard->cardData().id, card->cardData().id);

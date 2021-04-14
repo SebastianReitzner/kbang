@@ -29,7 +29,7 @@ PlayingCard::PlayingCard(Game *game, int id, PlayingCardType type, CardSuit suit
         m_suit(suit),
         m_rank(rank),
         mp_owner(0),
-        m_pocket(POCKET_DECK),
+        m_pocket(PocketType::DECK),
         mp_game(game),
         m_isVirtual(0)
 {
@@ -82,13 +82,13 @@ GameCycle* PlayingCard::gameCycle() const
 
 void PlayingCard::assertInHand() const
 {
-    if (pocket() != POCKET_HAND)
+    if (pocket() != PocketType::HAND)
         throw BadCardException();
 }
 
 void PlayingCard::assertOnTable() const
 {
-    if (pocket() != POCKET_TABLE)
+    if (pocket() != PocketType::TABLE)
         throw BadCardException();
 }
 

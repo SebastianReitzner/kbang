@@ -22,10 +22,11 @@
 #include "queryget.h"
 #include "parser.h"
 #include "xmlnode.h"
+#include "ioproxy.h"
 #include <QtXml>
 
 
-QueryGet::QueryGet(Parser* parser, QXmlStreamWriter* streamWriter, const QString& id):
+QueryGet::QueryGet(Parser* parser, const std::shared_ptr<QXmlStreamWriter> &streamWriter, const QString& id):
         QObject(parser),
         mp_streamWriter(streamWriter),
         m_id(id)

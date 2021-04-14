@@ -20,10 +20,12 @@
 
 #include <QApplication>
 #include <QDialog>
+
 #include <cstdlib>
 #include <time.h>
 #include "mainwindow.h"
 #include "config.h"
+#include "translator.h"
 
 #ifdef Q_OS_UNIX
 #include <signal.h>
@@ -51,6 +53,9 @@ int main(int argc, char *argv[])
     app.setApplicationVersion(QString("%1.%2.%3").arg(KBANG_CLIENT_VERSION_MAJOR).
                                                   arg(KBANG_CLIENT_VERSION_MINOR).
                                                   arg(KBANG_CLIENT_VERSION_REVISION));
+    
+    Translator::GetTranslatorSingleton(); // Init translator
+
     MainWindow mainWindow;
     mainWindow.show();
     return app.exec();

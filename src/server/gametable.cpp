@@ -33,7 +33,7 @@ QList<const PlayingCard*> GameTable::playerDrawFromDeck(Player* player, int coun
         Q_ASSERT(!card->isVirtual());
         player->appendCardToHand(card);
         card->setOwner(player);
-        card->setPocket(POCKET_HAND);
+        card->setPocket(PocketType::HAND);
         drawedCards.append(card);
     }
     mp_game->gameEventManager().onPlayerDrawFromDeck(player, drawedCards, revealCards);
@@ -48,7 +48,7 @@ void GameTable::playerDrawFromGraveyard(Player* player)
     Q_ASSERT(!card->isVirtual());
     player->appendCardToHand(card);
     card->setOwner(player);
-    card->setPocket(POCKET_HAND);
+    card->setPocket(PocketType::HAND);
     PlayingCard* nextCard = m_graveyard.isEmpty() ? 0 : m_graveyard.first();
     mp_game->gameEventManager().onPlayerDrawFromGraveyard(player, card, nextCard);
 }
@@ -59,7 +59,7 @@ void GameTable::playerDiscardCard(PlayingCard* card)
     Player*     owner  = card->owner();
     PocketType  pocket = card->pocket();
 
-    Q_ASSERT(pocket == POCKET_HAND || pocket == POCKET_TABLE);
+    Q_ASSERT(pocket == PocketType::HAND || pocket == PocketType::TABLE);
     moveCardToGraveyard(card);
 
     mp_game->gameEventManager().onPlayerDiscardCard(owner, card, pocket);
@@ -71,7 +71,7 @@ void GameTable::playerPlayCard(PlayingCard* card)
 {
     if (card->isVirtual())
         card = card->master();
-    Q_ASSERT(card->pocket() == POCKET_HAND);
+    Q_ASSERT(card->pocket() == PocketType::HAND);
     Player* owner = card->owner();
     moveCardToGraveyard(card);
     mp_game->gameEventManager().onPlayerPlayCard(owner, card);
@@ -82,7 +82,7 @@ void GameTable::playerPlayCard(PlayingCard* card, Player* targetPlayer)
 {
     if (card->isVirtual())
         card = card->master();
-    Q_ASSERT(card->pocket() == POCKET_HAND);
+    Q_ASSERT(card->pocket() == PocketType::HAND);
     Player* owner = card->owner();
     moveCardToGraveyard(card);
     mp_game->gameEventManager().onPlayerPlayCard(owner, card, targetPlayer);
@@ -93,7 +93,7 @@ void GameTable::playerPlayCard(PlayingCard* card, PlayingCard* targetCard)
 {
     if (card->isVirtual())
         card = card->master();
-    Q_ASSERT(card->pocket() == POCKET_HAND);
+    Q_ASSERT(card->pocket() == PocketType::HAND);
     Q_ASSERT(!targetCard->isVirtual());
     Player* owner = card->owner();
     moveCardToGraveyard(card);
@@ -106,7 +106,7 @@ void GameTable::playerPlayCardOnTable(TableCard* card, Player* targetPlayer)
     if (card->isVirtual())
         card = qobject_cast<TableCard*>(card->master());
     Q_ASSERT(card != 0);
-    Q_ASSERT(card->pocket() == POCKET_HAND);
+    Q_ASSERT(card->pocket() == PocketType::HAND);
     Player* owner = card->owner();
 
     if (targetPlayer == 0)
@@ -116,7 +116,7 @@ void GameTable::playerPlayCardOnTable(TableCard* card, Player* targetPlayer)
 
     targetPlayer->appendCardToTable(card);
     card->setOwner(targetPlayer);
-    card->setPocket(POCKET_TABLE);
+    card->setPocket(PocketType::TABLE);
     card->registerPlayer(targetPlayer);
 
     mp_game->gameEventManager().onPlayerPlayCardOnTable(owner, card, targetPlayer);
@@ -125,7 +125,7 @@ void GameTable::playerPlayCardOnTable(TableCard* card, Player* targetPlayer)
 
 void GameTable::passTableCard(TableCard* card, Player* targetPlayer)
 {
-    Q_ASSERT(card->pocket() == POCKET_TABLE);
+    Q_ASSERT(card->pocket() == PocketType::TABLE);
     if (card->isVirtual())
         card = qobject_cast<TableCard*>(card->master());
     Q_ASSERT(card != 0);
@@ -136,7 +136,7 @@ void GameTable::passTableCard(TableCard* card, Player* targetPlayer)
 
     targetPlayer->appendCardToTable(card);
     card->setOwner(targetPlayer);
-    card->setPocket(POCKET_TABLE);
+    card->setPocket(PocketType::TABLE);
     card->registerPlayer(targetPlayer);
     mp_game->gameEventManager().onPassTableCard(owner, card, targetPlayer);
 }
@@ -150,7 +150,7 @@ void GameTable::playerRespondWithCard(PlayingCard* card)
 {
     if (card->isVirtual())
         card = card->master();
-    Q_ASSERT(card->pocket() == POCKET_HAND);
+    Q_ASSERT(card->pocket() == PocketType::HAND);
     Player* owner = card->owner();
     moveCardToGraveyard(card);
     mp_game->gameEventManager().onPlayerRespondWithCard(owner, card);
@@ -167,7 +167,7 @@ void GameTable::drawIntoSelection(int count, Player* selectionOwner)
         Q_ASSERT(!card->isVirtual());
         m_selection.append(card);
         card->setOwner(selectionOwner);
-        card->setPocket(POCKET_SELECTION);
+        card->setPocket(PocketType::SELECTION);
         drawedCards.append(card);
     }
     mp_game->gameEventManager().onDrawIntoSelection(selectionOwner, drawedCards);
@@ -181,7 +181,7 @@ void GameTable::playerPickFromSelection(Player* player, PlayingCard* card)
     m_selection.removeAll(card);
     player->appendCardToHand(card);
     card->setOwner(player);
-    card->setPocket(POCKET_HAND);
+    card->setPocket(PocketType::HAND);
     mp_game->gameEventManager().onPlayerPickFromSelection(player, card, revealCard);
 }
 
@@ -192,7 +192,7 @@ void GameTable::undrawFromSelection(PlayingCard* card)
     m_selection.removeAll(card);
     putCardToDeck(card);
     card->setOwner(0);
-    card->setPocket(POCKET_DECK);
+    card->setPocket(PocketType::DECK);
     mp_game->gameEventManager().onUndrawFromSelection(card, owner);
 }
 
@@ -206,7 +206,7 @@ void GameTable::playerCheckDeck(Player* player, PlayingCard* causedBy, bool (*ch
     Q_ASSERT(!checkedCard->isVirtual());
     putCardToGraveyard(checkedCard);
     checkedCard->setOwner(0);
-    checkedCard->setPocket(POCKET_GRAVEYARD);
+    checkedCard->setPocket(PocketType::GRAVEYARD);
     bool checkResult = (*checkFunc)(checkedCard);
     mp_game->gameEventManager().onPlayerCheckDeck(player, checkedCard, causedBy, checkResult);
     resultHandler->checkResult(checkResult);
@@ -219,8 +219,8 @@ PlayingCard* GameTable::checkDeck()
     Q_ASSERT(!checkedCard->isVirtual());
     putCardToGraveyard(checkedCard);
     checkedCard->setOwner(0);
-    checkedCard->setPocket(POCKET_GRAVEYARD);
-    mp_game->gameEventManager().onCancelCard(0, POCKET_DECK, checkedCard, 0);
+    checkedCard->setPocket(PocketType::GRAVEYARD);
+    mp_game->gameEventManager().onCancelCard(0, PocketType::DECK, checkedCard, 0);
     return checkedCard;
 }
 
@@ -231,10 +231,10 @@ void GameTable::playerStealCard(Player* player, PlayingCard* card)
     Player*    owner  = card->owner();
 
     switch(pocket) {
-    case POCKET_HAND:
+    case PocketType::HAND:
         owner->removeCardFromHand(card);
         break;
-    case POCKET_TABLE:
+    case PocketType::TABLE:
         owner->removeCardFromTable(card);
         (qobject_cast<TableCard*>(card))->unregisterPlayer(owner);
         break;
@@ -244,7 +244,7 @@ void GameTable::playerStealCard(Player* player, PlayingCard* card)
 
     player->appendCardToHand(card);
     card->setOwner(player);
-    card->setPocket(POCKET_HAND);
+    card->setPocket(PocketType::HAND);
 
     mp_game->gameEventManager().onPlayerStealCard(player, owner, pocket, card);
     owner->checkEmptyHand();
@@ -260,7 +260,7 @@ void GameTable::cancelCard(PlayingCard* card, Player* player)
     moveCardToGraveyard(card);
 
     mp_game->gameEventManager().onCancelCard(owner, pocket, card, player);
-    if (owner != 0 && pocket == POCKET_HAND)
+    if (owner != 0 && pocket == PocketType::HAND)
         owner->checkEmptyHand();
 }
 
@@ -327,17 +327,17 @@ void GameTable::moveCardToGraveyard(PlayingCard* card)
 {
     Player* owner = card->owner();
     switch(card->pocket()) {
-    case POCKET_HAND:
+    case PocketType::HAND:
         owner->removeCardFromHand(card);
         break;
-    case POCKET_TABLE:
+    case PocketType::TABLE:
         owner->removeCardFromTable(card);
         (qobject_cast<TableCard*>(card))->unregisterPlayer(owner);
         break;
-    case POCKET_SELECTION:
+    case PocketType::SELECTION:
         m_selection.removeAll(card);
         break;
-    case POCKET_DECK:
+    case PocketType::DECK:
         if (!m_deck.isEmpty() && m_deck.first() == card) {
             popCardFromDeck();
         }
@@ -347,7 +347,7 @@ void GameTable::moveCardToGraveyard(PlayingCard* card)
 
     putCardToGraveyard(card);
     card->setOwner(0);
-    card->setPocket(POCKET_GRAVEYARD);
+    card->setPocket(PocketType::GRAVEYARD);
 }
 
 

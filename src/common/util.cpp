@@ -26,22 +26,23 @@
 QString randomToken(int minLength, int maxLength)
 {
     Q_ASSERT(minLength <= maxLength);
-    const static char* chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-    const static int charl = strlen(chars);
-    int length = minLength + ((int)qrand() % (maxLength - minLength + 1));
-    char token[length+1];
+    constexpr char chars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    static const size_t charl = strlen(chars);
+    const int length = minLength + ((int)qrand() % (maxLength - minLength + 1));
+    QString token;
+    token.reserve(length);
     for (int i = 0; i < length; ++i)
     {
-        token[i] = chars[qrand() % charl];
+        token.append(chars[qrand() % charl]);
     }
     token[length - 1] = '\0';
-    return QString(token);
+    return token;
 }
 
 bool randomBool(qreal probability)
 {
-    int random_val_size = 4096;
-    int true_val_treshold = (int)(random_val_size * probability);
-    int random_val = qrand() % random_val_size;
+    const int random_val_size = 4096;
+    const int true_val_treshold = (int)(random_val_size * probability);
+    const int random_val = qrand() % random_val_size;
     return (random_val < true_val_treshold);
 }

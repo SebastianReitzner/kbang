@@ -5,7 +5,7 @@ using namespace client;
 
 CardPocket::CardPocket(QWidget *parent):
         QFrame(parent),
-        m_pocketType(POCKET_INVALID),
+        m_pocketType(PocketType::INVALID),
         m_ownerId(0)
 {
 }

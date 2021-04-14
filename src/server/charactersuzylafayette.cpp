@@ -3,7 +3,7 @@
 #include "player.h"
 
 CharacterSuzyLafayette::CharacterSuzyLafayette(QObject* parent):
-        CharacterBase(parent, CHARACTER_SUZY_LAFAYETTE)
+        CharacterBase(parent, CharacterType::SUZY_LAFAYETTE)
 {
 }
 

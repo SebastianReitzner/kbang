@@ -18,8 +18,8 @@ friend class Game;
 public:
 
     CardWidget* createPlayingCard(QWidget* parent);
-    CardWidget* createCharacterCard(QWidget* parent, CharacterType = CHARACTER_UNKNOWN);
-    CardWidget* createRoleCard(QWidget* parent, PlayerRole = ROLE_UNKNOWN);
+    CardWidget* createCharacterCard(QWidget* parent, CharacterType = CharacterType::UNKNOWN);
+    CardWidget* createRoleCard(QWidget* parent, PlayerRole = PlayerRole::UNKNOWN);
 
     void registerCard(CardWidget* cardWidget);
 

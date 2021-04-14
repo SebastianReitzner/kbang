@@ -26,7 +26,7 @@ DeckWidget::DeckWidget(QWidget *parent):
         CardPileWidget(parent),
         mp_cardWidgetFactory(0)
 {
-    setPocketType(POCKET_DECK);
+    setPocketType(PocketType::DECK);
 }
 
 DeckWidget::~DeckWidget()
@@ -60,7 +60,7 @@ CardWidget* DeckWidget::newCard()
     w->move(newCardPosition());
     w->show();
     w->setOwnerId(0);
-    w->setPocketType(POCKET_DECK);
+    w->setPocketType(PocketType::DECK);
     return w;
 }
 

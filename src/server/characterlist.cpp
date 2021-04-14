@@ -32,61 +32,61 @@ CharacterList::CharacterList(QObject* parent, int size):
 CharacterBase* CharacterList::createCharacter(QObject* parent, CharacterType type)
 {
     switch(type) {
-    case CHARACTER_BART_CASSIDY:
+    case CharacterType::BART_CASSIDY:
         return new CharacterCassidyGringo(parent, CharacterCassidyGringo::BartCassidy);
-    case CHARACTER_BLACK_JACK:
+    case CharacterType::BLACK_JACK:
         return new CharacterBlackJack(parent);
-    case CHARACTER_CALAMITY_JANET:
+    case CharacterType::CALAMITY_JANET:
         return new CharacterCalamityJanet(parent);
-    case CHARACTER_EL_GRINGO:
+    case CharacterType::EL_GRINGO:
         return new CharacterCassidyGringo(parent, CharacterCassidyGringo::ElGringo);
-    case CHARACTER_JESSE_JONES:
+    case CharacterType::JESSE_JONES:
         return new CharacterJesseJones(parent);
-    case CHARACTER_JOURDONNAIS:
+    case CharacterType::JOURDONNAIS:
         return new CharacterJourdonnais(parent);
-    case CHARACTER_KIT_CARLSON:
+    case CharacterType::KIT_CARLSON:
         return new CharacterKitCarlson(parent);
-    case CHARACTER_LUCKY_DUKE:
+    case CharacterType::LUCKY_DUKE:
         return new CharacterLuckyDuke(parent);
-    case CHARACTER_PAUL_REGRET:
+    case CharacterType::PAUL_REGRET:
         return new CharacterPropertyChange(parent, CharacterPropertyChange::PaulRegret);
-    case CHARACTER_PEDRO_RAMIREZ:
+    case CharacterType::PEDRO_RAMIREZ:
         return new CharacterPedroRamirez(parent);
-    case CHARACTER_ROSE_DOOLAN:
+    case CharacterType::ROSE_DOOLAN:
         return new CharacterPropertyChange(parent, CharacterPropertyChange::RoseDoolan);
-    case CHARACTER_SID_KETCHUM:
+    case CharacterType::SID_KETCHUM:
         return new CharacterSidKetchum(parent);
-    case CHARACTER_SLAB_THE_KILLER:
+    case CharacterType::SLAB_THE_KILLER:
         return new CharacterPropertyChange(parent, CharacterPropertyChange::SlabTheKiller);
-    case CHARACTER_SUZY_LAFAYETTE:
+    case CharacterType::SUZY_LAFAYETTE:
         return new CharacterSuzyLafayette(parent);
-    case CHARACTER_VULTURE_SAM:
+    case CharacterType::VULTURE_SAM:
         return new CharacterVultureSam(parent);
-    case CHARACTER_WILLY_THE_KID:
+    case CharacterType::WILLY_THE_KID:
         return new CharacterPropertyChange(parent, CharacterPropertyChange::WillyTheKid);
-    case CHARACTER_UNKNOWN:
+    case CharacterType::UNKNOWN:
         NOT_REACHED();
     }
-    return new CharacterBase(parent, CHARACTER_UNKNOWN);
+    return new CharacterBase(parent, CharacterType::UNKNOWN);
 }
 
 void CharacterList::initCharacterTypes()
 {
     Q_ASSERT(sm_characterTypes.size() == 0);
-    sm_characterTypes.append(CHARACTER_BART_CASSIDY);
-    sm_characterTypes.append(CHARACTER_BLACK_JACK);
-    sm_characterTypes.append(CHARACTER_CALAMITY_JANET);
-    sm_characterTypes.append(CHARACTER_EL_GRINGO);
-    sm_characterTypes.append(CHARACTER_JESSE_JONES);
-    sm_characterTypes.append(CHARACTER_JOURDONNAIS);
-    sm_characterTypes.append(CHARACTER_KIT_CARLSON);
-    sm_characterTypes.append(CHARACTER_LUCKY_DUKE);
-    sm_characterTypes.append(CHARACTER_PAUL_REGRET);
-    sm_characterTypes.append(CHARACTER_PEDRO_RAMIREZ);
-    sm_characterTypes.append(CHARACTER_ROSE_DOOLAN);
-    sm_characterTypes.append(CHARACTER_SID_KETCHUM);
-    sm_characterTypes.append(CHARACTER_SLAB_THE_KILLER);
-    sm_characterTypes.append(CHARACTER_SUZY_LAFAYETTE);
-    sm_characterTypes.append(CHARACTER_VULTURE_SAM);
-    sm_characterTypes.append(CHARACTER_WILLY_THE_KID);
+    sm_characterTypes.append(CharacterType::BART_CASSIDY);
+    sm_characterTypes.append(CharacterType::BLACK_JACK);
+    sm_characterTypes.append(CharacterType::CALAMITY_JANET);
+    sm_characterTypes.append(CharacterType::EL_GRINGO);
+    sm_characterTypes.append(CharacterType::JESSE_JONES);
+    sm_characterTypes.append(CharacterType::JOURDONNAIS);
+    sm_characterTypes.append(CharacterType::KIT_CARLSON);
+    sm_characterTypes.append(CharacterType::LUCKY_DUKE);
+    sm_characterTypes.append(CharacterType::PAUL_REGRET);
+    sm_characterTypes.append(CharacterType::PEDRO_RAMIREZ);
+    sm_characterTypes.append(CharacterType::ROSE_DOOLAN);
+    sm_characterTypes.append(CharacterType::SID_KETCHUM);
+    sm_characterTypes.append(CharacterType::SLAB_THE_KILLER);
+    sm_characterTypes.append(CharacterType::SUZY_LAFAYETTE);
+    sm_characterTypes.append(CharacterType::VULTURE_SAM);
+    sm_characterTypes.append(CharacterType::WILLY_THE_KID);
 }

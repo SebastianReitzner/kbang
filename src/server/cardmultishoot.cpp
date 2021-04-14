@@ -7,16 +7,16 @@
 #include "cardbarrel.h"
 
 CardMultiShoot::CardMultiShoot(Game* game, int id, CardMultiShoot::Type type, CardSuit cardSuit, CardRank cardRank):
-        ReactionCard(game, id, CARD_UNKNOWN, cardSuit, cardRank),
+        ReactionCard(game, id, PlayingCardType::UNKNOWN, cardSuit, cardRank),
         m_type(type),
         mp_requestedPlayer(0)
 {
     switch(m_type) {
     case Indians:
-        setType(CARD_INDIANS);
+        setType(PlayingCardType::INDIANS);
         break;
     case Gatling:
-        setType(CARD_GATLING);
+        setType(PlayingCardType::GATLING);
         break;
     }
 }
@@ -47,7 +47,7 @@ void CardMultiShoot::respondPass()
 void CardMultiShoot::respondCard(PlayingCard* targetCard)
 {
     switch(targetCard->type()) {
-    case CARD_BANG:
+    case PlayingCardType::BANG:
         if (m_type != Indians)
             break;
         targetCard->assertInHand();
@@ -56,7 +56,7 @@ void CardMultiShoot::respondCard(PlayingCard* targetCard)
         requestNext();
         return;
 
-    case CARD_MISSED:
+    case PlayingCardType::MISSED:
         if (m_type != Gatling)
             break;
         targetCard->assertInHand();
@@ -64,7 +64,7 @@ void CardMultiShoot::respondCard(PlayingCard* targetCard)
         game()->gameCycle().unsetResponseMode();
         requestNext();
         return;
-    case CARD_BARREL: {
+    case PlayingCardType::BARREL: {
         if (m_type != Gatling)
             break;
         if (m_usedBarrels.contains(targetCard))
@@ -93,7 +93,7 @@ void CardMultiShoot::checkResult(bool result)
 
 ReactionType CardMultiShoot::reactionType() const
 {
-    return (m_type == Indians) ? REACTION_INDIANS : REACTION_GATLING;
+    return (m_type == Indians) ? ReactionType::INDIANS : ReactionType::GATLING;
 }
 
 void CardMultiShoot::requestNext()

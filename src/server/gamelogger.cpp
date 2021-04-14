@@ -9,8 +9,7 @@
 
 using namespace std;
 
-GameLogger::GameLogger()
-{
+GameLogger::GameLogger() {
 }
 
 void GameLogger::onHandlerRegistered(const PublicGameView* publicGameView, PlayerCtrl* playerCtrl)
@@ -165,7 +164,7 @@ void GameLogger::onPlayerPickFromSelection(PublicPlayerView& p, const PlayingCar
     m_logFile << msg.toStdString() << endl;
 }
 
-void GameLogger::onUndrawFromSelection(const PlayingCard* card)
+void GameLogger::onUndrawFromSelection(const PlayingCard* _card)
 {
     //m_logFile << "onUndrawFromSelection ()" << endl;
 }

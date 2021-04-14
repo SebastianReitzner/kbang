@@ -27,6 +27,9 @@
 #include "cardwidget.h"
 #include "cardactionswidget.h"
 #include "gameactionmanager.h"
+#include "translator.h"
+
+#include "ui_cardwidget.h"
 
 using namespace client;
 
@@ -44,16 +47,18 @@ int CardWidget::sm_lifeLevels[6] = {0, 19, 31, 44, 57, 68};
 CardWidget::CardWidget(QWidget* parent, Card::Type cardType):
         QLabel(parent),
         m_cardType(cardType),
-        m_pocket(POCKET_INVALID),
+        m_pocket(PocketType::INVALID),
         m_ownerId(0),
-        m_playerRole(ROLE_UNKNOWN),
-        m_characterType(CHARACTER_UNKNOWN),
+        m_playerRole(PlayerRole::UNKNOWN),
+        m_characterType(CharacterType::UNKNOWN),
         m_qsize(sm_qsizeSmall),
         m_shadowMode(0),
         m_hasHighlight(0),
         m_isEmpty(0),
-        mp_gameActionManager(0)
+        mp_gameActionManager(0),
+        mp_ui(new Ui::CardWidget)
 {
+    mp_ui->setupUi(this);
     show();
 }
 
@@ -114,13 +119,25 @@ void CardWidget::validate()
         if (card->image().isNull()) {
             qWarning(qPrintable(QString("Card '%1' has null pixmap.").arg(card->name())));
         }
-        if (m_cardType == Card::Playing && m_cardData.type != CARD_UNKNOWN) {
+        QString text = Translator::Translate(card->cardText());
+        mp_ui->lblCardText->setText(text);
+        if (m_cardType == Card::Playing && m_cardData.type != PlayingCardType::UNKNOWN) {
             setPixmap(card->image(m_cardData.suit, m_cardData.rank).
                       scaled(m_qsize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
         } else {
             setPixmap(card->image().scaled(m_qsize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
         }
     }
+
+    QFont f = mp_ui->lblCardText->font();
+    
+    switch (m_size) {
+        case SIZE_SMALL:  f.setPointSize(sm_textSmall); break;
+        case SIZE_NORMAL: f.setPointSize(sm_textNormal); break;
+        case SIZE_BIG:    f.setPointSize(sm_textBig); break;
+    }
+    mp_ui->lblCardText->setFont(f);
+
     setMinimumSize(m_qsize);
     setMaximumSize(m_qsize);
     resize(m_qsize);

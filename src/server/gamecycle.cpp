@@ -12,7 +12,7 @@
 GameCycle::GameCycle(Game* game):
         QObject(game),
         mp_game(game),
-        m_state(GAMEPLAYSTATE_INVALID),
+        m_state(GamePlayState::INVALID),
         mp_currentPlayer(0),
         mp_requestedPlayer(0),
         m_isCardEffect(0)
@@ -26,25 +26,25 @@ GameCycle::~GameCycle()
 void GameCycle::assertDraw() const
 {
     if (!isDraw())
-        throw BadGamePlayStateException(m_state, GAMEPLAYSTATE_DRAW);
+        throw BadGamePlayStateException(m_state, GamePlayState::DRAW);
 }
 
 void GameCycle::assertTurn() const
 {
     if (!isTurn())
-        throw BadGamePlayStateException(m_state, GAMEPLAYSTATE_TURN);
+        throw BadGamePlayStateException(m_state, GamePlayState::TURN);
 }
 
 void GameCycle::assertResponse() const
 {
     if (!isResponse())
-        throw BadGamePlayStateException(m_state, GAMEPLAYSTATE_RESPONSE);
+        throw BadGamePlayStateException(m_state, GamePlayState::RESPONSE);
 }
 
  void GameCycle::assertDiscard() const
  {
      if (!isDiscard())
-         throw BadGamePlayStateException(m_state, GAMEPLAYSTATE_DISCARD);
+         throw BadGamePlayStateException(m_state, GamePlayState::DISCARD);
  }
 
 
@@ -55,13 +55,13 @@ GameContextData GameCycle::gameContextData() const
     res.requestedPlayerId = requestedPlayer()->id();
     res.turnNumber        = turnNumber();
     res.gamePlayState     = gamePlayState();
-    if (gamePlayState() == GAMEPLAYSTATE_RESPONSE) {
+    if (gamePlayState() == GamePlayState::RESPONSE) {
         res.reactionType = reactionHandler()->reactionType();
         Player* causedBy = reactionHandler()->causedBy();
         res.causedBy = causedBy ? causedBy->id() : 0;
 
     } else {
-        res.reactionType = REACTION_NONE;
+        res.reactionType = ReactionType::NONE;
         res.causedBy     = 0;
     }
     return res;
@@ -72,9 +72,9 @@ void GameCycle::start()
     m_contextDirty = 0;
     Player* player;
     foreach (player, mp_game->playerList())
-        if (player->role() == ROLE_SHERIFF)
+        if (player->role() == PlayerRole::SHERIFF)
             break;
-    Q_ASSERT(player->role() == ROLE_SHERIFF);
+    Q_ASSERT(player->role() == PlayerRole::SHERIFF);
     m_turnNum = 0;
     startTurn(player);
     sendRequest();
@@ -83,10 +83,10 @@ void GameCycle::start()
 void GameCycle::startTurn(Player* player)
 {
     m_contextDirty = 1;
-    if (player->role() == ROLE_SHERIFF)
+    if (player->role() == PlayerRole::SHERIFF)
         m_turnNum++;
     mp_currentPlayer = mp_requestedPlayer = player;
-    m_state = GAMEPLAYSTATE_DRAW;
+    m_state = GamePlayState::DRAW;
     mp_currentPlayer->onTurnStart();
     m_drawCardCount = 0;
     m_drawCardMax = 2;
@@ -95,9 +95,9 @@ void GameCycle::startTurn(Player* player)
 void GameCycle::draw(Player* player, bool specialDraw)
 {
     m_contextDirty = 0;
-    checkPlayerAndState(player, GAMEPLAYSTATE_DRAW);
+    checkPlayerAndState(player, GamePlayState::DRAW);
     player->predrawCheck(0);
-    m_state = GAMEPLAYSTATE_TURN;
+    m_state = GamePlayState::TURN;
     player->character()->draw(specialDraw);
     m_contextDirty = 1;
     sendRequest();
@@ -116,7 +116,7 @@ void GameCycle::finishTurn(Player* player)
     if (player != mp_requestedPlayer)
         throw BadPlayerException(mp_currentPlayer->id());
 
-    if ((m_state != GAMEPLAYSTATE_TURN) && (m_state != GAMEPLAYSTATE_DISCARD))
+    if ((m_state != GamePlayState::TURN) && (m_state != GamePlayState::DISCARD))
         throw BadGameStateException();
 
     if (needDiscard(player))
@@ -132,17 +132,17 @@ void GameCycle::discardCard(Player* player, PlayingCard* card)
     if (player != mp_requestedPlayer)
         throw BadPlayerException(mp_currentPlayer->id());
 
-    if (m_state != GAMEPLAYSTATE_TURN && m_state != GAMEPLAYSTATE_DISCARD)
+    if (m_state != GamePlayState::TURN && m_state != GamePlayState::DISCARD)
         throw BadGameStateException();
 
     if (needDiscard(player) == 0)
         throw BadGameStateException();
 
-    if (card->owner() != mp_requestedPlayer || card->pocket() != POCKET_HAND)
+    if (card->owner() != mp_requestedPlayer || card->pocket() != PocketType::HAND)
         throw BadCardException();
 
     mp_game->gameTable().playerDiscardCard(card);
-    m_state = GAMEPLAYSTATE_DISCARD;
+    m_state = GamePlayState::DISCARD;
     m_contextDirty = 1;
 
     if (needDiscard(player) == 0)
@@ -215,7 +215,7 @@ void GameCycle::pass(Player* player)
     if (player != mp_requestedPlayer)
         throw BadPlayerException(mp_currentPlayer->id());
 
-    if (m_state != GAMEPLAYSTATE_RESPONSE)
+    if (m_state != GamePlayState::RESPONSE)
         throw BadGameStateException();
 
     player->character()->respondPass(m_reactionHandlers.head());
@@ -252,7 +252,7 @@ void GameCycle::checkDeck(Player* player, PlayingCard* causedBy,
 void GameCycle::setResponseMode(ReactionHandler* reactionHandler, Player* player, bool skipQueue)
 {
     if (m_reactionHandlers.isEmpty()) {
-        Q_ASSERT(m_state != GAMEPLAYSTATE_RESPONSE);
+        Q_ASSERT(m_state != GamePlayState::RESPONSE);
         m_lastState = m_state;
     }
 
@@ -266,14 +266,14 @@ void GameCycle::setResponseMode(ReactionHandler* reactionHandler, Player* player
 
     if (m_reactionHandlers.size() == 1 || skipQueue) {
         mp_requestedPlayer = player;
-        m_state = GAMEPLAYSTATE_RESPONSE;
+        m_state = GamePlayState::RESPONSE;
         m_contextDirty = 1;
     }
 }
 
 void GameCycle::unsetResponseMode()
 {
-    Q_ASSERT(m_state == GAMEPLAYSTATE_RESPONSE);
+    Q_ASSERT(m_state == GamePlayState::RESPONSE);
     m_reactionHandlers.dequeue();
     m_reactionPlayers.dequeue();
     if (!m_reactionHandlers.isEmpty()) {
@@ -305,23 +305,23 @@ void GameCycle::sendRequest()
         return;
 
     if (!mp_requestedPlayer->isAlive()) {
-        Q_ASSERT(m_state != GAMEPLAYSTATE_RESPONSE);
+        Q_ASSERT(m_state != GamePlayState::RESPONSE);
         startTurn(mp_game->nextPlayer(mp_currentPlayer));
     }
 
     ActionRequestType requestType;
     switch(m_state) {
-        case GAMEPLAYSTATE_DRAW:
-            requestType = REQUEST_DRAW;
+        case GamePlayState::DRAW:
+            requestType = ActionRequestType::DRAW;
             break;
-        case GAMEPLAYSTATE_TURN:
-            requestType = REQUEST_PLAY;
+        case GamePlayState::TURN:
+            requestType = ActionRequestType::PLAY;
             break;
-        case GAMEPLAYSTATE_RESPONSE:
-            requestType = REQUEST_RESPOND;
+        case GamePlayState::RESPONSE:
+            requestType = ActionRequestType::RESPOND;
             break;
-        case GAMEPLAYSTATE_DISCARD:
-            requestType = REQUEST_DISCARD;
+        case GamePlayState::DISCARD:
+            requestType = ActionRequestType::DISCARD;
             break;
         default:
             NOT_REACHED();

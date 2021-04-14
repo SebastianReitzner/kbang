@@ -32,20 +32,20 @@
 class Config: private NonCopyable {
 
 public:
-    QString         readString(QString group, QString varName);
-    QStringList  readStringList(QString group, QString varName);
-    int             readInt(QString group, QString varName);
-    QList<int>      readIntList(QString group, QString varName);
+    QString         readString(QString group, QString varName) const;
+    QStringList  readStringList(QString group, QString varName) const;
+    int             readInt(QString group, QString varName) const;
+    QList<int>      readIntList(QString group, QString varName) const;
 
     void writeString(QString group, QString varName, QString varValue);
     void writeStringList(QString group, QString varName, QStringList varValue);
     void writeInt(QString group, QString varName, int varValue);
     void writeIntList(QString group, QString varName, QList<int> varValue);
 
-    bool hasGroup(QString group);
+    bool hasGroup(QString group) const;
 
     void refresh();
-    void store();
+    void store() const;
 
     static inline Config& instance() {
         if (!smp_instance)
@@ -59,13 +59,13 @@ private:
     Config();
     ~Config();
 
-    enum ConfigRecordType {
-        CONFIG_RECORD_SINGLE,
-        CONFIG_RECORD_LIST
+    enum class ConfigRecordType {
+        SINGLE,
+        LIST
     };
 
     struct ConfigRecord {
-        ConfigRecord() {}
+        ConfigRecord(): type(ConfigRecordType::SINGLE) {}
         ConfigRecord(QString n, ConfigRecordType t, QString vs, QStringList vl = QStringList()):
                 name(n), type(t), valueSingle(vs), valueList(vl) {}
         QString name;
@@ -83,7 +83,7 @@ private:
 
     void createGroupIfNeeded(QString group);
     void createDefaultConfig();
-    ConfigRecord* configRecord(QString group, QString varName);
+    const ConfigRecord* configRecord(QString group, QString varName) const;
 
     QString m_configFileName;
     QMap<QString, ConfigGroup> m_groups;

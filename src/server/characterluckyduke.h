@@ -15,7 +15,7 @@ public:
     virtual void checkDeck(PlayingCard* causedBy, bool (*checkFunc)(PlayingCard*), CheckDeckResultHandler*);
 
     virtual void respondCard(PlayingCard* targetCard);
-    virtual ReactionType reactionType() const { return REACTION_LUCKYDUKE; }
+    virtual ReactionType reactionType() const { return ReactionType::LUCKYDUKE; }
     virtual Player* causedBy() const { return 0; }
 
 private:

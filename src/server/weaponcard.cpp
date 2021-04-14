@@ -24,24 +24,24 @@
 #include "gamecycle.h"
 
 WeaponCard::WeaponCard(Game *game, int id, int range, CardSuit suit, CardRank rank):
-        TableCard(game, id, CARD_UNKNOWN, suit, rank),
+        TableCard(game, id, PlayingCardType::UNKNOWN, suit, rank),
         m_range(range)
 {
     switch(m_range) {
     case 1:
-        setType(CARD_VOLCANIC);
+        setType(PlayingCardType::VOLCANIC);
         break;
     case 2:
-        setType(CARD_SCHOFIELD);
+        setType(PlayingCardType::SCHOFIELD);
         break;
     case 3:
-        setType(CARD_REMINGTON);
+        setType(PlayingCardType::REMINGTON);
         break;
     case 4:
-        setType(CARD_CARABINE);
+        setType(PlayingCardType::CARABINE);
         break;
     case 5:
-        setType(CARD_WINCHESTER);
+        setType(PlayingCardType::WINCHESTER);
         break;
     }
 }
@@ -54,7 +54,7 @@ void WeaponCard::play()
 {
     gameCycle()->assertTurn();
 
-    if (this->pocket() != POCKET_HAND)
+    if (this->pocket() != PocketType::HAND)
         throw BadUsageException();
 
     foreach(PlayingCard* card, owner()->table()) {

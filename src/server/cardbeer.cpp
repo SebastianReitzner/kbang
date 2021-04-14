@@ -6,11 +6,11 @@
 #include "gameexceptions.h"
 
 CardBeer::CardBeer(Game* game, int id, CardSuit cardSuit, CardRank cardRank, bool isSaloon):
-        PlayingCard(game, id, CARD_BEER, cardSuit, cardRank),
+        PlayingCard(game, id, PlayingCardType::BEER, cardSuit, cardRank),
         m_isSaloon(isSaloon)
 {
     if (isSaloon)
-        setType(CARD_SALOON);
+        setType(PlayingCardType::SALOON);
 }
 
 
@@ -53,7 +53,7 @@ void BeerRescue::respondPass()
 void BeerRescue::respondCard(PlayingCard* targetCard)
 {
     targetCard->assertInHand();
-    if (targetCard->type() == CARD_BEER && mp_game->alivePlayersCount() > 2) {
+    if (targetCard->type() == PlayingCardType::BEER && mp_game->alivePlayersCount() > 2) {
             mp_game->gameTable().playerPlayCard(targetCard);
             dismiss();
             return;

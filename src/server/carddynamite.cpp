@@ -6,7 +6,7 @@
 #include "player.h"
 
 CardDynamite::CardDynamite(Game *game, int id, CardSuit suit, CardRank rank):
-        TableCard(game, id, CARD_DYNAMITE, suit, rank)
+        TableCard(game, id, PlayingCardType::DYNAMITE, suit, rank)
 {
 }
 
@@ -56,5 +56,5 @@ void CardDynamite::unregisterPlayer(Player* player)
 
 bool CardDynamite::checkDynamite(PlayingCard* card)
 {
-    return  (card->suit() != SUIT_SPADES || card->rank() > 9);
+    return  (card->suit() != CardSuit::SPADES || card->rank() > 9);
 }

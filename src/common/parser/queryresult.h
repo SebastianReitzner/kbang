@@ -30,13 +30,12 @@ class QXmlStreamWriter;
 class QueryResult
 {
 public:
-    QueryResult(QXmlStreamWriter* streamWriter, const QString& id);
+    QueryResult(const std::shared_ptr<QXmlStreamWriter> &streamWriter, const QString& id);
 
     template<class T>
-    void sendData(const T& data)
-    {
+    void sendData(const T& data) {
         writeStartQuery();
-        data.write(mp_streamWriter);
+        data.write(mp_streamWriter.get());
         writeEndQuery();
     }
 
@@ -46,7 +45,7 @@ private:
     void writeStartQuery();
     void writeEndQuery();
 
-    QXmlStreamWriter* mp_streamWriter;
+    std::shared_ptr<QXmlStreamWriter> mp_streamWriter;
     QString m_id;
     bool    m_sent;
 };

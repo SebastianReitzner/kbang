@@ -42,14 +42,14 @@ public:
 
     virtual void checkResult(bool result);
 
-    virtual ReactionType reactionType() const { return REACTION_BANG; }
+    virtual ReactionType reactionType() const { return ReactionType::BANG; }
     virtual Player* causedBy() const { return mp_attackingPlayer; }
 private:
     void missed();
 
-    Player* mp_attackingPlayer;
-    Player* mp_attackedPlayer;
-    int     m_missedLeft;
+    Player* mp_attackingPlayer = nullptr;
+    Player* mp_attackedPlayer = nullptr;
+    int     m_missedLeft = 0;
     QList<PlayingCard*> m_usedBarrels;
 };
 

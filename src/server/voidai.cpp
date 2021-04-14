@@ -12,9 +12,8 @@
 
 int VoidAI::sm_playerCounter = 0;
 
-int minActionDelay = 200;
-int maxActionDelay = 1500;
-
+constexpr int minActionDelay = 200;
+constexpr int maxActionDelay = 1500;
 
 VoidAI::VoidAI(QObject* parent):
         QObject(parent),
@@ -31,7 +30,7 @@ CreatePlayerData VoidAI::createPlayerData() const
     return res;
 }
 
-void VoidAI::onHandlerRegistered(const PublicGameView* publicGameView, PlayerCtrl* playerCtrl)
+void VoidAI::onHandlerRegistered(const PublicGameView* _publicGameView, PlayerCtrl* playerCtrl)
 {
     mp_playerCtrl = playerCtrl;
 }
@@ -39,21 +38,21 @@ void VoidAI::onHandlerRegistered(const PublicGameView* publicGameView, PlayerCtr
 void VoidAI::onActionRequest(ActionRequestType requestType)
 {
     m_requestType = requestType;
-    //int randomDelay = (rand() % (maxActionDelay - minActionDelay)) + minActionDelay;
-    QTimer::singleShot(200, this, SLOT(requestWithAction()));
+    //const int randomDelay = (rand() % (maxActionDelay - minActionDelay)) + minActionDelay;
+    QTimer::singleShot(200, this, &VoidAI::requestWithAction);
 }
 
 void VoidAI::requestWithAction()
 {
-    qDebug() << QString("VoidAI (%1): onActionRequest(%2)").arg(m_id).arg(m_requestType);
+    qDebug() << QString("VoidAI (%1): onActionRequest(%2)").arg(m_id).arg(int(m_requestType));
     if (mp_playerCtrl->publicGameView().gameContextData().requestedPlayerId != mp_playerCtrl->privatePlayerView().id()) {
-        QString("VoidAI (%1): Not requested!").arg(m_id);
+        qDebug() << QString("VoidAI (%1): Not requested!").arg(m_id);
         return;
     }
     QList<PlayingCard*> hand = mp_playerCtrl->privatePlayerView().hand();
     switch(m_requestType) {
-        case REQUEST_DRAW:
-        qDebug() << QString("VoidAI (%1): REQUEST_DRAW").arg(m_id);
+        case ActionRequestType::DRAW:
+        qDebug() << QString("VoidAI (%1): ActionRequestType::DRAW").arg(m_id);
             // Drawing two cards
             try {
                 mp_playerCtrl->draw();
@@ -72,29 +71,29 @@ void VoidAI::requestWithAction()
                 }
             }
             break;
-        case REQUEST_PLAY: {
-            qDebug() << QString("VoidAI (%1): REQUEST_PLAY").arg(m_id);
+        case ActionRequestType::PLAY: {
+            qDebug() << QString("VoidAI (%1): PlayingCardType::PLAY").arg(m_id);
             // Try to use blue cards:
             foreach (PlayingCard* card, hand) {
                 try {
                     switch(card->type()) {
-                        case CARD_APPALOSSA:
-                        case CARD_MUSTANG:
-                        case CARD_VOLCANIC:
-                        case CARD_SCHOFIELD:
-                        case CARD_REMINGTON:
-                        case CARD_CARABINE:
-                        case CARD_WINCHESTER:
-                        case CARD_DILIGENZA:
-                        case CARD_WELLSFARGO:
-                        case CARD_INDIANS:
-                        case CARD_GATLING:
-                        case CARD_GENERALSTORE:
-                        case CARD_DYNAMITE:
-                        case CARD_BARREL:
+                        case PlayingCardType::APPALOSSA:
+                        case PlayingCardType::MUSTANG:
+                        case PlayingCardType::VOLCANIC:
+                        case PlayingCardType::SCHOFIELD:
+                        case PlayingCardType::REMINGTON:
+                        case PlayingCardType::CARABINE:
+                        case PlayingCardType::WINCHESTER:
+                        case PlayingCardType::DILIGENZA:
+                        case PlayingCardType::WELLSFARGO:
+                        case PlayingCardType::INDIANS:
+                        case PlayingCardType::GATLING:
+                        case PlayingCardType::GENERALSTORE:
+                        case PlayingCardType::DYNAMITE:
+                        case PlayingCardType::BARREL:
                             mp_playerCtrl->playCard(card);
                             return;
-                        case CARD_BEER:
+                        case PlayingCardType::BEER:
                             if (mp_playerCtrl->privatePlayerView().lifePoints() !=
                                     mp_playerCtrl->privatePlayerView().maxLifePoints()) {
                                 mp_playerCtrl->playCard(card);
@@ -108,18 +107,18 @@ void VoidAI::requestWithAction()
                     e.debug();
                 }
             }
-            foreach (PlayingCard* card, hand) {
+            for(PlayingCard* card: hand) {
                 try {
                     switch(card->type()) {
-                        case CARD_BANG:
-                        case CARD_DUEL:
-                        case CARD_JAIL:
-                        case CARD_PANIC:
-                        case CARD_CATBALOU:
+                        case PlayingCardType::BANG:
+                        case PlayingCardType::DUEL:
+                        case PlayingCardType::JAIL:
+                        case PlayingCardType::PANIC:
+                        case PlayingCardType::CATBALOU:
                         {
                             QList<PublicPlayerView*> players = mp_playerCtrl->publicGameView().publicPlayerList();
                             shuffleList(players);
-                            foreach(const PublicPlayerView* p, players) {
+                            for(const PublicPlayerView* p: players) {
                                 if (mp_playerCtrl->privatePlayerView().id() == p->id()) {
                                     continue;
                                 }
@@ -130,7 +129,7 @@ void VoidAI::requestWithAction()
                                     qDebug() << "VoidAI: BadTargetPlayerException!";
                                 } catch (OneBangPerTurnException e) {
                                     qDebug() << "VoidAI: One bang per turn!";
-                                } catch(GameException& e) {
+                                } catch(GameException& _e) {
                                     qDebug() << "VoidAI: GameException";
                                 }
                             }
@@ -157,7 +156,7 @@ void VoidAI::requestWithAction()
             }
             break;
         }
-        case REQUEST_RESPOND: {
+        case ActionRequestType::RESPOND: {
             if (mp_playerCtrl->publicGameView().selection().size() > 0) {
                 QList<PlayingCard*> cards = mp_playerCtrl->publicGameView().selection();
                 int index = rand() % cards.size();
@@ -169,7 +168,7 @@ void VoidAI::requestWithAction()
                     e.debug();
                 }
             }
-            qDebug() << QString("VoidAI (%1): REQUEST_RESPOND").arg(m_id);;
+            qDebug() << QString("VoidAI (%1): PlayingCardType::RESPOND").arg(m_id);;
             QList<PlayingCard*> cards = mp_playerCtrl->privatePlayerView().hand();
             foreach (PlayingCard* c, cards) {
                 try {
@@ -196,7 +195,7 @@ void VoidAI::requestWithAction()
 
             return;
         }
-        case REQUEST_DISCARD:
+        case ActionRequestType::DISCARD:
             try {
                 qDebug() << QString("VoidAI (%1): discarding card").arg(m_id);
                 PlayingCard* card = mp_playerCtrl->privatePlayerView().hand().first();

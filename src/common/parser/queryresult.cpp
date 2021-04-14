@@ -18,13 +18,13 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <QXmlStreamWriter>
 #include "queryresult.h"
 #include "parser.h"
-#include <QXmlStreamWriter>
 
-QueryResult::QueryResult(QXmlStreamWriter* streamWriter, const QString& id):
-mp_streamWriter(streamWriter), m_id(id), m_sent(0)
-{
+
+QueryResult::QueryResult(const std::shared_ptr<QXmlStreamWriter> &streamWriter, const QString& id):
+mp_streamWriter(streamWriter), m_id(id), m_sent(0) {
 }
 
 void QueryResult::sendPong()

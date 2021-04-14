@@ -32,7 +32,7 @@ public:
     virtual void respondCard(ReactionHandler*, PlayingCard* targetCard);
 
     virtual void useAbility();
-    virtual void useAbility(Player* targetPlayer);
+    virtual void useAbility(Player* _targetPlayer);
     virtual void useAbility(QList<PlayingCard*> cards);
 
     virtual void setPlayer(Player* player);

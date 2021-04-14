@@ -1,0 +1,12 @@
+menuGame;Game
+mp_actionConnectToServer;Connect to server
+mp_actionDisconnectFromServer;Disconnect from server
+actionCreateGame;Create new game
+mp_actionJoinGame;Join game
+mp_actionLeaveGame;Leave game
+mp_actionExit;Exit
+menuHelp;Help
+mp_actionAbout;About
+menuLanguaje;Languaje
+mp_actionSpanish;Spanish
+mp_actionEnglish;English

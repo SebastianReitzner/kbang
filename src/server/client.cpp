@@ -193,12 +193,12 @@ void Client::onActionPlayCard(const ActionPlayCardData& actionPlayCardData)
     }
     try {
         switch (actionPlayCardData.type) {
-        case ActionPlayCardData::PLAYCARD_SIMPLE:
+        case ActionPlayCardData::Type::SIMPLE:
             mp_playerCtrl->playCard(playedCard);
             break;
-        case ActionPlayCardData::PLAYCARD_PLAYER:
-        case ActionPlayCardData::PLAYCARD_HAND:{
-                int targetPlayerId = (actionPlayCardData.type == ActionPlayCardData::PLAYCARD_PLAYER) ?
+        case ActionPlayCardData::Type::PLAYER:
+        case ActionPlayCardData::Type::HAND:{
+                int targetPlayerId = (actionPlayCardData.type == ActionPlayCardData::Type::PLAYER) ?
                                      actionPlayCardData.targetPlayerId :
                                      actionPlayCardData.targetHandId;
 
@@ -212,7 +212,7 @@ void Client::onActionPlayCard(const ActionPlayCardData& actionPlayCardData)
                 }
                 mp_playerCtrl->playCard(playedCard, targetPlayer);
             } break;
-        case ActionPlayCardData::PLAYCARD_CARD:
+        case ActionPlayCardData::Type::CARD:
             int targetCardId = actionPlayCardData.targetCardId;
             PlayingCard* card = mp_playerCtrl->card(targetCardId);
             if (card == 0) {
@@ -236,18 +236,18 @@ void Client::onActionUseAbility(const ActionUseAbilityData& actionUseAbilityData
 
     try {
         switch(actionUseAbilityData.type) {
-            case ActionUseAbilityData::TypeSimple: {
+        case ActionUseAbilityData::Type::Simple: {
                 mp_playerCtrl->useAbility();
                 break;
             }
-            case ActionUseAbilityData::TypePlayer: {
+            case ActionUseAbilityData::Type::Player: {
                 PublicPlayerView* targetPlayer = getPlayer(actionUseAbilityData.targetPlayerId);
                 if (targetPlayer == 0)
                     return;
                 mp_playerCtrl->useAbility(targetPlayer);
                 break;
             }
-            case ActionUseAbilityData::TypeCards: {
+            case ActionUseAbilityData::Type::Cards: {
                 QList<PlayingCard*> cards = getCards(actionUseAbilityData.targetCardsId);
                 mp_playerCtrl->useAbility(cards);
                 break;
@@ -366,7 +366,7 @@ void Client::onHandlerRegistered(const PublicGameView* publicGameView, PlayerCtr
     mp_publicGameView = publicGameView;
     mp_parser->eventEnterGameMode(mp_publicGameView->id(),
                                   mp_publicGameView->name(),
-                                  CLIENT_PLAYER); //@todo: spectator
+                                  ClientType::PLAYER); //@todo: spectator
     onGameSync();
 }
 
@@ -411,7 +411,7 @@ void Client::onGameSync()
 
 
 
-    if (gameSyncData.isCreator && gameSyncData.state == GAMESTATE_WAITINGFORPLAYERS)
+    if (gameSyncData.isCreator && gameSyncData.state == GameState::WAITINGFORPLAYERS)
         onGameStartabilityChanged(mp_publicGameView->canBeStarted());
 }
 
@@ -441,14 +441,14 @@ void Client::onPlayerDied(PublicPlayerView& player, PublicPlayerView* causedBy)
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERDIED;
+    message.type = GameMessageType::PLAYERDIED;
     message.player = player.id();
     message.causedBy = causedBy ? causedBy->id() : 0;
     mp_parser->eventGameMessage(message);
 
     int         playerId = player.id();
     PlayerRole  role     = player.role();
-    Q_ASSERT(role != ROLE_UNKNOWN);
+    Q_ASSERT(role != PlayerRole::UNKNOWN);
     mp_parser->eventPlayerDied(playerId, role);
 }
 
@@ -457,7 +457,7 @@ void Client::onGameStarted()
 {
     if (mp_parser == 0) return;
     GameMessage message;
-    message.type = GAMEMESSAGE_GAMESTARTED;
+    message.type = GameMessageType::GAMESTARTED;
     mp_parser->eventGameMessage(message);
 
 
@@ -478,7 +478,7 @@ void Client::onGameFinished()
 {
     if (mp_parser == 0) return;
     GameMessage message;
-    message.type = GAMEMESSAGE_GAMEFINISHED;
+    message.type = GameMessageType::GAMEFINISHED;
     mp_parser->eventGameMessage(message);
 
     onGameSync();
@@ -491,7 +491,7 @@ void Client::onPlayerDrawFromDeck(PublicPlayerView& player, QList<const PlayingC
     Q_UNUSED(revealCards);
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERDRAWFROMDECK;
+    message.type = GameMessageType::PLAYERDRAWFROMDECK;
     message.player = player.id();
     foreach(const PlayingCard* card, cards) {
         message.cards.append(card->cardData());
@@ -501,8 +501,8 @@ void Client::onPlayerDrawFromDeck(PublicPlayerView& player, QList<const PlayingC
 
     foreach (const PlayingCard* card, cards) {
         CardMovementData x;
-        x.pocketTypeFrom = POCKET_DECK;
-        x.pocketTypeTo   = POCKET_HAND;
+        x.pocketTypeFrom = PocketType::DECK;
+        x.pocketTypeTo   = PocketType::HAND;
         x.playerTo       = player.id();
         if (card != 0)
             x.card = card->cardData();
@@ -515,14 +515,14 @@ void Client::onPlayerDrawFromGraveyard(PublicPlayerView& player, const PlayingCa
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERDRAWFROMGRAVEYARD;
+    message.type = GameMessageType::PLAYERDRAWFROMGRAVEYARD;
     message.player = player.id();
     message.card = card->cardData();
     mp_parser->eventGameMessage(message);
 
     CardMovementData x;
-    x.pocketTypeFrom = POCKET_GRAVEYARD;
-    x.pocketTypeTo   = POCKET_HAND;
+    x.pocketTypeFrom = PocketType::GRAVEYARD;
+    x.pocketTypeTo   = PocketType::HAND;
     x.playerTo       = player.id();
     x.card           = card->cardData();
     x.secondCard     = nextCard->cardData();
@@ -534,14 +534,14 @@ void Client::onPlayerDiscardCard(PublicPlayerView& player, const PlayingCard* ca
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERDISCARDCARD;
+    message.type = GameMessageType::PLAYERDISCARDCARD;
     message.player = player.id();
     message.card = card->cardData();
     mp_parser->eventGameMessage(message);
 
     CardMovementData x;
     x.pocketTypeFrom = pocketFrom;
-    x.pocketTypeTo   = POCKET_GRAVEYARD;
+    x.pocketTypeTo   = PocketType::GRAVEYARD;
     x.playerFrom     = player.id();
     x.card           = card->cardData();
     mp_parser->eventCardMovement(x);
@@ -552,14 +552,14 @@ void Client::onPlayerPlayCard(PublicPlayerView& player, const PlayingCard* card)
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERPLAYCARD;
+    message.type = GameMessageType::PLAYERPLAYCARD;
     message.player = player.id();
     message.card = card->cardData();
     mp_parser->eventGameMessage(message);
 
     CardMovementData x;
-    x.pocketTypeFrom = POCKET_HAND;
-    x.pocketTypeTo   = POCKET_GRAVEYARD;
+    x.pocketTypeFrom = PocketType::HAND;
+    x.pocketTypeTo   = PocketType::GRAVEYARD;
     x.playerFrom     = player.id();
     x.card           = card->cardData();
     mp_parser->eventCardMovement(x);
@@ -570,15 +570,15 @@ void Client::onPlayerPlayCard(PublicPlayerView& player, const PlayingCard* card,
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERPLAYCARD;
+    message.type = GameMessageType::PLAYERPLAYCARD;
     message.player = player.id();
     message.card = card->cardData();
     message.targetPlayer = target.id();
     mp_parser->eventGameMessage(message);
 
     CardMovementData x;
-    x.pocketTypeFrom = POCKET_HAND;
-    x.pocketTypeTo   = POCKET_GRAVEYARD;
+    x.pocketTypeFrom = PocketType::HAND;
+    x.pocketTypeTo   = PocketType::GRAVEYARD;
     x.playerFrom     = player.id();
     x.card           = card->cardData();
     mp_parser->eventCardMovement(x);
@@ -591,7 +591,7 @@ void Client::onPlayerPlayCard(PublicPlayerView& player, const PlayingCard* card,
     Q_UNUSED(target);
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERPLAYCARD;
+    message.type = GameMessageType::PLAYERPLAYCARD;
     message.player = player.id();
     message.card = card->cardData();
     message.targetCard = card->cardData();
@@ -599,8 +599,8 @@ void Client::onPlayerPlayCard(PublicPlayerView& player, const PlayingCard* card,
     mp_parser->eventGameMessage(message);
 
     CardMovementData x;
-    x.pocketTypeFrom = POCKET_HAND;
-    x.pocketTypeTo   = POCKET_GRAVEYARD;
+    x.pocketTypeFrom = PocketType::HAND;
+    x.pocketTypeTo   = PocketType::GRAVEYARD;
     x.playerFrom     = player.id();
     x.card           = card->cardData();
     mp_parser->eventCardMovement(x);
@@ -611,7 +611,7 @@ void Client::onPlayerPlayCardOnTable(PublicPlayerView& player, const PlayingCard
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERPLAYCARD;
+    message.type = GameMessageType::PLAYERPLAYCARD;
     message.player = player.id();
     message.card = card->cardData();
     message.targetPlayer = (targetPlayer.id() != mp_playerCtrl->privatePlayerView().id()) ?
@@ -619,8 +619,8 @@ void Client::onPlayerPlayCardOnTable(PublicPlayerView& player, const PlayingCard
     mp_parser->eventGameMessage(message);
 
     CardMovementData x;
-    x.pocketTypeFrom = POCKET_HAND;
-    x.pocketTypeTo   = POCKET_TABLE;
+    x.pocketTypeFrom = PocketType::HAND;
+    x.pocketTypeTo   = PocketType::TABLE;
     x.playerFrom     = player.id();
     x.playerTo       = targetPlayer.id();
     x.card           = card->cardData();
@@ -631,8 +631,8 @@ void Client::onPassTableCard(PublicPlayerView& player, const PlayingCard* card, 
 {
     if (mp_parser == 0) return;
     CardMovementData x;
-    x.pocketTypeFrom = POCKET_TABLE;
-    x.pocketTypeTo   = POCKET_TABLE;
+    x.pocketTypeFrom = PocketType::TABLE;
+    x.pocketTypeTo   = PocketType::TABLE;
     x.playerFrom     = player.id();
     x.playerTo       = targetPlayer.id();
     x.card           = card->cardData();
@@ -644,14 +644,14 @@ void Client::onPlayerRespondWithCard(PublicPlayerView& player, const PlayingCard
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERRESPONDWITHCARD;
+    message.type = GameMessageType::PLAYERRESPONDWITHCARD;
     message.player = player.id();
     message.card = card->cardData();
     mp_parser->eventGameMessage(message);
 
     CardMovementData x;
-    x.pocketTypeFrom = POCKET_HAND;
-    x.pocketTypeTo   = POCKET_GRAVEYARD;
+    x.pocketTypeFrom = PocketType::HAND;
+    x.pocketTypeTo   = PocketType::GRAVEYARD;
     x.playerFrom     = player.id();
     x.card           = card->cardData();
     mp_parser->eventCardMovement(x);
@@ -660,7 +660,7 @@ void Client::onPlayerRespondWithCard(PublicPlayerView& player, const PlayingCard
 void Client::onPlayerPass(PublicPlayerView& player)
 {
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERPASS;
+    message.type = GameMessageType::PLAYERPASS;
     message.player = player.id();
     mp_parser->eventGameMessage(message);
 
@@ -672,8 +672,8 @@ void Client::onDrawIntoSelection(QList<const PlayingCard*> cards)
     if (mp_parser == 0) return;
     foreach (const PlayingCard* card, cards) {
         CardMovementData x;
-        x.pocketTypeFrom = POCKET_DECK;
-        x.pocketTypeTo   = POCKET_SELECTION;
+        x.pocketTypeFrom = PocketType::DECK;
+        x.pocketTypeTo   = PocketType::SELECTION;
         x.playerTo       = 0;
         if (card != 0)
             x.card = card->cardData();
@@ -686,14 +686,14 @@ void Client::onPlayerPickFromSelection(PublicPlayerView& player, const PlayingCa
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERPICKFROMSELECTION;
+    message.type = GameMessageType::PLAYERPICKFROMSELECTION;
     message.player = player.id();
     message.card = card->cardData();
     mp_parser->eventGameMessage(message);
 
     CardMovementData x;
-    x.pocketTypeFrom = POCKET_SELECTION;
-    x.pocketTypeTo   = POCKET_HAND;
+    x.pocketTypeFrom = PocketType::SELECTION;
+    x.pocketTypeTo   = PocketType::HAND;
     x.playerFrom     = 0;
     x.playerTo       = player.id();
     x.card           = card->cardData();
@@ -704,8 +704,8 @@ void Client::onUndrawFromSelection(const PlayingCard* card)
 {
     if (mp_parser == 0) return;
     CardMovementData x;
-    x.pocketTypeFrom = POCKET_SELECTION;
-    x.pocketTypeTo   = POCKET_DECK;
+    x.pocketTypeFrom = PocketType::SELECTION;
+    x.pocketTypeTo   = PocketType::DECK;
     x.playerFrom     = 0;
     x.playerTo       = 0;
     if (card != 0)
@@ -718,7 +718,7 @@ void Client::onPlayerCheckDeck(PublicPlayerView& player, const PlayingCard* chec
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERCHECKDECK;
+    message.type = GameMessageType::PLAYERCHECKDECK;
     message.player = player.id();
     message.targetCard = checkedCard->cardData();
     message.card = causedBy->cardData();
@@ -732,7 +732,7 @@ void Client::onPlayerStealCard(PublicPlayerView& player, PublicPlayerView& targe
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_PLAYERSTEALCARD;
+    message.type = GameMessageType::PLAYERSTEALCARD;
     message.player = player.id();
     message.targetPlayer = targetPlayer.id();
     message.card = card->cardData();
@@ -740,7 +740,7 @@ void Client::onPlayerStealCard(PublicPlayerView& player, PublicPlayerView& targe
 
     CardMovementData x;
     x.pocketTypeFrom = pocketFrom;
-    x.pocketTypeTo   = POCKET_HAND;
+    x.pocketTypeTo   = PocketType::HAND;
     x.playerFrom     = targetPlayer.id();
     x.playerTo       = player.id();
     if (card != 0)
@@ -755,7 +755,7 @@ void Client::onCancelCard(PocketType pocketFrom, const PlayingCard* card, Public
 
     if (p != 0 && targetPlayer != 0) {
         GameMessage message;
-        message.type = GAMEMESSAGE_PLAYERCANCELCARD;
+        message.type = GameMessageType::PLAYERCANCELCARD;
         message.player = p->id();
         message.targetPlayer = targetPlayer->id();
         message.card = card->cardData();
@@ -764,7 +764,7 @@ void Client::onCancelCard(PocketType pocketFrom, const PlayingCard* card, Public
 
     CardMovementData x;
     x.pocketTypeFrom = pocketFrom;
-    x.pocketTypeTo   = POCKET_GRAVEYARD;
+    x.pocketTypeTo   = PocketType::GRAVEYARD;
     x.playerFrom     = targetPlayer ? targetPlayer->id() : 0;
     x.playerTo       = 0;
     x.card           = card->cardData();
@@ -789,7 +789,7 @@ void Client::onDeckRegenerate()
     if (mp_parser == 0) return;
 
     GameMessage message;
-    message.type = GAMEMESSAGE_DECKREGENERATE;
+    message.type = GameMessageType::DECKREGENERATE;
     mp_parser->eventGameMessage(message);
 }
 
@@ -801,7 +801,7 @@ void Client::onPlayerUseAbility(PublicPlayerView&)
 void Client::onActionRequest(ActionRequestType requestType)
 {
     if (mp_parser == 0) return;
-    qDebug() << QString("Client (%1): onActionRequest(%2)").arg(m_id).arg(requestType);
+    qDebug() << QString("Client (%1): onActionRequest(%2)").arg(m_id).arg(int(requestType));
 }
 
 

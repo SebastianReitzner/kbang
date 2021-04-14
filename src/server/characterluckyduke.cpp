@@ -9,7 +9,7 @@
 #include "checkdeckresulthandler.h"
 
 CharacterLuckyDuke::CharacterLuckyDuke(QObject *parent):
-        CharacterBase(parent, CHARACTER_LUCKY_DUKE)
+        CharacterBase(parent, CharacterType::LUCKY_DUKE)
 {
 }
 
@@ -29,7 +29,7 @@ void CharacterLuckyDuke::checkDeck(PlayingCard* causedBy,
 
 void CharacterLuckyDuke::respondCard(PlayingCard* checkedCard)
 {
-    if (checkedCard->pocket() != POCKET_SELECTION)
+    if (checkedCard->pocket() != PocketType::SELECTION)
         throw BadCardException();
     gameCycle().unsetResponseMode();
     bool checkResult = (*mp_checkFunc)(checkedCard);

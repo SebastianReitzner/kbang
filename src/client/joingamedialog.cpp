@@ -70,9 +70,9 @@ JoinGameDialog::~JoinGameDialog()
 QString gameState(GameState g)
 {
     switch(g) {
-        case GAMESTATE_WAITINGFORPLAYERS: return QObject::tr("waiting");
-        case GAMESTATE_PLAYING: return QObject::tr("playing");
-        case GAMESTATE_FINISHED: return QObject::tr("finished");
+        case GameState::WAITINGFORPLAYERS: return QObject::tr("waiting");
+        case GameState::PLAYING: return QObject::tr("playing");
+        case GameState::FINISHED: return QObject::tr("finished");
         default: break;
     }
     return "";
@@ -84,15 +84,15 @@ void setGameItem(const GameInfoData& gameInfo, QTreeWidgetItem* item)
     item->setData(0, Qt::UserRole, gameInfo.id);
     item->setText(0, gameInfo.name);
     switch(gameInfo.state) {
-        case GAMESTATE_WAITINGFORPLAYERS:
+        case GameState::WAITINGFORPLAYERS:
             item->setText(1, "Waiting");
             item->setText(2, QString("%1 / %2").arg(gameInfo.totalPlayersCnt).arg(gameInfo.maxPlayers));
             break;
-        case GAMESTATE_PLAYING:
+        case GameState::PLAYING:
             item->setText(1, "Playing");
             item->setText(2, QString("%1 / %2").arg(gameInfo.alivePlayersCnt).arg(gameInfo.totalPlayersCnt));
             break;
-        case GAMESTATE_FINISHED:
+        case GameState::FINISHED:
             item->setText(1, "Finished");
             item->setText(2, "");
             break;
@@ -112,15 +112,15 @@ void JoinGameDialog::updateGameListView()
         item->setData(0, Qt::UserRole, gameInfo.id);
         item->setText(0, gameInfo.name);
         switch(gameInfo.state) {
-            case GAMESTATE_WAITINGFORPLAYERS:
+            case GameState::WAITINGFORPLAYERS:
                 item->setText(1, "Waiting");
                 item->setText(2, QString("%1 / %2").arg(gameInfo.totalPlayersCnt).arg(gameInfo.maxPlayers));
                 break;
-            case GAMESTATE_PLAYING:
+            case GameState::PLAYING:
                 item->setText(1, "Playing");
                 item->setText(2, QString("%1 / %2").arg(gameInfo.alivePlayersCnt).arg(gameInfo.totalPlayersCnt));
                 break;
-            case GAMESTATE_FINISHED:
+            case GameState::FINISHED:
                 item->setText(1, "Finished");
                 item->setText(2, "");
                 break;
@@ -207,7 +207,7 @@ void JoinGameDialog::updateGameView()
         }
         playerListView->addTopLevelItem(item);
     }
-    if (gameInfo->state == GAMESTATE_WAITINGFORPLAYERS &&
+    if (gameInfo->state == GameState::WAITINGFORPLAYERS &&
             gameInfo->totalPlayersCnt < gameInfo->maxPlayers) {
         QTreeWidgetItem* item = new QTreeWidgetItem(playerListView);
         item->setData(0, Qt::UserRole, -1);

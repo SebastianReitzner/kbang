@@ -90,7 +90,7 @@ public:
     inline int                  lifePoints()       const { return m_lifePoints;        }
     inline int                  maxLifePoints()    const { return m_maxLifePoints;     }
     inline int                  initialCardCount() const { return m_maxLifePoints;     }
-    inline int                  handSize()         const { return m_hand.size();       }
+    inline size_t               handSize()         const { return m_hand.size();       }
     inline CardList             hand()             const { return m_hand;              }
     inline CardList             table()            const { return m_table;             }
     inline CardList             selection()        const { return m_selection;         }

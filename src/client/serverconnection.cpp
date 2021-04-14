@@ -144,7 +144,7 @@ void ServerConnection::playCard(int cardId)
         return;
     ActionPlayCardData actionPlayCardData;
     actionPlayCardData.playedCardId = cardId;
-    actionPlayCardData.type = ActionPlayCardData::PLAYCARD_SIMPLE;
+    actionPlayCardData.type = ActionPlayCardData::Type::SIMPLE;
     mp_parser->actionPlayCard(actionPlayCardData);
 }
 
@@ -154,7 +154,7 @@ void ServerConnection::playCardWithPlayer(int cardId, int playerId)
         return;
     ActionPlayCardData actionPlayCardData;
     actionPlayCardData.playedCardId = cardId;
-    actionPlayCardData.type = ActionPlayCardData::PLAYCARD_PLAYER;
+    actionPlayCardData.type = ActionPlayCardData::Type::PLAYER;
     actionPlayCardData.targetPlayerId = playerId;
     mp_parser->actionPlayCard(actionPlayCardData);
 }
@@ -165,7 +165,7 @@ void ServerConnection::playCardWithCard(int cardId, int otherCardId)
         return;
     ActionPlayCardData actionPlayCardData;
     actionPlayCardData.playedCardId = cardId;
-    actionPlayCardData.type = ActionPlayCardData::PLAYCARD_CARD;
+    actionPlayCardData.type = ActionPlayCardData::Type::CARD;
     actionPlayCardData.targetCardId = otherCardId;
     mp_parser->actionPlayCard(actionPlayCardData);
 }
@@ -176,7 +176,7 @@ void ServerConnection::useAbility()
     if (mp_parser == 0)
         return;
     ActionUseAbilityData actionUseAbilityData;
-    actionUseAbilityData.type = ActionUseAbilityData::TypeSimple;
+    actionUseAbilityData.type = ActionUseAbilityData::Type::Simple;
     mp_parser->actionUseAbility(actionUseAbilityData);
 }
 
@@ -185,7 +185,7 @@ void ServerConnection::useAbility(int playerId)
     if (mp_parser == 0)
         return;
     ActionUseAbilityData actionUseAbilityData;
-    actionUseAbilityData.type = ActionUseAbilityData::TypePlayer;
+    actionUseAbilityData.type = ActionUseAbilityData::Type::Player;
     actionUseAbilityData.targetPlayerId = playerId;
     mp_parser->actionUseAbility(actionUseAbilityData);
 }
@@ -195,7 +195,7 @@ void ServerConnection::useAbility(QList<int> cards)
     if (mp_parser == 0)
         return;
     ActionUseAbilityData actionUseAbilityData;
-    actionUseAbilityData.type = ActionUseAbilityData::TypeCards;
+    actionUseAbilityData.type = ActionUseAbilityData::Type::Cards;
     actionUseAbilityData.targetCardsId = cards;
     mp_parser->actionUseAbility(actionUseAbilityData);
 }

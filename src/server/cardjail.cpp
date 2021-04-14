@@ -6,7 +6,7 @@
 #include "gamecycle.h"
 
 CardJail::CardJail(Game *game, int id, CardSuit suit, CardRank rank):
-        TableCard(game, id, CARD_JAIL, suit, rank)
+        TableCard(game, id, PlayingCardType::JAIL, suit, rank)
 {
 }
 
@@ -27,7 +27,7 @@ void CardJail::play(Player* targetPlayer)
 {
     gameCycle()->assertTurn();
     assertInHand();
-    if (targetPlayer->role() == ROLE_SHERIFF)
+    if (targetPlayer->role() == PlayerRole::SHERIFF)
         throw BadTargetPlayerException();
 
     if (targetPlayer->hasIdenticalCardOnTable(this)) {
@@ -57,5 +57,5 @@ void CardJail::unregisterPlayer(Player* player)
 
 bool CardJail::checkJail(PlayingCard* card)
 {
-    return (card->suit() == SUIT_HEARTS);
+    return (card->suit() == CardSuit::HEARTS);
 }

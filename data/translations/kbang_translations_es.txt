@@ -1,0 +1,73 @@
+﻿# UI
+menuGame;Juego
+mp_actionConnectToServer;Conectar a servidor
+mp_actionDisconnectFromServer;Desconectar del servidor
+actionCreateGame;Crear juego nuevo
+mp_actionJoinGame;Unirse a un juego
+mp_actionLeaveGame;Abandonar el juego
+mp_actionExit;Salir
+menuHelp;Ayuda
+mp_actionAbout;About
+menuLanguaje;Idioma
+mp_actionSpanish;Español
+mp_actionEnglish;Inglés
+
+# CardTitles
+
+# CardTexts
+textGeneralStore;Dales la vuelta a tantas cartas como jugadores haya. Cada jugador escoge una.
+textIndians;Todos los demás jugadores deben descartar un !BANG! o perder 1 punto de vida.
+textDuel;Un jugador descarta un !BANG!, después lo haces tú, etc. El primero de los dos que no descarte un !BANG! pierde 1 punto de vida.
+textMustang;La distancia a la que te ven los demás jugadores se aumenta en 1.
+textAppaloosa;La distancia a la que ves a los demás jugadores se reduce en 1.
+textDynamite;Pierde 3 puntos de vida. En cualquier otro caso, pasa la Dinamita al jugador de tu izquierda.
+textJail;Descarta la Cárcel y juega con normalidad. En cualquier otro caso, descarta la Cárcel y pierde tu turno.
+textVolcanic;Puedes jugar tantos !BANG! como quieras.
+
+# CharacterTitles
+titlebartCassidy;BART CASSIDY
+titleBlackJack;BLACK JACK
+titleCalamityJanet;CALAMITY JANET
+titleElGringo;EL GRINGO
+titleJesseJones;JESSE JONES
+titleJoudonnais;JOURDONNAIS
+titleKitCarlson;KIT CARLSON
+titleLuckyDuke;LUCKY DUKE
+titlePaulRegret;PAUL REGRET
+titlePedroRamirez;PEDRO RAMÍREZ
+titleRoseDoolan;ROSE DOOLAN
+titleSidKetchum;SID KETCHUM
+titleSlabTheKiller;SLAB "EL ASESINO"
+titleSuzyLafayette;SUZY LAFAYETTE
+titleVultureSam;SAM "EL BUITRE"
+titleWillyTheKid;WILLY "EL NIÑO"
+
+# CharacterTexts
+textBartCassidy;Cada vez que recibe un impacto, recibe una carta.
+textBlackJack;Muestra la segunda carta que roba. Si es de corazones o diamantes, roba una carta más.
+textCalamityJanet;Puede jugar las cartas !BANG! como !Fallaste! y viceversa.
+textElGringo;Cada vez que es herido por un jugador, roba una carta de la mano de ese jugador.
+textJesseJones;Puede robar su primera carta de la mano de otro jugador.
+textJourdonnais;Siempre que sea objetivo de un !BANG!, puede desenfundar: si sale un corazon, el !BANG! no tiene efecto.
+textKitCarlson;Mira las tres primeras cartas del mazo y elige cuáles dos roba.
+textLuckyDuke;Cada vez que desenfunda, les da la vuelta a las dos primeras cartas del mazo, y elige el resultado que prefiera.
+textPaulRegret;Todos los jugadores lo ven a una distancia incrementada en 1.
+textPedroRamirez;Puede robar su primera carta del mazo de descartes.
+textRoseDoolan;Ve a todos los jugadores a una distancia reducida en 1.
+textSidKetchum;Puede descartar dos cartas para recuperar 1 punto de vida.
+textSlabTheKiller;Los jugadores necesitan dos cartas !Fallaste! para anular sus cartas !BANG!
+textSuzyLafayette;Tan pronto se quede sin cartas en la mano, roba una carta.
+textVultureSam;Siempre que un jugador sea eliminado, añade a su mano todas las cartas de ese jugador.
+textWillyTheKid;Puede jugar tantas cartas !BANG! como quiera.
+
+# RoleTitles
+titleSheriff;SHERIFF
+titleRenegade;RENEGADO
+titleOutlaw;FORAJIDO
+titleDeputy;ALGUACIL
+
+# RoleTexts
+textSheriff;!Mata a todos los Forajidos y al Renegado!
+textRenegade;!Sé el último jugador de la partida!
+textOutlaw;!Mata al Sheriff!
+textDeputy;!Protege al Sheriff! !Mata a todos los Forajidos y al Renegado!

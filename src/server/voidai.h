@@ -18,7 +18,7 @@ public:
 
     virtual bool isAI() { return 1; }
 
-    virtual void onHandlerRegistered(const PublicGameView* publicGameView, PlayerCtrl* playerCtrl);
+    virtual void onHandlerRegistered(const PublicGameView* _publicGameView, PlayerCtrl* playerCtrl);
     virtual void onHandlerUnregistered() {}
 
     virtual void onGameStartabilityChanged(bool) {}
@@ -60,8 +60,8 @@ public slots:
 private:
     static int sm_playerCounter;
     int         m_id;
-    PlayerCtrl* mp_playerCtrl;
-    ActionRequestType m_requestType;
+    PlayerCtrl* mp_playerCtrl = nullptr;
+    ActionRequestType m_requestType = ActionRequestType::DISCARD; // Some default to prevent bad values
 };
 
 #endif // VOIDAI_H

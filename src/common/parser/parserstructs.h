@@ -77,6 +77,7 @@ struct CreatePlayerData
     void read(XmlNode*);
     void write(QXmlStreamWriter*) const;
     static QString elementName;
+
 };
 
 struct CreateGameData
@@ -91,12 +92,12 @@ struct CreateGameData
 };
 
 struct CardData {
-    CardData(): id(0), type(CARD_UNKNOWN) {}
+    CardData(): id(0), type(PlayingCardType::UNKNOWN) {}
     int             id;
     PlayingCardType type;
     CardSuit        suit;
     CardRank        rank;
-    void read(XmlNode*);
+    void read(const XmlNode*);
     void write(QXmlStreamWriter*) const;
     static QString elementName;
 };
@@ -160,7 +161,7 @@ struct GameSyncData {
 };
 
 struct GameMessage {
-    GameMessage(): type(GAMEMESSAGE_INVALID), player(0), targetPlayer(0), causedBy(0) {}
+    GameMessage(): type(GameMessageType::INVALID), player(0), targetPlayer(0), causedBy(0) {}
     GameMessageType type;
     int player;
     int targetPlayer;
@@ -187,15 +188,15 @@ struct CardMovementData {
 };
 
 /**
- * @todo remove PLAYCARD_HAND, use PLAYCARD_PLAYER instead
+ * @todo remove Type::HAND, use Type::PLAYER instead
  */
 struct ActionPlayCardData {
     int playedCardId;
-    enum {
-        PLAYCARD_SIMPLE,    // card is played solo
-        PLAYCARD_PLAYER,    // card is played with target player
-        PLAYCARD_CARD,      // card is played with target (revealed) card
-        PLAYCARD_HAND       // card is played with target (unrevealed) card in opponent hands
+    enum class Type {
+        SIMPLE,    // card is played solo
+        PLAYER,    // card is played with target player
+        CARD,      // card is played with target (revealed) card
+        HAND       // card is played with target (unrevealed) card in opponent hands
     } type;
     union {
         int targetPlayerId;
@@ -208,10 +209,10 @@ struct ActionPlayCardData {
 };
 
 struct ActionUseAbilityData {
-    enum {
-        TypeSimple,
-        TypePlayer,
-        TypeCards
+    enum class Type {
+        Simple,
+        Player,
+        Cards
     } type;
     int targetPlayerId;
     QList<int> targetCardsId;

@@ -651,7 +651,7 @@
      <x>0</x>
      <y>0</y>
      <width>388</width>
-     <height>24</height>
+     <height>26</height>
     </rect>
    </property>
    <property name="autoFillBackground">
@@ -675,8 +675,16 @@
     </property>
     <addaction name="mp_actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuLanguaje">
+    <property name="title">
+     <string>Languaje</string>
+    </property>
+    <addaction name="mp_actionSpanish"/>
+    <addaction name="mp_actionEnglish"/>
+   </widget>
    <addaction name="menuGame"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuLanguaje"/>
   </widget>
   <action name="mp_actionConnectToServer">
    <property name="icon">
@@ -719,6 +727,16 @@
   <action name="mp_actionAbout">
    <property name="text">
     <string>&amp;About KBang</string>
+   </property>
+  </action>
+  <action name="mp_actionSpanish">
+   <property name="text">
+    <string>Spanish</string>
+   </property>
+  </action>
+  <action name="mp_actionEnglish">
+   <property name="text">
+    <string>English</string>
    </property>
   </action>
  </widget>

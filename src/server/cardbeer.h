@@ -27,7 +27,7 @@ public:
     virtual void respondCard(PlayingCard* targetCard);
     virtual void dismiss();
 
-    virtual ReactionType reactionType() const { return REACTION_LASTSAVE; }
+    virtual ReactionType reactionType() const { return ReactionType::LASTSAVE; }
     virtual Player* causedBy() const { return 0; }
 
     void allowSaveWithBeer(Player* attacker, Player* target, int lifePointsToSave, int hitPoints);

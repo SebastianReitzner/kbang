@@ -6,15 +6,15 @@
 
 
 CardHorse::CardHorse(Game *game, int id, CardHorse::HorseType horseType, CardSuit suit, CardRank rank):
-        TableCard(game, id, CARD_UNKNOWN, suit, rank),
+        TableCard(game, id, PlayingCardType::UNKNOWN, suit, rank),
         m_horseType(horseType)
 {
     switch(m_horseType) {
     case Mustang:
-        setType(CARD_MUSTANG);
+        setType(PlayingCardType::MUSTANG);
         break;
     case Appaloosa:
-        setType(CARD_APPALOSSA);
+        setType(PlayingCardType::APPALOSSA);
         break;
     }
 }

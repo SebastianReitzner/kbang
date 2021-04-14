@@ -48,13 +48,13 @@ QString ActionUseAbilityData::elementName("use-ability");
 // local functions //
 /////////////////////
 
-void readAvatar(XmlNode* node, QImage& avatar)
+void readAvatar(const XmlNode* node, QImage& avatar)
 {
     QByteArray bytes = QByteArray::fromBase64(node->getFirstChild()->text().toAscii());
     if (!avatar.loadFromData(bytes)) {
         qWarning("Cannot load image from network.");
     }
-
+    avatar.loadFromData(bytes);
 }
 
 void writeAvatar(QXmlStreamWriter* writer, const QImage& avatar)
@@ -126,7 +126,7 @@ void GameInfoData::read(XmlNode* node)
     totalPlayersCnt     = node->attribute("totalPlayersCnt").toInt();
     spectatorsCnt       = node->attribute("spectatorsCnt").toInt();
     AIPlayersCnt        = node->attribute("AIPlayersCnt").toInt();
-    hasPlayerPassword   = node->attribute("hasPlayerpassword") == "true";
+    hasPlayerPassword   = node->attribute("hasPlayerPassword") == "true";
     hasSpectatorPassword= node->attribute("hasSpectatorPassword") == "true";
     state               = stringToGameState(node->attribute("state"));
     players.clear();
@@ -234,7 +234,7 @@ void CreateGameData::write(QXmlStreamWriter* writer) const
     writer->writeEndElement();
 }
 
-void CardData::read(XmlNode* node)
+void CardData::read(const XmlNode* node)
 {
     Q_ASSERT(node->name() == elementName);
     id          = node->attribute("id").toInt();
@@ -270,10 +270,10 @@ void PublicPlayerData::read(XmlNode* node)
     isAlive         = node->attribute("isAlive") == "true";
     isWinner        = node->attribute("isWinner") == "true";
     role            = stringToPlayerRole(node->attribute("role"));
-    foreach(XmlNode* child, node->getChildren()) {
+    for(const XmlNode* child: node->getChildren()) {
         if (child->name() == "cards-table") {
             table.clear();
-            foreach(XmlNode* card, child->getChildren()) {
+            for(const XmlNode* card: child->getChildren()) {
                 CardData cardData;
                 cardData.read(card);
                 table.append(cardData);
@@ -421,13 +421,13 @@ void GameMessage::read(XmlNode* node)
     causedBy        = node->attribute("causedBy").toInt();
     checkResult     = node->attribute("checkResult") == "true";
     cards.clear();
-    foreach(XmlNode* child, node->getChildren()) {
+    for(const XmlNode* child: node->getChildren()) {
         if (child->name() == "card")
             card.read(child);
         else if (child->name() == "target-card")
             targetCard.read(child->getFirstChild());
         else if (child->name() == "cards") {
-            foreach (XmlNode* cardNode, child->getChildren()) {
+            for(const XmlNode* cardNode: child->getChildren()) {
                 CardData cardData;
                 cardData.read(cardNode);
                 cards.append(cardData);
@@ -446,7 +446,7 @@ void GameMessage::write(QXmlStreamWriter* writer) const
         writer->writeAttribute("targetPlayer", QString::number(targetPlayer));
     if (causedBy)
         writer->writeAttribute("causedBy", QString::number(causedBy));
-    if (type == GAMEMESSAGE_PLAYERCHECKDECK)
+    if (type == GameMessageType::PLAYERCHECKDECK)
         writer->writeAttribute("checkResult", checkResult ? "true" : "false");
     if (card.id) {
         card.write(writer);
@@ -470,16 +470,16 @@ void ActionPlayCardData::read(XmlNode* node)
     Q_ASSERT(node->name() == elementName);
     playedCardId = node->attribute("id").toInt();
     if (!node->attribute("target-player-id").isNull()) {
-        type = PLAYCARD_PLAYER;
+        type = Type::PLAYER;
         targetPlayerId = node->attribute("target-player-id").toInt();
     } else if (!node->attribute("target-card-id").isNull()) {
-        type = PLAYCARD_CARD;
+        type = Type::CARD;
         targetCardId = node->attribute("target-card-id").toInt();
     } else if (!node->attribute("target-hand-id").isNull()) {
-        type = PLAYCARD_HAND;
+        type = Type::HAND;
         targetHandId = node->attribute("target-hand-id").toInt();
     } else {
-        type = PLAYCARD_SIMPLE;
+        type = Type::SIMPLE;
     }
 }
 
@@ -488,15 +488,15 @@ void ActionPlayCardData::write(QXmlStreamWriter* writer) const
     writer->writeStartElement(elementName);
     writer->writeAttribute("id", QString::number(playedCardId));
     switch(type) {
-    case PLAYCARD_SIMPLE:
+    case Type::SIMPLE:
         break;
-    case PLAYCARD_PLAYER:
+    case Type::PLAYER:
         writer->writeAttribute("target-player-id", QString::number(targetPlayerId));
         break;
-    case PLAYCARD_CARD:
+    case Type::CARD:
         writer->writeAttribute("target-card-id", QString::number(targetCardId));
         break;
-    case PLAYCARD_HAND:
+    case Type::HAND:
         writer->writeAttribute("target-hand-id", QString::number(targetHandId));
         break;
     }
@@ -507,12 +507,12 @@ void ActionUseAbilityData::read(XmlNode* node)
 {
     Q_ASSERT(node->name() == elementName);
     if (!node->attribute("target-player-id").isNull()) {
-        type = TypePlayer;
+        type = Type::Player;
         targetPlayerId = node->attribute("target-player-id").toInt();
     } else if (node->getChildren().size() == 0) {
-        type = TypeSimple;
+        type = Type::Simple;
     } else {
-        type = TypeCards;
+        type = Type::Cards;
         foreach (XmlNode* cardNode, node->getChildren()) {
             targetCardsId.append(cardNode->attribute("id").toInt());
         }
@@ -523,12 +523,12 @@ void ActionUseAbilityData::write(QXmlStreamWriter* writer) const
 {
     writer->writeStartElement(elementName);
     switch(type) {
-    case TypeSimple:
+    case Type::Simple:
         break;
-    case TypePlayer:
+    case Type::Player:
         writer->writeAttribute("target-player-id", QString::number(targetPlayerId));
         break;
-    case TypeCards:
+    case Type::Cards:
         foreach(int cardId, targetCardsId) {
             writer->writeStartElement("card");
             writer->writeAttribute("id", QString::number(cardId));
