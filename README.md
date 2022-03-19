@@ -4,3 +4,8 @@
 ## Docker image
 It's published [here](https://hub.docker.com/r/lukynmatuska/kbang).
 ```docker pull lukynmatuska/kbang:latest```
+
+## Todos:
+- Remove QT
+- Make characters configurable (JSON)
+- Create webclient
