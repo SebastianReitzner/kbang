@@ -3,3 +3,5 @@ x64
 build
 VS\x64
 *.log
+*.filters
+*.user
