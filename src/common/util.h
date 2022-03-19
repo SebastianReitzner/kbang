@@ -21,49 +21,40 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include <QString>
-#include <QList>
-#include <QLinkedList>
-#include <cstdlib>
-#include <qglobal.h>
+#include <string>
+#include <random>
+#include <vector>
 
 
-#define NOT_REACHED() qFatal("Fatal Error: NOT_REACHED triggered at line %d of %s", __LINE__, __FILE__)
 #define CALL_MEMBER_FN(object,ptrToMember)  ((object).*(ptrToMember))
 
-QString randomToken(int minLength, int maxLength);
-bool randomBool(qreal probability);
+std::string randomToken(int minLength, int maxLength);
+
+// TODO: assess necessity
+//bool randomBool(qreal probability);
 
 template <typename T>
-inline void shuffleList(QList<T>& list)
+inline void shuffleList(std::vector<T>& vec)
 {
-    int size = list.count();
-    int swapCount = size * 4;
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist(0, vec.size()-1);
+
+    int swapCount = vec.size() * 4;
     while(swapCount-- != 0)
     {
-        list.swap(qrand() % size, rand() % size);
+        std::iter_swap(dist(rng), dist(rng));
     }
 }
 
-template <typename T>
-inline void shuffleList(QLinkedList<T>& list)
-{
-    int size = list.count();
-    int swapCount = size * 4;
-    while(swapCount-- != 0)
-    {
-        list.swap(qrand() % size, rand() % size);
-    }
-}
-
-class NonCopyable
+class INonCopyable
 {
 protected:
-    NonCopyable() {}
-    ~NonCopyable() {}
+    INonCopyable() {}
+    ~INonCopyable() {}
 private:
-    NonCopyable(const NonCopyable&);
-    NonCopyable& operator=(const NonCopyable&);
+    INonCopyable(const INonCopyable&);
+    INonCopyable& operator=(const INonCopyable&);
 };
 
 

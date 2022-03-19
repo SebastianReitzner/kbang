@@ -19,30 +19,39 @@
  ***************************************************************************/
 
 #include "util.h"
-#include <cstdlib>
-#include <time.h>
-#include <QList>
 
-QString randomToken(int minLength, int maxLength)
+
+std::string randomToken(int minLength, int maxLength)
 {
-    Q_ASSERT(minLength <= maxLength);
+    if (minLength > maxLength) // assure minLength <= maxLength
+    {
+        const int tmp = maxLength;
+        maxLength = minLength;
+        minLength = tmp;
+    }
+
     constexpr char chars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-    static const size_t charl = strlen(chars);
-    const int length = minLength + ((int)qrand() % (maxLength - minLength + 1));
-    QString token;
-    token.reserve(length);
+
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> tokenLenDist(0, maxLength - minLength + 1);
+    std::uniform_int_distribution<std::mt19937::result_type> charLenDist(0, strlen(chars) - 1);
+    const int length = minLength + (tokenLenDist(rng));
+    std::string token = "";
     for (int i = 0; i < length; ++i)
     {
-        token.append(chars[qrand() % charl]);
+        token += chars[charLenDist(rng)];
     }
-    token[length - 1] = '\0';
+    token += '\0';
     return token;
 }
 
-bool randomBool(qreal probability)
+/*bool randomBool(qreal probability)
 {
+    // https://stackoverflow.com/questions/43329352/generating-random-boolean
+
     const int random_val_size = 4096;
     const int true_val_treshold = (int)(random_val_size * probability);
     const int random_val = qrand() % random_val_size;
     return (random_val < true_val_treshold);
-}
+}*/
